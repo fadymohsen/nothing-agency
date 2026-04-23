@@ -67,9 +67,9 @@ export default function PortfolioSlider() {
             onMouseEnter={() => setActiveIndex(i)}
           >
             <Link href={`/portfolio/${item.slug}`} className="hover-target">
-              <h1 className={`case-study-name ${i === activeIndex ? "active" : ""}`}>
-                {item.title}
-              </h1>
+              <div className={`case-study-name ${i === activeIndex ? "active" : ""}`}>
+                <h1>{item.title}</h1>
+              </div>
             </Link>
           </SwiperSlide>
         ))}

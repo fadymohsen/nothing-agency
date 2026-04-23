@@ -539,7 +539,7 @@ a:hover {
   cursor: url("/images/grabbing.png") 28 15, grabbing;
 }
 
-/* Case study (home slider + blog) */
+/* Case study (blog) */
 .case-study-name h1 {
   opacity: 0.6;
   transition: all 200ms linear;
@@ -555,120 +555,321 @@ a:hover {
   height: 20px;
 }
 
-/* Case study images */
-.case-study-images {
-  position: absolute;
-  top: 0;
-  left: 0;
+/* ========================================
+   Euthenia-style Hero Slider
+   ======================================== */
+
+.euthenia-slider {
+  position: relative;
   width: 100%;
-  height: 100%;
-  margin: 0;
-  z-index: 1;
-  list-style: none;
-  padding: 0;
-}
-.case-study-images li {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
+  height: 100vh;
   overflow: hidden;
-  list-style: none;
-  transition: all 300ms linear;
+  z-index: 10;
+  background-color: #0a0b10;
 }
-.case-study-images li .img-hero-background {
+
+/* Background images */
+.euthenia-bg-images {
   position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.euthenia-bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  top: 0;
-  left: 0;
-  overflow: hidden;
   opacity: 0;
-  z-index: 5;
-  transition: all 300ms linear;
+  transform: scale(1.05);
+  transition: opacity 0.8s ease, transform 4s ease-out;
 }
-.case-study-images li.show .img-hero-background {
-  opacity: 0.45;
+
+.euthenia-bg-image.active {
+  opacity: 0.5;
+  transform: scale(1);
 }
-.case-study-images li h2 {
+
+/* Watermark title at bottom */
+.euthenia-watermark {
   position: absolute;
-  width: 300%;
-  text-align: center;
-  font-size: 16vw;
-  line-height: 0.8;
-  color: #353746;
-  background: none;
-  -webkit-text-fill-color: #353746;
-  font-weight: 900;
-  bottom: auto;
-  top: 50%;
-  margin-top: -20px;
-  mix-blend-mode: screen;
-  left: -100%;
-  opacity: 0;
-  z-index: 7;
-  transform: translateY(-50%);
-  transition: all 400ms linear;
+  bottom: -4vw;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+  height: 18vw;
 }
-.case-study-images li.show h2 {
+
+.euthenia-watermark-text {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  font-family: var(--font-muli);
+  font-size: 16vw;
+  font-weight: 900;
+  line-height: 0.85;
+  color: rgba(255, 255, 255, 0.06);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.8s ease;
+  white-space: nowrap;
+}
+
+.euthenia-watermark-text.active {
   opacity: 1;
-  margin-top: -40px;
+  transform: translateY(0);
+}
+
+/* Title carousel */
+.euthenia-titles {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  z-index: 5;
+  transform: translateY(-50%);
+  overflow: visible;
+}
+
+.euthenia-titles-track {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  white-space: nowrap;
+}
+
+.euthenia-title {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 420px;
+  flex-shrink: 0;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 8px 0;
+  position: relative;
+}
+
+.euthenia-title span {
+  font-family: var(--font-muli);
+  font-size: 60px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.35);
+  transition: color 0.4s ease;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.euthenia-title.active span {
+  color: #fff;
+}
+
+.euthenia-title:hover span {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.euthenia-title.active:hover span {
+  color: #fff;
+}
+
+/* Active title underline highlight */
+.euthenia-title::after {
+  content: "";
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 90%;
+  height: 22px;
+  background-color: rgba(255, 255, 255, 0.15);
+  z-index: 1;
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.euthenia-title.active::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+/* Slide counter */
+.euthenia-counter {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0;
+  z-index: 6;
+  font-family: var(--font-poppins);
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: 2px;
+  color: #fff;
+}
+
+.euthenia-counter-current {
+  display: inline-block;
+  min-width: 24px;
+  text-align: center;
+  opacity: 0.9;
+  transition: opacity 0.3s ease;
+}
+
+.euthenia-counter-line {
+  display: inline-block;
+  width: 60px;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.5);
+  margin: 0 12px;
+}
+
+.euthenia-counter-total {
+  display: inline-block;
+  min-width: 24px;
+  text-align: center;
+  opacity: 0.5;
+}
+
+/* Scrubber */
+.euthenia-scrubber {
+  position: absolute;
+  bottom: 45px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 6;
+  width: 200px;
+}
+
+.euthenia-scrubber-track {
+  position: relative;
+  width: 100%;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.euthenia-scrubber-track::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.15);
   transform: translateY(-50%);
 }
 
-/* Hero number */
-.hero-number-fixed {
+.euthenia-scrubber-dot {
   position: absolute;
-  bottom: 70px;
-  left: 50%;
-  width: 40px;
-  text-align: center;
-  display: block;
-  letter-spacing: 2px;
-  font-size: 13px;
-  margin-left: 30px;
-  font-family: var(--font-poppins);
-  font-weight: 300;
-  line-height: 1;
-  color: #fff;
-  z-index: 6;
-}
-.hero-number-fixed::before {
-  position: absolute;
-  content: "";
   top: 50%;
-  left: -60px;
-  width: 60px;
-  height: 1px;
-  z-index: 1;
-  background-color: rgba(255, 255, 255, 0.6);
+  left: -7px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: #fff;
+  transform: translateX(0) translateY(-50%);
+  cursor: grab;
+  z-index: 2;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
-.hero-number {
-  position: absolute;
-  bottom: 70px;
-  left: 50%;
-  width: 40px;
-  margin-left: -70px;
-  text-align: center;
-  display: block;
-  letter-spacing: 2px;
-  opacity: 0;
-  font-size: 13px;
-  font-family: var(--font-poppins);
-  font-weight: 300;
-  line-height: 1;
-  color: #fff;
-  z-index: 6;
-  transform: translateY(100%);
-  transition: all 300ms linear;
+
+.euthenia-scrubber-dot:active {
+  cursor: grabbing;
+  transform: translateX(0) translateY(-50%) scale(1.2);
 }
-.case-study-images li.show .hero-number {
-  opacity: 1;
-  transform: translateY(0);
+
+/* ========================================
+   Euthenia Responsive
+   ======================================== */
+
+@media (max-width: 1199px) {
+  .euthenia-title {
+    width: 320px;
+  }
+  .euthenia-title span {
+    font-size: 44px;
+    letter-spacing: 2px;
+  }
+  .euthenia-watermark-text {
+    font-size: 18vw;
+  }
+}
+
+@media (max-width: 991px) {
+  .euthenia-title {
+    width: 260px;
+  }
+  .euthenia-title span {
+    font-size: 34px;
+    letter-spacing: 1px;
+  }
+  .euthenia-title::after {
+    height: 16px;
+  }
+  .euthenia-watermark-text {
+    font-size: 20vw;
+  }
+  .euthenia-counter {
+    bottom: 70px;
+  }
+  .euthenia-scrubber {
+    bottom: 35px;
+  }
+}
+
+@media (max-width: 767px) {
+  .euthenia-title {
+    width: 220px;
+  }
+  .euthenia-title span {
+    font-size: 28px;
+    letter-spacing: 1px;
+  }
+  .euthenia-title::after {
+    height: 14px;
+  }
+  .euthenia-watermark-text {
+    font-size: 22vw;
+  }
+  .euthenia-scrubber {
+    width: 150px;
+  }
+}
+
+@media (max-width: 575px) {
+  .euthenia-title {
+    width: 180px;
+  }
+  .euthenia-title span {
+    font-size: 22px;
+  }
+  .euthenia-title::after {
+    height: 12px;
+    bottom: 4px;
+  }
+  .euthenia-counter {
+    bottom: 60px;
+  }
+  .euthenia-scrubber {
+    bottom: 28px;
+    width: 120px;
+  }
 }
 
 /* Portfolio masonry */
@@ -1166,57 +1367,7 @@ figure.youtube {
   background-color: var(--color-studio-line);
 }
 
-/* Swiper slide styles */
-.hero-slide {
-  width: auto;
-  z-index: 3;
-  cursor: grab;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: all 250ms linear;
-  float: left;
-  position: relative;
-  padding: 0;
-  margin: 0;
-}
-.hero-slide:active,
-.hero-slide:focus {
-  cursor: grabbing;
-  cursor: url("/images/grabbing.png") 28 15, grabbing;
-}
-.hero-slide a {
-  cursor: pointer;
-  margin: 0 100px;
-}
-.hero-slide h1 {
-  position: relative;
-  font-size: 60px;
-  letter-spacing: 3px;
-  line-height: 1;
-  font-weight: 800;
-  text-align: center;
-  padding: 0 5px;
-  cursor: pointer;
-  width: 100%;
-  z-index: 3;
-  transition: all 200ms linear;
-}
-.hero-slide h1::before {
-  position: absolute;
-  content: "";
-  left: 0;
-  height: 0;
-  bottom: 0px;
-  background-color: rgba(255, 255, 255, 0.5);
-  cursor: pointer;
-  width: 100%;
-  z-index: 2;
-  opacity: 0;
-  transition: all 200ms linear;
-}
-
-/* Swiper scrollbar */
+/* Swiper scrollbar (used in blog/other pages) */
 .swiper-scrollbar {
   border-radius: 0;
   position: relative;
@@ -1225,13 +1376,6 @@ figure.youtube {
 
 /* Responsive */
 @media (max-width: 1199px) {
-  .hero-slide a {
-    margin: 0;
-  }
-  .hero-slide h1 {
-    font-size: 40px;
-    letter-spacing: 1px;
-  }
   .social-fixed {
     bottom: 15px;
     left: 17px;
@@ -1257,12 +1401,6 @@ figure.youtube {
 }
 
 @media (max-width: 991px) {
-  .hero-slide {
-    width: 50%;
-  }
-  .hero-slide h1 {
-    font-size: 30px;
-  }
   .current-page-shadow {
     margin-top: -10px;
   }
@@ -1287,9 +1425,6 @@ figure.youtube {
 @media (max-width: 767px) {
   h3 { font-size: 2rem; }
   h4 { font-size: 1.4rem; }
-  .hero-slide h1 {
-    font-size: 34px;
-  }
   .current-page-shadow {
     display: none;
   }
@@ -1299,12 +1434,6 @@ figure.youtube {
 }
 
 @media (max-width: 575px) {
-  .hero-slide {
-    width: auto;
-  }
-  .hero-slide a {
-    margin: 0 25px;
-  }
   .page-title h1 {
     font-size: 35px;
   }

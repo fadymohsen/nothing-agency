@@ -5,8 +5,9 @@ export const siteConfig: SiteConfig = {
   siteName: "Nothing Agency",
   copyright: "Nothing Agency",
   socials: [
-    { name: "Dribbble", url: "#" },
-    { name: "Behance", url: "#" },
-    { name: "Instagram", url: "#" },
+    { name: "tw", url: "#" },
+    { name: "fb", url: "#" },
+    { name: "be", url: "#" },
+    { name: "gh", url: "#" },
   ],
 };

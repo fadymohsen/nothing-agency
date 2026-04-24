@@ -5,10 +5,8 @@ import Link from "next/link";
 import { portfolioItems } from "@/data/portfolio";
 
 export default function PortfolioSlider() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [isDragging, setIsDragging] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
   const [dragX, setDragX] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const dragRef = useRef<{ startX: number; startDragX: number } | null>(null);
@@ -17,7 +15,22 @@ export default function PortfolioSlider() {
 
   const total = portfolioItems.length;
   const [titleWidth, setTitleWidth] = useState(420);
-  const [titleOffset, setTitleOffset] = useState("100px");
+  const [titleOffset, setTitleOffset] = useState(100);
+  const [gap, setGap] = useState(200);
+
+  // Continuous scroll position (in pixels)
+  const scrollPosRef = useRef(0);
+  const [scrollPos, setScrollPos] = useState(0);
+  const rafRef = useRef<number | null>(null);
+  const targetScrollRef = useRef(0);
+
+  // Compute step size (distance per slide)
+  const stepSize = titleWidth + gap;
+  const maxScroll = (total - 1) * stepSize;
+
+  // Derive active index from scroll position
+  const activeIndex = Math.round(scrollPos / stepSize);
+  const clampedActive = Math.max(0, Math.min(total - 1, activeIndex));
 
   // Responsive title width matching CSS
   useEffect(() => {
@@ -25,19 +38,24 @@ export default function PortfolioSlider() {
       const w = window.innerWidth;
       if (w <= 575) {
         setTitleWidth(180);
-        setTitleOffset(`calc(50vw - ${180 / 2}px)`);
+        setTitleOffset(Math.round(w / 2 - 90));
+        setGap(200);
       } else if (w <= 767) {
         setTitleWidth(220);
-        setTitleOffset(`calc(50vw - ${220 / 2}px)`);
+        setTitleOffset(Math.round(w / 2 - 110));
+        setGap(200);
       } else if (w <= 991) {
         setTitleWidth(260);
-        setTitleOffset("80px");
+        setTitleOffset(80);
+        setGap(200);
       } else if (w <= 1199) {
         setTitleWidth(320);
-        setTitleOffset("80px");
+        setTitleOffset(80);
+        setGap(200);
       } else {
         setTitleWidth(420);
-        setTitleOffset("100px");
+        setTitleOffset(100);
+        setGap(200);
       }
     };
     updateWidth();
@@ -45,24 +63,62 @@ export default function PortfolioSlider() {
     return () => window.removeEventListener("resize", updateWidth);
   }, []);
 
+  // Smooth animation loop — lerp toward target
+  const animate = useCallback(() => {
+    const current = scrollPosRef.current;
+    const target = targetScrollRef.current;
+    const diff = target - current;
+
+    if (Math.abs(diff) < 0.5) {
+      scrollPosRef.current = target;
+      setScrollPos(target);
+      rafRef.current = null;
+      return;
+    }
+
+    scrollPosRef.current = current + diff * 0.12;
+    setScrollPos(scrollPosRef.current);
+    rafRef.current = requestAnimationFrame(animate);
+  }, []);
+
+  const startAnimation = useCallback(() => {
+    if (rafRef.current === null) {
+      rafRef.current = requestAnimationFrame(animate);
+    }
+  }, [animate]);
+
+  // Cleanup RAF on unmount
+  useEffect(() => {
+    return () => {
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
+
+  const scrollTo = useCallback(
+    (pos: number) => {
+      targetScrollRef.current = Math.max(0, Math.min(maxScroll, pos));
+      startAnimation();
+    },
+    [maxScroll, startAnimation]
+  );
+
   const goToSlide = useCallback(
     (index: number) => {
-      if (isTransitioning || index === activeIndex) return;
       const clamped = Math.max(0, Math.min(total - 1, index));
-      setIsTransitioning(true);
-      setActiveIndex(clamped);
-      setTimeout(() => setIsTransitioning(false), 800);
+      scrollTo(clamped * stepSize);
     },
-    [activeIndex, isTransitioning, total]
+    [total, stepSize, scrollTo]
   );
 
   const goNext = useCallback(() => {
-    goToSlide((activeIndex + 1) % total);
-  }, [activeIndex, total, goToSlide]);
+    const nextIndex = Math.min(total - 1, clampedActive + 1);
+    goToSlide(nextIndex);
+  }, [clampedActive, total, goToSlide]);
 
   const goPrev = useCallback(() => {
-    goToSlide((activeIndex - 1 + total) % total);
-  }, [activeIndex, total, goToSlide]);
+    const prevIndex = Math.max(0, clampedActive - 1);
+    goToSlide(prevIndex);
+  }, [clampedActive, goToSlide]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -74,24 +130,25 @@ export default function PortfolioSlider() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [goNext, goPrev]);
 
-  // Mouse wheel navigation
+  // Mouse wheel — smooth continuous scroll
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
-    let wheelTimeout: ReturnType<typeof setTimeout>;
 
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault();
-      clearTimeout(wheelTimeout);
-      wheelTimeout = setTimeout(() => {
-        if (e.deltaY > 0 || e.deltaX > 0) goNext();
-        else goPrev();
-      }, 50);
+      const delta = e.deltaY || e.deltaX;
+      const newTarget = Math.max(
+        0,
+        Math.min(maxScroll, targetScrollRef.current + delta * 0.8)
+      );
+      targetScrollRef.current = newTarget;
+      startAnimation();
     };
 
     container.addEventListener("wheel", handleWheel, { passive: false });
     return () => container.removeEventListener("wheel", handleWheel);
-  }, [goNext, goPrev]);
+  }, [maxScroll, startAnimation]);
 
   // Scrubber drag
   const handleScrubberDown = (e: React.MouseEvent | React.TouchEvent) => {
@@ -117,6 +174,13 @@ export default function PortfolioSlider() {
         Math.min(trackWidth, dragRef.current.startDragX + diff)
       );
       setDragX(newX);
+
+      // Also update scroll position from scrubber
+      const ratio = newX / trackWidth;
+      const newScrollPos = ratio * maxScroll;
+      scrollPosRef.current = newScrollPos;
+      targetScrollRef.current = newScrollPos;
+      setScrollPos(newScrollPos);
     };
 
     const handleUp = () => {
@@ -124,10 +188,9 @@ export default function PortfolioSlider() {
         setIsDragging(false);
         return;
       }
-      const trackWidth = trackRef.current.offsetWidth;
-      const ratio = dragX / trackWidth;
-      const newIndex = Math.round(ratio * (total - 1));
-      goToSlide(newIndex);
+      // Snap to nearest slide
+      const nearestIndex = Math.round(scrollPosRef.current / stepSize);
+      goToSlide(nearestIndex);
       setIsDragging(false);
     };
 
@@ -142,15 +205,16 @@ export default function PortfolioSlider() {
       window.removeEventListener("touchmove", handleMove);
       window.removeEventListener("touchend", handleUp);
     };
-  }, [isDragging, dragX, total, goToSlide]);
+  }, [isDragging, dragX, maxScroll, stepSize, goToSlide]);
 
-  // Sync scrubber position to active slide
+  // Sync scrubber position to scroll
   useEffect(() => {
     if (!isDragging && trackRef.current) {
       const trackWidth = trackRef.current.offsetWidth;
-      setDragX((activeIndex / (total - 1)) * trackWidth);
+      const ratio = maxScroll > 0 ? scrollPos / maxScroll : 0;
+      setDragX(ratio * trackWidth);
     }
-  }, [activeIndex, total, isDragging]);
+  }, [scrollPos, maxScroll, isDragging]);
 
   // Prevent page scroll on touch within slider
   useEffect(() => {
@@ -161,48 +225,60 @@ export default function PortfolioSlider() {
     return () => container.removeEventListener("touchmove", preventScroll);
   }, []);
 
-  // Touch swipe on main container (horizontal and vertical)
-  const touchRef = useRef<{ startX: number; startY: number } | null>(null);
+  // Touch drag on main container — continuous smooth scroll
+  const touchRef = useRef<{ startY: number; startScroll: number } | null>(null);
 
   const handleTouchStart = (e: React.TouchEvent) => {
+    // Stop any ongoing animation
+    if (rafRef.current !== null) {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    }
     touchRef.current = {
-      startX: e.touches[0].clientX,
       startY: e.touches[0].clientY,
+      startScroll: scrollPosRef.current,
     };
   };
 
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (!touchRef.current) return;
-    const diffX = e.changedTouches[0].clientX - touchRef.current.startX;
-    const diffY = e.changedTouches[0].clientY - touchRef.current.startY;
-    const absDiffX = Math.abs(diffX);
-    const absDiffY = Math.abs(diffY);
+  const handleTouchMove = useCallback(
+    (e: React.TouchEvent) => {
+      if (!touchRef.current) return;
+      const diffY = touchRef.current.startY - e.touches[0].clientY;
+      const newPos = Math.max(
+        0,
+        Math.min(maxScroll, touchRef.current.startScroll + diffY * 1.5)
+      );
+      scrollPosRef.current = newPos;
+      targetScrollRef.current = newPos;
+      setScrollPos(newPos);
+    },
+    [maxScroll]
+  );
 
-    if (absDiffX > 30 || absDiffY > 30) {
-      if (absDiffX >= absDiffY) {
-        // Horizontal swipe
-        if (diffX < 0) goNext();
-        else goPrev();
-      } else {
-        // Vertical swipe — scroll up = next, scroll down = prev
-        if (diffY < 0) goNext();
-        else goPrev();
-      }
-    }
+  const handleTouchEnd = () => {
+    if (!touchRef.current) return;
+    // Snap to nearest slide after releasing
+    const nearestIndex = Math.round(scrollPosRef.current / stepSize);
+    goToSlide(nearestIndex);
     touchRef.current = null;
   };
+
+  // Compute the track translateX from continuous scroll position
+  const trackTranslateX = titleOffset - scrollPos;
 
   return (
     <div
       ref={containerRef}
       className="euthenia-slider"
       onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
       {/* Background Images */}
       <div className="euthenia-bg-images">
         {portfolioItems.map((item, i) => {
-          const visible = hoveredIndex !== null ? i === hoveredIndex : i === activeIndex;
+          const visible =
+            hoveredIndex !== null ? i === hoveredIndex : i === clampedActive;
           return (
             <div
               key={item.slug}
@@ -216,7 +292,8 @@ export default function PortfolioSlider() {
       {/* Large watermark title at bottom */}
       <div className="euthenia-watermark">
         {portfolioItems.map((item, i) => {
-          const visible = hoveredIndex !== null ? i === hoveredIndex : i === activeIndex;
+          const visible =
+            hoveredIndex !== null ? i === hoveredIndex : i === clampedActive;
           return (
             <span
               key={item.slug}
@@ -233,18 +310,19 @@ export default function PortfolioSlider() {
         <div
           className="euthenia-titles-track"
           style={{
-            transform: `translateX(calc(${titleOffset} - ${activeIndex * (titleWidth + 200)}px))`,
+            transform: `translateX(${trackTranslateX}px)`,
+            transition: "none",
           }}
         >
           {portfolioItems.map((item, i) => (
             <Link
               key={item.slug}
               href={`/portfolio/${item.slug}`}
-              className={`euthenia-title hover-target ${i === activeIndex ? "active" : ""}`}
+              className={`euthenia-title hover-target ${i === clampedActive ? "active" : ""}`}
               onMouseEnter={() => setHoveredIndex(i)}
               onMouseLeave={() => setHoveredIndex(null)}
               onClick={(e) => {
-                if (i !== activeIndex) {
+                if (i !== clampedActive) {
                   e.preventDefault();
                   goToSlide(i);
                 }
@@ -259,7 +337,7 @@ export default function PortfolioSlider() {
       {/* Slide counter */}
       <div className="euthenia-counter">
         <span className="euthenia-counter-current">
-          {String(activeIndex + 1).padStart(2, "0")}
+          {String(clampedActive + 1).padStart(2, "0")}
         </span>
         <span className="euthenia-counter-line" />
         <span className="euthenia-counter-total">
@@ -275,7 +353,9 @@ export default function PortfolioSlider() {
             className="euthenia-scrubber-dot hover-target"
             style={{
               transform: `translateX(${dragX}px) translateY(-50%)`,
-              transition: isDragging ? "none" : "transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)",
+              transition: isDragging
+                ? "none"
+                : "transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)",
             }}
             onMouseDown={handleScrubberDown}
             onTouchStart={handleScrubberDown}

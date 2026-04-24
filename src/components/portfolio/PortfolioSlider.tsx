@@ -321,12 +321,6 @@ export default function PortfolioSlider() {
               className={`euthenia-title hover-target ${i === clampedActive ? "active" : ""}`}
               onMouseEnter={() => setHoveredIndex(i)}
               onMouseLeave={() => setHoveredIndex(null)}
-              onClick={(e) => {
-                if (i !== clampedActive) {
-                  e.preventDefault();
-                  goToSlide(i);
-                }
-              }}
             >
               <span>{item.title}</span>
             </Link>

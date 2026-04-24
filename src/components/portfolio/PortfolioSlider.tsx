@@ -152,7 +152,16 @@ export default function PortfolioSlider() {
     }
   }, [activeIndex, total, isDragging]);
 
-  // Touch swipe on main container
+  // Prevent page scroll on touch within slider
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const preventScroll = (e: TouchEvent) => e.preventDefault();
+    container.addEventListener("touchmove", preventScroll, { passive: false });
+    return () => container.removeEventListener("touchmove", preventScroll);
+  }, []);
+
+  // Touch swipe on main container (horizontal and vertical)
   const touchRef = useRef<{ startX: number; startY: number } | null>(null);
 
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -166,9 +175,19 @@ export default function PortfolioSlider() {
     if (!touchRef.current) return;
     const diffX = e.changedTouches[0].clientX - touchRef.current.startX;
     const diffY = e.changedTouches[0].clientY - touchRef.current.startY;
-    if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
-      if (diffX < 0) goNext();
-      else goPrev();
+    const absDiffX = Math.abs(diffX);
+    const absDiffY = Math.abs(diffY);
+
+    if (absDiffX > 30 || absDiffY > 30) {
+      if (absDiffX >= absDiffY) {
+        // Horizontal swipe
+        if (diffX < 0) goNext();
+        else goPrev();
+      } else {
+        // Vertical swipe — scroll up = next, scroll down = prev
+        if (diffY < 0) goNext();
+        else goPrev();
+      }
     }
     touchRef.current = null;
   };

@@ -8,6 +8,7 @@ export default function PortfolioSlider() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [dragX, setDragX] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const dragRef = useRef<{ startX: number; startDragX: number } | null>(null);
@@ -169,25 +170,31 @@ export default function PortfolioSlider() {
     >
       {/* Background Images */}
       <div className="euthenia-bg-images">
-        {portfolioItems.map((item, i) => (
-          <div
-            key={item.slug}
-            className={`euthenia-bg-image ${i === activeIndex ? "active" : ""}`}
-            style={{ backgroundImage: `url('${item.image}')` }}
-          />
-        ))}
+        {portfolioItems.map((item, i) => {
+          const visible = hoveredIndex !== null ? i === hoveredIndex : i === activeIndex;
+          return (
+            <div
+              key={item.slug}
+              className={`euthenia-bg-image ${visible ? "active" : ""}`}
+              style={{ backgroundImage: `url('${item.image}')` }}
+            />
+          );
+        })}
       </div>
 
       {/* Large watermark title at bottom */}
       <div className="euthenia-watermark">
-        {portfolioItems.map((item, i) => (
-          <span
-            key={item.slug}
-            className={`euthenia-watermark-text ${i === activeIndex ? "active" : ""}`}
-          >
-            {item.title}
-          </span>
-        ))}
+        {portfolioItems.map((item, i) => {
+          const visible = hoveredIndex !== null ? i === hoveredIndex : i === activeIndex;
+          return (
+            <span
+              key={item.slug}
+              className={`euthenia-watermark-text ${visible ? "active" : ""}`}
+            >
+              {item.title}
+            </span>
+          );
+        })}
       </div>
 
       {/* Title carousel row */}
@@ -203,6 +210,8 @@ export default function PortfolioSlider() {
               key={item.slug}
               href={`/portfolio/${item.slug}`}
               className={`euthenia-title hover-target ${i === activeIndex ? "active" : ""}`}
+              onMouseEnter={() => setHoveredIndex(i)}
+              onMouseLeave={() => setHoveredIndex(null)}
               onClick={(e) => {
                 if (i !== activeIndex) {
                   e.preventDefault();
@@ -234,7 +243,7 @@ export default function PortfolioSlider() {
             ref={scrubberRef}
             className="euthenia-scrubber-dot hover-target"
             style={{
-              transform: `translateX(${dragX}px)`,
+              transform: `translateX(${dragX}px) translateY(-50%)`,
               transition: isDragging ? "none" : "transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)",
             }}
             onMouseDown={handleScrubberDown}

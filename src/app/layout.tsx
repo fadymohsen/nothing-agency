@@ -22,8 +22,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Nothing Agency",
-  description: "Creative agency portfolio built with Next.js",
+  title: "Nothing Creative Ad Studio",
+  description: "Nothing Creative Ad Studio - Where bold ideas meet creative execution",
 };
 
 export default function RootLayout({

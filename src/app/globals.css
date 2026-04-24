@@ -1,20 +1,22 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-body: #1f2029;
-  --color-body-text: #c4c3ca;
-  --color-dark: #101010;
-  --color-dark-1: #242424;
-  --color-dark-2: #1f2029;
-  --color-dark-3: #14151a;
-  --color-nav-bg: rgba(9, 9, 12, 1);
-  --color-nav-overlay: rgba(20, 21, 26, 0.6);
-  --color-header-bg: rgba(20, 21, 26, 0.96);
-  --color-cursor-border: #4b4d64;
-  --color-separator: #666;
-  --color-filter-inactive: rgba(200, 200, 200, 0.5);
-  --color-footer-line: #4b4d64;
-  --color-studio-line: #616481;
+  --color-body: #111D2B;
+  --color-body-text: #9FB3BF;
+  --color-dark: #0C1520;
+  --color-dark-1: #1D3B4C;
+  --color-dark-2: #111D2B;
+  --color-dark-3: #0C1520;
+  --color-accent: #E9A215;
+  --color-accent-hover: #D4920F;
+  --color-nav-bg: rgba(12, 21, 32, 1);
+  --color-nav-overlay: rgba(17, 29, 43, 0.6);
+  --color-header-bg: rgba(17, 29, 43, 0.96);
+  --color-cursor-border: #5B7A8A;
+  --color-separator: #5B7A8A;
+  --color-filter-inactive: rgba(159, 179, 191, 0.5);
+  --color-footer-line: #5B7A8A;
+  --color-studio-line: #5B7A8A;
 
   --font-muli: "Mulish", sans-serif;
   --font-roboto: "Roboto", sans-serif;
@@ -118,12 +120,12 @@ a:hover {
   border: none;
 }
 .cursor2 {
-  border: 2px solid #fff;
-  box-shadow: 0 0 22px rgba(255, 255, 255, 0.6);
+  border: 2px solid var(--color-accent);
+  box-shadow: 0 0 22px rgba(233, 162, 21, 0.4);
 }
 .cursor2.hover {
-  background: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+  background: rgba(233, 162, 21, 0.1);
+  box-shadow: 0 0 12px rgba(233, 162, 21, 0.3);
 }
 .scale-up .cursor2,
 .scale-up .cursor3 {
@@ -351,7 +353,7 @@ a:hover {
   height: 0;
   opacity: 0;
   margin-top: 3px;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(233, 162, 21, 0.3);
   z-index: 1;
   transition: all 200ms linear;
 }
@@ -565,7 +567,7 @@ a:hover {
   height: 100vh;
   overflow: hidden;
   z-index: 10;
-  background-color: #0a0b10;
+  background-color: #0C1520;
 }
 
 /* Background images */
@@ -696,7 +698,7 @@ a:hover {
   transform: translateX(-50%) scaleX(0);
   width: 90%;
   height: 22px;
-  background-color: rgba(255, 255, 255, 0.15);
+  background-color: rgba(233, 162, 21, 0.2);
   z-index: 1;
   transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
 }
@@ -782,11 +784,11 @@ a:hover {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background-color: #fff;
+  background-color: var(--color-accent);
   transform: translateX(0) translateY(-50%);
   cursor: grab;
   z-index: 2;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 10px rgba(233, 162, 21, 0.4);
 }
 
 .euthenia-scrubber-dot:active {
@@ -969,7 +971,7 @@ a:hover {
   height: 2px;
   content: "";
   z-index: -1;
-  background-color: #fff;
+  background-color: var(--color-accent);
   opacity: 0;
   visibility: hidden;
   transition: all 200ms linear;

@@ -47,14 +47,14 @@ export default function Header({ onToggleNav, navActive }: HeaderProps) {
   return (
     <header className={headerClasses}>
       <div className="relative w-[calc(100%-100px)] ml-[50px]">
-        <div className="absolute left-0 top-[44px] block cursor-pointer">
+        <div className="absolute left-0 top-[30px] block cursor-pointer">
           <Link href="/" className="hover-target cursor-pointer">
             <Image
               src={siteConfig.logo}
               alt={siteConfig.siteName}
-              width={100}
-              height={12}
-              className="h-3 w-auto block"
+              width={180}
+              height={40}
+              className="h-10 w-auto block"
               priority
             />
           </Link>

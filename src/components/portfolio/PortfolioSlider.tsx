@@ -17,16 +17,28 @@ export default function PortfolioSlider() {
 
   const total = portfolioItems.length;
   const [titleWidth, setTitleWidth] = useState(420);
+  const [titleOffset, setTitleOffset] = useState("100px");
 
   // Responsive title width matching CSS
   useEffect(() => {
     const updateWidth = () => {
       const w = window.innerWidth;
-      if (w <= 575) setTitleWidth(180);
-      else if (w <= 767) setTitleWidth(220);
-      else if (w <= 991) setTitleWidth(260);
-      else if (w <= 1199) setTitleWidth(320);
-      else setTitleWidth(420);
+      if (w <= 575) {
+        setTitleWidth(180);
+        setTitleOffset(`calc(50vw - ${180 / 2}px)`);
+      } else if (w <= 767) {
+        setTitleWidth(220);
+        setTitleOffset(`calc(50vw - ${220 / 2}px)`);
+      } else if (w <= 991) {
+        setTitleWidth(260);
+        setTitleOffset("80px");
+      } else if (w <= 1199) {
+        setTitleWidth(320);
+        setTitleOffset("80px");
+      } else {
+        setTitleWidth(420);
+        setTitleOffset("100px");
+      }
     };
     updateWidth();
     window.addEventListener("resize", updateWidth);
@@ -202,7 +214,7 @@ export default function PortfolioSlider() {
         <div
           className="euthenia-titles-track"
           style={{
-            transform: `translateX(calc(50vw - ${activeIndex * (titleWidth + 200) + titleWidth / 2}px))`,
+            transform: `translateX(calc(${titleOffset} - ${activeIndex * (titleWidth + 200)}px))`,
           }}
         >
           {portfolioItems.map((item, i) => (

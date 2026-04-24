@@ -22,8 +22,48 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Nothing Creative Ad Studio",
-  description: "Nothing Creative Ad Studio - Where bold ideas meet creative execution",
+  title: {
+    default: "Nothing Creative Ad Studio",
+    template: "%s | Nothing Creative Ad Studio",
+  },
+  description:
+    "Nothing Creative Ad Studio — Where bold ideas meet creative execution. We craft compelling brand identities, advertising campaigns, and digital experiences.",
+  keywords: [
+    "creative agency",
+    "ad studio",
+    "branding",
+    "advertising",
+    "digital marketing",
+    "creative design",
+    "Nothing Creative Ad Studio",
+  ],
+  authors: [{ name: "Nothing Creative Ad Studio" }],
+  openGraph: {
+    type: "website",
+    title: "Nothing Creative Ad Studio",
+    description:
+      "Where bold ideas meet creative execution. We craft compelling brand identities, advertising campaigns, and digital experiences.",
+    siteName: "Nothing Creative Ad Studio",
+    images: [
+      {
+        url: "/images/nothing-logo.png",
+        width: 1200,
+        height: 630,
+        alt: "Nothing Creative Ad Studio Logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Nothing Creative Ad Studio",
+    description:
+      "Where bold ideas meet creative execution. We craft compelling brand identities, advertising campaigns, and digital experiences.",
+    images: ["/images/nothing-logo.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({

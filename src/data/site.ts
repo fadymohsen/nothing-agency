@@ -1,8 +1,8 @@
 import { SiteConfig } from "@/types";
 
 export const siteConfig: SiteConfig = {
-  logo: "/images/nothing-logo.png",
-  siteName: "Nothing Creative Ad Studio",
+  logo: "",
+  siteName: "NOTHING",
   copyright: "Nothing Creative Ad Studio",
   socials: [
     { name: "tw", url: "#" },

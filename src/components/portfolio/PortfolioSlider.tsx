@@ -195,7 +195,7 @@ export default function PortfolioSlider() {
         <div
           className="euthenia-titles-track"
           style={{
-            transform: `translateX(calc(50vw - ${activeIndex * (titleWidth + 60) + titleWidth / 2}px))`,
+            transform: `translateX(calc(50vw - ${activeIndex * (titleWidth + 200) + titleWidth / 2}px))`,
           }}
         >
           {portfolioItems.map((item, i) => (

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { siteConfig } from "@/data/site";
+import Image from "next/image";
 
 interface HeaderProps {
   onToggleNav: () => void;
@@ -46,9 +46,16 @@ export default function Header({ onToggleNav, navActive }: HeaderProps) {
   return (
     <header className={headerClasses}>
       <div className="relative w-[calc(100%-100px)] ml-[50px]">
-        <div className="absolute left-0 top-[36px] block cursor-pointer">
-          <Link href="/" className="hover-target cursor-pointer font-poppins text-[15px] font-bold tracking-[2px] text-[#D4A827] uppercase">
-            {siteConfig.siteName}
+        <div className="absolute left-0 top-[20px] block cursor-pointer">
+          <Link href="/" className="hover-target cursor-pointer">
+            <Image
+              src="/images/nothing-logo.png"
+              alt="Nothing Creative Ad Studio"
+              width={180}
+              height={60}
+              priority
+              style={{ height: "auto" }}
+            />
           </Link>
         </div>
         <div className="relative inline-block float-right pl-[15px] pt-[15px] mt-[26px] transition-all duration-300 ease-out">

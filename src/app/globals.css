@@ -385,6 +385,12 @@ a:hover {
 .nav-active .nav-list-item:nth-child(7) { transition-delay: 1.1s; }
 .nav-active .nav-list-item:nth-child(8) { transition-delay: 1.2s; }
 
+@media (min-width: 768px) {
+  .nav-list-item {
+    font-size: 6vh;
+  }
+}
+
 /* Menu icon */
 .menu-icon {
   height: 30px;
@@ -840,7 +846,7 @@ a:hover {
     width: 220px;
   }
   .euthenia-title span {
-    font-size: 28px;
+    font-size: 34px;
     letter-spacing: 1px;
   }
   .euthenia-title::after {
@@ -859,7 +865,7 @@ a:hover {
     width: 180px;
   }
   .euthenia-title span {
-    font-size: 22px;
+    font-size: 28px;
   }
   .euthenia-title::after {
     height: 12px;

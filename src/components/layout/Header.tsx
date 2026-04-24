@@ -47,7 +47,7 @@ export default function Header({ onToggleNav, navActive }: HeaderProps) {
     <header className={headerClasses}>
       <div className="relative w-[calc(100%-100px)] ml-[50px]">
         <div className="absolute left-0 top-[36px] block cursor-pointer">
-          <Link href="/" className="hover-target cursor-pointer font-poppins text-[15px] font-bold tracking-[2px] text-white uppercase">
+          <Link href="/" className="hover-target cursor-pointer font-poppins text-[15px] font-bold tracking-[2px] text-[#D4A827] uppercase">
             {siteConfig.siteName}
           </Link>
         </div>

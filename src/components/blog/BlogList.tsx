@@ -1,11 +1,7 @@
-"use client";
-
-import { useState } from "react";
 import Link from "next/link";
 import { blogPosts } from "@/data/blog";
 
 export default function BlogList() {
-  const [activeIndex, setActiveIndex] = useState(0);
 
   return (
     <>
@@ -13,8 +9,7 @@ export default function BlogList() {
         {blogPosts.map((post, i) => (
           <li
             key={post.slug}
-            className={`case-study-name mb-8 ${i === activeIndex ? "active" : ""}`}
-            onMouseEnter={() => setActiveIndex(i)}
+            className="case-study-name mb-8"
           >
             <Link
               href={`/blog/${post.slug}`}
@@ -40,17 +35,6 @@ export default function BlogList() {
         ))}
       </ul>
 
-      {/* Background thumbnail images */}
-      <ul className="case-study-images">
-        {blogPosts.map((post, i) => (
-          <li key={post.slug} className={i === activeIndex ? "show" : ""}>
-            <div
-              className="img-hero-background blog-back-image"
-              style={{ backgroundImage: `url('${post.thumbnail}')` }}
-            />
-          </li>
-        ))}
-      </ul>
     </>
   );
 }

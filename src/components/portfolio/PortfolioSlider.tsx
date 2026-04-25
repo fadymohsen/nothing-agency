@@ -130,14 +130,22 @@ export default function PortfolioSlider() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [goNext, goPrev]);
 
-  // Mouse wheel — smooth continuous scroll
+  // Mouse wheel — smooth continuous scroll, release at boundaries
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
     const handleWheel = (e: WheelEvent) => {
-      e.preventDefault();
       const delta = e.deltaY || e.deltaX;
+      const atEnd = targetScrollRef.current >= maxScroll && delta > 0;
+      const atStart = targetScrollRef.current <= 0 && delta < 0;
+
+      if (atEnd || atStart) {
+        // Let page scroll normally
+        return;
+      }
+
+      e.preventDefault();
       const newTarget = Math.max(
         0,
         Math.min(maxScroll, targetScrollRef.current + delta * 0.8)
@@ -216,14 +224,21 @@ export default function PortfolioSlider() {
     }
   }, [scrollPos, maxScroll, isDragging]);
 
-  // Prevent page scroll on touch within slider
+  // Prevent page scroll on touch within slider (only when not at boundary)
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
-    const preventScroll = (e: TouchEvent) => e.preventDefault();
+    const preventScroll = (e: TouchEvent) => {
+      const atEnd = scrollPosRef.current >= maxScroll - 1;
+      const atStart = scrollPosRef.current <= 1;
+      if (!touchRef.current) return;
+      const diffY = touchRef.current.startY - e.touches[0].clientY;
+      if ((atEnd && diffY > 0) || (atStart && diffY < 0)) return;
+      e.preventDefault();
+    };
     container.addEventListener("touchmove", preventScroll, { passive: false });
     return () => container.removeEventListener("touchmove", preventScroll);
-  }, []);
+  }, [maxScroll]);
 
   // Touch drag on main container — continuous smooth scroll
   const touchRef = useRef<{ startY: number; startScroll: number } | null>(null);

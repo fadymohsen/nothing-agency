@@ -1,23 +1,6 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import { siteConfig } from "@/data/site";
 
 export default function Footer() {
-  const [showArrow, setShowArrow] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowArrow(window.scrollY > 300);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
   return (
     <>
       <div className="social-fixed">
@@ -35,11 +18,6 @@ export default function Footer() {
       </div>
 
       <div className="copyr">{siteConfig.copyright}</div>
-
-      <div
-        className={`scroll-to-top hover-target ${showArrow ? "active-arrow" : ""}`}
-        onClick={scrollToTop}
-      />
     </>
   );
 }

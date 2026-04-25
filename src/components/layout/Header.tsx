@@ -46,7 +46,7 @@ export default function Header({ onToggleNav, navActive }: HeaderProps) {
   return (
     <header className={headerClasses}>
       <div className="relative w-[calc(100%-30px)] ml-[15px] md:w-[calc(100%-100px)] md:ml-[50px]">
-        <div className="absolute left-0 top-[18px] md:top-[22px] block cursor-pointer">
+        <div className="absolute left-0 top-[30px] md:top-[22px] block cursor-pointer">
           <Link href="/" className="hover-target cursor-pointer">
             <Image
               src="/images/nothing-logo.png"
@@ -58,7 +58,7 @@ export default function Header({ onToggleNav, navActive }: HeaderProps) {
             />
           </Link>
         </div>
-        <div className="relative inline-block float-right pt-[10px] mt-[18px] md:mt-[26px] md:pl-[15px] md:pt-[15px] transition-all duration-300 ease-out">
+        <div className="relative inline-block float-right pt-[10px] mt-[28px] md:mt-[26px] md:pl-[15px] md:pt-[15px] transition-all duration-300 ease-out">
           <div
             className="menu-icon hover-target"
             onClick={onToggleNav}

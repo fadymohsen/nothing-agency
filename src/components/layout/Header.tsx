@@ -45,20 +45,20 @@ export default function Header({ onToggleNav, navActive }: HeaderProps) {
 
   return (
     <header className={headerClasses}>
-      <div className="relative w-[calc(100%-40px)] ml-[20px] md:w-[calc(100%-100px)] md:ml-[50px]">
-        <div className="absolute left-0 top-[15px] md:top-[20px] block cursor-pointer">
+      <div className="relative w-[calc(100%-30px)] ml-[15px] md:w-[calc(100%-100px)] md:ml-[50px]">
+        <div className="absolute left-0 top-[18px] md:top-[22px] block cursor-pointer">
           <Link href="/" className="hover-target cursor-pointer">
             <Image
               src="/images/nothing-logo.png"
               alt="Nothing Creative Ad Studio"
-              width={180}
-              height={60}
+              width={995}
+              height={306}
               priority
-              className="w-[120px] md:w-[180px] h-auto"
+              className="w-[140px] md:w-[200px] h-auto"
             />
           </Link>
         </div>
-        <div className="relative inline-block float-right pl-[15px] pt-[15px] mt-[18px] md:mt-[26px] transition-all duration-300 ease-out">
+        <div className="relative inline-block float-right pt-[10px] mt-[18px] md:mt-[26px] md:pl-[15px] md:pt-[15px] transition-all duration-300 ease-out">
           <div
             className="menu-icon hover-target"
             onClick={onToggleNav}

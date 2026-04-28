@@ -24,6 +24,17 @@
 }
 
 /* Base styles */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  display: none !important;
+}
+
+html, body, * {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
 body {
   font-family: var(--font-roboto);
   font-weight: 300;

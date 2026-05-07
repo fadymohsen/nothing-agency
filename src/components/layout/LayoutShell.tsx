@@ -6,6 +6,7 @@ import Header from "./Header";
 import Navigation from "./Navigation";
 import Footer from "./Footer";
 import CustomCursor from "@/components/animations/CustomCursor";
+import SparkleBackground from "@/components/animations/SparkleBackground";
 import { navItems } from "@/data/navigation";
 
 export default function LayoutShell({ children }: { children: React.ReactNode }) {
@@ -19,6 +20,7 @@ export default function LayoutShell({ children }: { children: React.ReactNode })
 
   return (
     <div className={navActive ? "nav-active" : ""}>
+      <SparkleBackground />
       <Header
         onToggleNav={() => setNavActive(!navActive)}
         navActive={navActive}

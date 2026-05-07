@@ -13,7 +13,8 @@ export default function PortfolioSlider() {
   const scrubberRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
 
-  const total = portfolioItems.length;
+  const sliderItems = portfolioItems.filter((item) => !item.hideFromSlider);
+  const total = sliderItems.length;
   const [titleWidth, setTitleWidth] = useState(420);
   const [titleOffset, setTitleOffset] = useState(100);
   const [gap, setGap] = useState(200);
@@ -291,7 +292,7 @@ export default function PortfolioSlider() {
     >
       {/* Background Images */}
       <div className="euthenia-bg-images">
-        {portfolioItems.map((item, i) => {
+        {sliderItems.map((item, i) => {
           const visible =
             hoveredIndex !== null ? i === hoveredIndex : i === clampedActive;
           return (
@@ -306,7 +307,7 @@ export default function PortfolioSlider() {
 
       {/* Large watermark title at bottom */}
       <div className="euthenia-watermark">
-        {portfolioItems.map((item, i) => {
+        {sliderItems.map((item, i) => {
           const visible =
             hoveredIndex !== null ? i === hoveredIndex : i === clampedActive;
           return (
@@ -329,7 +330,7 @@ export default function PortfolioSlider() {
             transition: "none",
           }}
         >
-          {portfolioItems.map((item, i) => (
+          {sliderItems.map((item, i) => (
             <Link
               key={item.slug}
               href={`/portfolio/${item.slug}`}

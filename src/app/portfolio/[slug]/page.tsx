@@ -53,12 +53,56 @@ export default async function PortfolioItemPage({
         <div className="max-w-[1140px] mx-auto px-4 z-[50]">
           <ScrollReveal delay={0.2}>
             <div className="px-5 xl:px-2">
-              <div className="max-w-3xl">
-                <p className="text-[1.15rem] font-light leading-relaxed mb-6">
-                  {item.description}
-                </p>
-                <div className="page-title-small mt-8">
-                  <p>Category: {item.category}</p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div className="md:col-span-2">
+                  <h3 className="text-2xl font-bold mb-6 text-white uppercase tracking-wider">
+                    Concept
+                  </h3>
+                  <p className="text-[1.15rem] font-light leading-relaxed mb-6">
+                    {item.concept || item.description}
+                  </p>
+                </div>
+                <div className="space-y-8">
+                  {item.client && (
+                    <div>
+                      <h4 className="text-xs uppercase tracking-[2px] text-[var(--color-accent)] mb-2">
+                        Client
+                      </h4>
+                      <p className="text-white text-lg">{item.client}</p>
+                    </div>
+                  )}
+                  {item.agency && (
+                    <div>
+                      <h4 className="text-xs uppercase tracking-[2px] text-[var(--color-accent)] mb-2">
+                        Agency
+                      </h4>
+                      <p className="text-white text-lg">{item.agency}</p>
+                    </div>
+                  )}
+                  {item.creativeDirection && (
+                    <div>
+                      <h4 className="text-xs uppercase tracking-[2px] text-[var(--color-accent)] mb-2">
+                        Creative Direction
+                      </h4>
+                      <p className="text-white text-lg">
+                        {item.creativeDirection}
+                      </p>
+                    </div>
+                  )}
+                  {item.artDirection && (
+                    <div>
+                      <h4 className="text-xs uppercase tracking-[2px] text-[var(--color-accent)] mb-2">
+                        Art Direction
+                      </h4>
+                      <p className="text-white text-lg">{item.artDirection}</p>
+                    </div>
+                  )}
+                  <div>
+                    <h4 className="text-xs uppercase tracking-[2px] text-[var(--color-accent)] mb-2">
+                      Category
+                    </h4>
+                    <p className="text-white text-lg">{item.category}</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -66,21 +110,45 @@ export default async function PortfolioItemPage({
         </div>
       </section>
 
-      <section className="relative w-full block pb-[100px] overflow-hidden z-10">
-        <div className="max-w-[1140px] mx-auto px-4 z-[50]">
-          <ScrollReveal delay={0.3}>
-            <div className="w-full">
-              <Image
-                src={item.image}
-                alt={item.title}
-                width={1200}
-                height={600}
-                className="w-full h-auto block"
-              />
+      {/* Gallery */}
+      {item.images && item.images.length > 1 ? (
+        item.images.slice(1).map((img, idx) => (
+          <section
+            key={idx}
+            className="relative w-full block pb-[100px] overflow-hidden z-10"
+          >
+            <div className="max-w-[1140px] mx-auto px-4 z-[50]">
+              <ScrollReveal delay={0.1 * (idx + 1)}>
+                <div className="w-full">
+                  <Image
+                    src={img}
+                    alt={`${item.title} ${idx + 2}`}
+                    width={1200}
+                    height={800}
+                    className="w-full h-auto block"
+                  />
+                </div>
+              </ScrollReveal>
             </div>
-          </ScrollReveal>
-        </div>
-      </section>
+          </section>
+        ))
+      ) : (
+        <section className="relative w-full block pb-[100px] overflow-hidden z-10">
+          <div className="max-w-[1140px] mx-auto px-4 z-[50]">
+            <ScrollReveal delay={0.3}>
+              <div className="w-full">
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  width={1200}
+                  height={600}
+                  className="w-full h-auto block"
+                />
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+      )}
 
       <FooterSection
         shadowText={item.title}

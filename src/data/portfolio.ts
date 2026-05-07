@@ -2,6 +2,27 @@ import { PortfolioItem } from "@/types";
 
 export const portfolioItems: PortfolioItem[] = [
   {
+    slug: "just-for-alphas-cr7",
+    title: "JustForAlphas - CR7",
+    category: "Footwear",
+    categorySlug: "footwear",
+    image: "/JustForAlphas - CR7/Picture1.png",
+    description:
+      "introducing CR7 Footwear with all the power and prestige associated with Cristiano Ronaldo's legendary achievements.",
+    client: "CR7 Footwear Egypt",
+    agency: "Nothing Agency",
+    creativeDirection: "Michael Medhat",
+    artDirection: "Michael Medhat",
+    concept:
+      "\"The Ultimate Guide for Alpha Men\" - introducing CR7 Footwear with all the power and prestige associated with Cristiano Ronaldo's legendary achievements.",
+    images: [
+      "/JustForAlphas - CR7/Picture1.png",
+      "/JustForAlphas - CR7/Picture2.png",
+      "/JustForAlphas - CR7/Picture3.png",
+    ],
+    hideFromSlider: true,
+  },
+  {
     slug: "the-battle",
     title: "The Battle",
     category: "Branding",

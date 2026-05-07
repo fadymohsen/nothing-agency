@@ -5,6 +5,13 @@ export interface PortfolioItem {
   categorySlug: string;
   image: string;
   description: string;
+  client?: string;
+  agency?: string;
+  creativeDirection?: string;
+  artDirection?: string;
+  concept?: string;
+  images?: string[];
+  hideFromSlider?: boolean;
 }
 
 export interface BlogPost {

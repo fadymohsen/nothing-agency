@@ -68,7 +68,7 @@ export default function HomeSections() {
 
       {/* Divider */}
       <div className="max-w-[1140px] mx-auto px-6 md:px-4">
-        <div className="h-px bg-white/10" />
+        <div className="h-px bg-[var(--color-accent)]/20" />
       </div>
 
       {/* News Section */}
@@ -127,7 +127,7 @@ export default function HomeSections() {
 
       {/* Divider */}
       <div className="max-w-[1140px] mx-auto px-6 md:px-4">
-        <div className="h-px bg-white/10" />
+        <div className="h-px bg-[var(--color-accent)]/20" />
       </div>
 
       {/* Contact Section */}

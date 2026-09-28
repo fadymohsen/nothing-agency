@@ -3,7 +3,7 @@ import { SiteConfig } from "@/types";
 export const siteConfig: SiteConfig = {
   logo: "",
   siteName: "NOTHING",
-  copyright: "Nothing Creative Ad Studio",
+  copyright: "Nothing Advertising Agency",
   socials: [
     { name: "tw", url: "#" },
     { name: "fb", url: "#" },

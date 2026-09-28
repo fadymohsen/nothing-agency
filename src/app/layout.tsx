@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Mulish, Roboto, Poppins } from "next/font/google";
+import { Mulish, Roboto, Poppins, Anton, Noto_Kufi_Arabic } from "next/font/google";
 import "./globals.css";
 import LayoutShell from "@/components/layout/LayoutShell";
 
@@ -21,13 +21,25 @@ const poppins = Poppins({
   weight: ["300", "400", "500", "600", "700", "800", "900"],
 });
 
+const anton = Anton({
+  variable: "--font-anton",
+  subsets: ["latin"],
+  weight: ["400"],
+});
+
+const notoKufiArabic = Noto_Kufi_Arabic({
+  variable: "--font-noto-kufi",
+  subsets: ["arabic"],
+  weight: ["300", "400", "500", "700"],
+});
+
 export const metadata: Metadata = {
   title: {
-    default: "Nothing Creative Ad Studio",
-    template: "%s | Nothing Creative Ad Studio",
+    default: "Nothing Advertising Agency",
+    template: "%s | Nothing Advertising Agency",
   },
   description:
-    "Nothing Creative Ad Studio — Where bold ideas meet creative execution. We craft compelling brand identities, advertising campaigns, and digital experiences.",
+    "Nothing Advertising Agency — Where bold ideas meet creative execution. We craft compelling brand identities, advertising campaigns, and digital experiences.",
   keywords: [
     "creative agency",
     "ad studio",
@@ -35,27 +47,27 @@ export const metadata: Metadata = {
     "advertising",
     "digital marketing",
     "creative design",
-    "Nothing Creative Ad Studio",
+    "Nothing Advertising Agency",
   ],
-  authors: [{ name: "Nothing Creative Ad Studio" }],
+  authors: [{ name: "Nothing Advertising Agency" }],
   openGraph: {
     type: "website",
-    title: "Nothing Creative Ad Studio",
+    title: "Nothing Advertising Agency",
     description:
       "Where bold ideas meet creative execution. We craft compelling brand identities, advertising campaigns, and digital experiences.",
-    siteName: "Nothing Creative Ad Studio",
+    siteName: "Nothing Advertising Agency",
     images: [
       {
         url: "/images/nothing-logo.png",
         width: 1200,
         height: 630,
-        alt: "Nothing Creative Ad Studio Logo",
+        alt: "Nothing Advertising Agency Logo",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nothing Creative Ad Studio",
+    title: "Nothing Advertising Agency",
     description:
       "Where bold ideas meet creative execution. We craft compelling brand identities, advertising campaigns, and digital experiences.",
     images: ["/images/nothing-logo.png"],
@@ -74,7 +86,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${mulish.variable} ${roboto.variable} ${poppins.variable}`}
+      className={`${mulish.variable} ${roboto.variable} ${poppins.variable} ${anton.variable} ${notoKufiArabic.variable}`}
     >
       <body className="overflow-x-hidden">
         <LayoutShell>{children}</LayoutShell>

@@ -1,26 +1,40 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-body: #111D2B;
-  --color-body-text: #9FB3BF;
-  --color-dark: #0C1520;
-  --color-dark-1: #1D3B4C;
-  --color-dark-2: #111D2B;
-  --color-dark-3: #0C1520;
-  --color-accent: #E9A215;
-  --color-accent-hover: #D4920F;
-  --color-nav-bg: rgba(12, 21, 32, 1);
-  --color-nav-overlay: rgba(17, 29, 43, 0.6);
-  --color-header-bg: rgba(17, 29, 43, 0.96);
-  --color-cursor-border: #5B7A8A;
-  --color-separator: #5B7A8A;
-  --color-filter-inactive: rgba(159, 179, 191, 0.5);
-  --color-footer-line: #5B7A8A;
-  --color-studio-line: #5B7A8A;
+  /* Core Brand Colors */
+  --color-body: #0B1A28;
+  --color-body-text: #c2b9a7;
+  --color-dark: #0B1A28;
+  --color-dark-1: #252A2E;
+  --color-dark-2: #0B1A28;
+  --color-dark-3: #091320;
+  --color-accent: #F0B31C;
+  --color-accent-hover: #d9a018;
+  --color-ivory: #F4F1E8;
+  --color-nav-bg: rgba(11, 26, 40, 1);
+  --color-nav-overlay: rgba(11, 26, 40, 0.6);
+  --color-header-bg: rgba(11, 26, 40, 0.96);
+  --color-cursor-border: #65788A;
+  --color-separator: #65788A;
+  --color-filter-inactive: rgba(194, 185, 167, 0.5);
+  --color-footer-line: #F0B31C;
+  --color-studio-line: #65788A;
 
+  /* Support Colors */
+  --color-warm-red: #C9683F;
+  --color-deep-green: #2F6B65;
+  --color-steel-blue: #65788A;
+
+  /* Accent Colors */
+  --color-cream: #F5EBD7;
+  --color-light-sage: #E1D6C4;
+
+  /* Typography */
   --font-muli: "Mulish", sans-serif;
   --font-roboto: "Roboto", sans-serif;
   --font-poppins: "Poppins", sans-serif;
+  --font-anton: "Anton", sans-serif;
+  --font-noto-kufi: "Noto Kufi Arabic", sans-serif;
 }
 
 /* Base styles */
@@ -46,8 +60,8 @@ body {
 }
 
 ::selection {
-  color: #fff;
-  background-color: #000;
+  color: var(--color-dark);
+  background-color: var(--color-accent);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -142,11 +156,11 @@ a:hover {
 }
 .cursor2 {
   border: 2px solid var(--color-accent);
-  box-shadow: 0 0 22px rgba(233, 162, 21, 0.4);
+  box-shadow: 0 0 22px rgba(240, 179, 28, 0.4);
 }
 .cursor2.hover {
-  background: rgba(233, 162, 21, 0.1);
-  box-shadow: 0 0 12px rgba(233, 162, 21, 0.3);
+  background: rgba(240, 179, 28, 0.1);
+  box-shadow: 0 0 12px rgba(240, 179, 28, 0.3);
 }
 .scale-up .cursor2,
 .scale-up .cursor3 {
@@ -374,7 +388,7 @@ a:hover {
   height: 0;
   opacity: 0;
   margin-top: 3px;
-  background-color: rgba(233, 162, 21, 0.3);
+  background-color: rgba(240, 179, 28, 0.3);
   z-index: 1;
   transition: all 200ms linear;
 }
@@ -594,7 +608,7 @@ a:hover {
   height: 100vh;
   overflow: hidden;
   z-index: 10;
-  background-color: #0C1520;
+  background-color: #0B1A28;
 }
 
 /* Background images */
@@ -724,7 +738,7 @@ a:hover {
   transform: translateX(-50%) scaleX(0);
   width: 90%;
   height: 22px;
-  background-color: rgba(233, 162, 21, 0.2);
+  background-color: rgba(240, 179, 28, 0.2);
   z-index: 1;
   transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
 }
@@ -814,7 +828,7 @@ a:hover {
   transform: translateX(0) translateY(-50%);
   cursor: grab;
   z-index: 2;
-  box-shadow: 0 0 10px rgba(233, 162, 21, 0.4);
+  box-shadow: 0 0 10px rgba(240, 179, 28, 0.4);
 }
 
 .euthenia-scrubber-dot:active {

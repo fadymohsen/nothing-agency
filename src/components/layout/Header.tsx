@@ -51,8 +51,8 @@ export default function Header({ onToggleNav, navActive }: HeaderProps) {
             <Image
               src="/images/nothing-logo.png"
               alt="Nothing Creative Ad Studio"
-              width={995}
-              height={306}
+              width={931}
+              height={268}
               priority
               className="w-[140px] md:w-[200px] h-auto"
             />

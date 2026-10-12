@@ -1,18 +1,29 @@
 import type { Metadata } from "next";
-import { Mulish, Roboto, Poppins, Anton, Noto_Kufi_Arabic } from "next/font/google";
+import localFont from "next/font/local";
+import { Poppins, Anton, Noto_Kufi_Arabic } from "next/font/google";
 import "./globals.css";
 import LayoutShell from "@/components/layout/LayoutShell";
 
-const mulish = Mulish({
+// Altair — brand headline font (replaces Mulish)
+const altair = localFont({
   variable: "--font-muli",
-  subsets: ["latin"],
-  weight: ["200", "300", "400", "600", "700", "800", "900"],
+  src: [
+    { path: "../fonts/altair/Altair-Thin Trial.ttf", weight: "100 300", style: "normal" },
+    { path: "../fonts/altair/Altair-Bold Trial.ttf", weight: "600 900", style: "normal" },
+  ],
 });
 
-const roboto = Roboto({
+// Nexa — brand body font (replaces Roboto)
+const nexa = localFont({
   variable: "--font-roboto",
-  subsets: ["latin"],
-  weight: ["100", "300", "400", "500", "700", "900"],
+  src: [
+    { path: "../fonts/nexa/Nexa Thin.otf", weight: "100 200", style: "normal" },
+    { path: "../fonts/nexa/Nexa Light.otf", weight: "300", style: "normal" },
+    { path: "../fonts/nexa/Nexa Book.otf", weight: "400", style: "normal" },
+    { path: "../fonts/nexa/Nexa Regular.otf", weight: "500", style: "normal" },
+    { path: "../fonts/nexa/Nexa Bold.otf", weight: "600 700", style: "normal" },
+    { path: "../fonts/nexa/Nexa Heavy.otf", weight: "800 900", style: "normal" },
+  ],
 });
 
 const poppins = Poppins({
@@ -34,6 +45,9 @@ const notoKufiArabic = Noto_Kufi_Arabic({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
+  ),
   title: {
     default: "Nothing Advertising Agency",
     template: "%s | Nothing Advertising Agency",
@@ -86,9 +100,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${mulish.variable} ${roboto.variable} ${poppins.variable} ${anton.variable} ${notoKufiArabic.variable}`}
+      className={`${altair.variable} ${nexa.variable} ${poppins.variable} ${anton.variable} ${notoKufiArabic.variable}`}
+      suppressHydrationWarning
     >
-      <body className="overflow-x-hidden">
+      <body className="overflow-x-hidden" suppressHydrationWarning>
         <LayoutShell>{children}</LayoutShell>
       </body>
     </html>

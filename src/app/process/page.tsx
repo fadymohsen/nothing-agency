@@ -71,7 +71,7 @@ export default function ProcessPage() {
       <ParallaxTopShadow>Process</ParallaxTopShadow>
 
       {/* Hero */}
-      <section className="page-hero">
+      <section className="page-hero pt-[140px] md:pt-[180px]">
         <div className="page-hero-inner">
           <ScrollReveal>
             <p className="text-[var(--color-accent)] uppercase tracking-[4px] text-sm mb-5 text-center">

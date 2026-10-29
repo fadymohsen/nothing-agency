@@ -180,7 +180,7 @@ export default function ProcessPage() {
           <ScrollReveal delay={0.3}>
             <Link
               href="/contact"
-              className="hover-target inline-block bg-[var(--color-accent)] text-[var(--color-body)] px-12 py-4 uppercase tracking-[2px] text-sm font-bold transition-all hover:opacity-90"
+              className="hover-target inline-block bg-[var(--color-accent)] text-[#0a0a0a] px-12 py-4 uppercase tracking-[2px] text-sm font-bold transition-all duration-300 hover:bg-white hover:shadow-[0_0_30px_rgba(240,179,28,0.35)]"
             >
               Start a Project
             </Link>

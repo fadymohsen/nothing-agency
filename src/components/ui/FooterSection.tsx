@@ -25,7 +25,13 @@ export default function FooterSection({ shadowText, links }: FooterSectionProps)
                     href={link.href}
                     className="hover-target"
                   >
-                    <h4>{link.label}</h4>
+                    <h4>{link.label.includes('@') ? (
+                      <>
+                        {link.label.split('@')[0]}
+                        <span style={{ fontFamily: 'var(--font-roboto), sans-serif' }}>@</span>
+                        {link.label.split('@')[1]}
+                      </>
+                    ) : link.label}</h4>
                   </Link>
                 ))}
               </div>

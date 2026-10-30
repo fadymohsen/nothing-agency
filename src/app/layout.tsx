@@ -41,7 +41,7 @@ const anton = Anton({
 const notoKufiArabic = Noto_Kufi_Arabic({
   variable: "--font-noto-kufi",
   subsets: ["arabic"],
-  weight: ["300", "400", "500", "700"],
+  weight: "400",
 });
 
 export const metadata: Metadata = {

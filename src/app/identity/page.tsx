@@ -15,12 +15,12 @@ export default function IdentityPage() {
       <ParallaxTopShadow>Identity</ParallaxTopShadow>
 
       {/* Section 1 — Hero: Everything Starts As */}
-      <section className="relative min-h-screen flex items-center pt-[140px] md:pt-[180px] pb-[100px]">
+      <section className="relative min-h-screen flex items-center pt-[140px] md:pt-[180px] pb-[100px] bg-[#2D3239]">
         <div className="max-w-[1140px] mx-auto px-6 md:px-4 w-full">
           <ScrollReveal>
-            <h1 className="text-white text-[13px] md:text-[14px] lg:text-[15px] font-light uppercase tracking-[4px] leading-tight mb-0">
+            <p className="text-white !text-[13px] md:!text-[14px] lg:!text-[15px] !font-light uppercase tracking-[4px] leading-tight mb-0">
               Everything starts as
-            </h1>
+            </p>
           </ScrollReveal>
           <ScrollReveal delay={0.2}>
             <div className="w-full h-[2px] bg-[var(--color-accent)] my-10 md:my-14" />

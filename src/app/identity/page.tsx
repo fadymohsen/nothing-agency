@@ -1,4 +1,5 @@
 import ScrollReveal from "@/components/animations/ScrollReveal";
+import IdentityHero from "@/components/identity/IdentityHero";
 import FooterSection from "@/components/ui/FooterSection";
 import Image from "next/image";
 
@@ -10,31 +11,9 @@ export const metadata = {
 
 export default function IdentityPage() {
   return (
-    <>
+    <div className="bg-[#2D3239]">
       {/* Section 1 — Hero: Everything Starts As */}
-      <section className="relative min-h-screen flex items-center pt-[140px] md:pt-[180px] pb-[100px] bg-[#2D3239]">
-        <div className="max-w-[1140px] mx-auto px-6 md:px-4 w-full">
-          <ScrollReveal>
-            <p className="text-white !text-[13px] md:!text-[14px] lg:!text-[15px] !font-light uppercase tracking-[4px] leading-tight mb-0">
-              Everything starts as
-            </p>
-          </ScrollReveal>
-          <ScrollReveal delay={0.2}>
-            <div className="w-full h-[2px] bg-[var(--color-accent)] my-10 md:my-14" />
-          </ScrollReveal>
-          <ScrollReveal delay={0.4}>
-            <div className="flex justify-end">
-              <Image
-                src="/images/nothing-logo.png"
-                alt="Nothing Advertising Agency"
-                width={280}
-                height={80}
-                className="opacity-90"
-              />
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
+      <IdentityHero />
 
       {/* Section 2 — Philosophy */}
       <section className="relative z-10 bg-[var(--color-body)] py-[100px] md:py-[140px]">
@@ -243,6 +222,6 @@ export default function IdentityPage() {
         shadowText="Identity"
         links={[{ label: "Start a Project", href: "/contact" }]}
       />
-    </>
+    </div>
   );
 }

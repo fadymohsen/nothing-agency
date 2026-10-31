@@ -1,4 +1,3 @@
-import { ParallaxTopShadow } from "@/components/animations/ParallaxText";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import FooterSection from "@/components/ui/FooterSection";
 import Image from "next/image";
@@ -12,8 +11,6 @@ export const metadata = {
 export default function IdentityPage() {
   return (
     <>
-      <ParallaxTopShadow>Identity</ParallaxTopShadow>
-
       {/* Section 1 — Hero: Everything Starts As */}
       <section className="relative min-h-screen flex items-center pt-[140px] md:pt-[180px] pb-[100px] bg-[#2D3239]">
         <div className="max-w-[1140px] mx-auto px-6 md:px-4 w-full">

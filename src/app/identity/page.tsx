@@ -118,7 +118,7 @@ export default function IdentityPage() {
             <div className="mt-20 flex justify-center">
               <div className="relative w-full max-w-[600px] aspect-[3/4] rounded-sm overflow-hidden">
                 <Image
-                  src="/images/identity-portal.jpg"
+                  src="/images/identity-portal.png"
                   alt="The Nothing symbol visualized — a golden circular portal representing limitless possibility"
                   fill
                   className="object-cover"

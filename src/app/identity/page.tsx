@@ -18,7 +18,7 @@ export default function IdentityPage() {
       <section className="relative min-h-screen flex items-center pt-[140px] md:pt-[180px] pb-[100px]">
         <div className="max-w-[1140px] mx-auto px-6 md:px-4 w-full">
           <ScrollReveal>
-            <h1 className="text-white text-[18px] md:text-[22px] lg:text-[26px] font-light uppercase tracking-[4px] leading-tight mb-0">
+            <h1 className="text-white text-[13px] md:text-[14px] lg:text-[15px] font-light uppercase tracking-[4px] leading-tight mb-0">
               Everything starts as
             </h1>
           </ScrollReveal>

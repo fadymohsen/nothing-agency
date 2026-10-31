@@ -16,7 +16,7 @@ export default function IdentityPage() {
       <IdentityHero />
 
       {/* Section 2 — Philosophy */}
-      <section className="relative z-10 bg-[var(--color-body)] py-[100px] md:py-[140px]">
+      <section className="relative z-10 py-[100px] md:py-[140px]">
         <div className="max-w-[900px] mx-auto px-6 md:px-4">
           <ScrollReveal>
             <p className="text-[var(--color-body-text)] text-lg md:text-xl leading-relaxed mb-10">
@@ -36,12 +36,12 @@ export default function IdentityPage() {
       </section>
 
       {/* Divider */}
-      <div className="max-w-[1140px] mx-auto px-6 md:px-4 bg-[var(--color-body)]">
+      <div className="max-w-[1140px] mx-auto px-6 md:px-4">
         <div className="h-px bg-[var(--color-accent)]/20" />
       </div>
 
       {/* Section 3 — The Symbol */}
-      <section className="relative z-10 bg-[var(--color-body)] py-[100px] md:py-[140px]">
+      <section className="relative z-10 py-[100px] md:py-[140px]">
         <div className="max-w-[1140px] mx-auto px-6 md:px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Logo Display */}
@@ -106,12 +106,12 @@ export default function IdentityPage() {
       </section>
 
       {/* Divider */}
-      <div className="max-w-[1140px] mx-auto px-6 md:px-4 bg-[var(--color-body)]">
+      <div className="max-w-[1140px] mx-auto px-6 md:px-4">
         <div className="h-px bg-[var(--color-accent)]/20" />
       </div>
 
       {/* Section 4 — Logo Proportional System */}
-      <section className="relative z-10 bg-[var(--color-body)] py-[100px] md:py-[140px]">
+      <section className="relative z-10 py-[100px] md:py-[140px]">
         <div className="max-w-[1140px] mx-auto px-6 md:px-4">
           <ScrollReveal>
             <p className="text-[var(--color-accent)] uppercase tracking-[4px] text-sm mb-5">
@@ -160,12 +160,12 @@ export default function IdentityPage() {
       </section>
 
       {/* Divider */}
-      <div className="max-w-[1140px] mx-auto px-6 md:px-4 bg-[var(--color-body)]">
+      <div className="max-w-[1140px] mx-auto px-6 md:px-4">
         <div className="h-px bg-[var(--color-accent)]/20" />
       </div>
 
       {/* Section 5 — Symbol Integration */}
-      <section className="relative z-10 bg-[var(--color-body)] py-[100px] md:py-[140px]">
+      <section className="relative z-10 py-[100px] md:py-[140px]">
         <div className="max-w-[1140px] mx-auto px-6 md:px-4">
           <ScrollReveal>
             <p className="text-[var(--color-accent)] uppercase tracking-[4px] text-sm mb-5">

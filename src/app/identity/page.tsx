@@ -88,20 +88,6 @@ export default function IdentityPage() {
               </ScrollReveal>
             </div>
           </div>
-
-          {/* Portal Image */}
-          <ScrollReveal delay={0.2}>
-            <div className="mt-20 flex justify-center">
-              <div className="relative w-full max-w-[600px] aspect-[3/4] rounded-sm overflow-hidden">
-                <Image
-                  src="/images/identity-portal.png"
-                  alt="The Nothing symbol visualized — a golden circular portal representing limitless possibility"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            </div>
-          </ScrollReveal>
         </div>
       </section>
 

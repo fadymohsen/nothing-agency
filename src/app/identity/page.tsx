@@ -107,12 +107,12 @@ export default function IdentityPage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <ScrollReveal delay={0.1}>
-              <div className="relative w-full aspect-[16/9] rounded-sm overflow-hidden">
+              <div className="relative w-full aspect-[3/4] rounded-sm overflow-hidden">
                 <Image
-                  src="/images/identity-logo-grid.png"
-                  alt="Nothing logo proportional grid system"
+                  src="/images/identity-symbol-sculpture.png"
+                  alt="The Nothing symbol as a golden sculpture with dramatic lighting"
                   fill
-                  className="object-contain"
+                  className="object-cover"
                 />
               </div>
             </ScrollReveal>
@@ -142,20 +142,6 @@ export default function IdentityPage() {
               </ScrollReveal>
             </div>
           </div>
-
-          {/* Symbol Sculpture Image */}
-          <ScrollReveal delay={0.2}>
-            <div className="mt-20 flex justify-center">
-              <div className="relative w-full max-w-[600px] aspect-[3/4] rounded-sm overflow-hidden">
-                <Image
-                  src="/images/identity-symbol-sculpture.png"
-                  alt="The Nothing symbol as a golden sculpture with dramatic lighting"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            </div>
-          </ScrollReveal>
         </div>
       </section>
 

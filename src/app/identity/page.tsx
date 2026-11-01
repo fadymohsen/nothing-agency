@@ -194,11 +194,12 @@ export default function IdentityPage() {
                 </p>
               </ScrollReveal>
               <ScrollReveal delay={0.5}>
-              <p className="text-white text-xl md:text-2xl font-light leading-relaxed">
-                The symbol becomes the &ldquo;O&rdquo; &mdash; turning the name
-                itself into the identity.
-              </p>
-            </ScrollReveal>
+                <p className="text-white text-xl md:text-2xl font-light leading-relaxed">
+                  The symbol becomes the &ldquo;O&rdquo; &mdash; turning the name
+                  itself into the identity.
+                </p>
+              </ScrollReveal>
+            </div>
           </div>
         </div>
       </section>

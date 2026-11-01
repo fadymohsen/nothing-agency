@@ -142,6 +142,20 @@ export default function IdentityPage() {
               </ScrollReveal>
             </div>
           </div>
+
+          {/* Symbol Sculpture Image */}
+          <ScrollReveal delay={0.2}>
+            <div className="mt-20 flex justify-center">
+              <div className="relative w-full max-w-[600px] aspect-[3/4] rounded-sm overflow-hidden">
+                <Image
+                  src="/images/identity-symbol-sculpture.png"
+                  alt="The Nothing symbol as a golden sculpture with dramatic lighting"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 

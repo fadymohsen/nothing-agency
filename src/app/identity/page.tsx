@@ -105,9 +105,9 @@ export default function IdentityPage() {
             </p>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-stretch">
             <ScrollReveal delay={0.1}>
-              <div className="relative w-full aspect-[3/4] rounded-sm overflow-hidden">
+              <div className="relative w-full h-full min-h-[300px] rounded-sm overflow-hidden">
                 <Image
                   src="/images/identity-symbol-sculpture.png"
                   alt="The Nothing symbol as a golden sculpture with dramatic lighting"

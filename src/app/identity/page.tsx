@@ -44,39 +44,8 @@ export default function IdentityPage() {
       <section className="relative z-10 py-[100px] md:py-[140px]">
         <div className="max-w-[1140px] mx-auto px-6 md:px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            {/* Symbol Description */}
-            <div>
-              <ScrollReveal direction="left">
-                <p className="text-[var(--color-body-text)] text-base md:text-lg leading-relaxed mb-6">
-                  The symbol begins with an open space &mdash; a possibility
-                  without limits.
-                </p>
-              </ScrollReveal>
-              <ScrollReveal direction="left" delay={0.1}>
-                <p className="text-[var(--color-body-text)] text-base md:text-lg leading-relaxed mb-6">
-                  Inspired by Phi (<span className="text-[var(--color-accent)] font-bold">&Phi;</span>),
-                  the mark brings a mathematical sense of logic, proportion, and
-                  connection into the identity.
-                </p>
-              </ScrollReveal>
-              <ScrollReveal direction="left" delay={0.2}>
-                <p className="text-[var(--color-body-text)] text-base md:text-lg leading-relaxed mb-6">
-                  Its open circular form represents the limitless space where
-                  ideas begin, while the diagonal stroke breaks through that
-                  space creating movement, direction, and form.
-                </p>
-              </ScrollReveal>
-              <ScrollReveal direction="left" delay={0.3}>
-                <p className="text-white text-base md:text-lg leading-relaxed">
-                  It reflects the role of Nothing: starting with nothing, finding
-                  the connection, and turning possibility into something people
-                  remember.
-                </p>
-              </ScrollReveal>
-            </div>
-
             {/* Logo Display */}
-            <ScrollReveal direction="right">
+            <ScrollReveal direction="left">
               <div className="flex justify-center">
                 <Image
                   src="/images/nothing-logo.png"
@@ -87,6 +56,37 @@ export default function IdentityPage() {
                 />
               </div>
             </ScrollReveal>
+
+            {/* Symbol Description */}
+            <div>
+              <ScrollReveal direction="right">
+                <p className="text-[var(--color-body-text)] text-base md:text-lg leading-relaxed mb-6">
+                  The symbol begins with an open space &mdash; a possibility
+                  without limits.
+                </p>
+              </ScrollReveal>
+              <ScrollReveal direction="right" delay={0.1}>
+                <p className="text-[var(--color-body-text)] text-base md:text-lg leading-relaxed mb-6">
+                  Inspired by Phi (<span className="text-[var(--color-accent)] font-bold">&Phi;</span>),
+                  the mark brings a mathematical sense of logic, proportion, and
+                  connection into the identity.
+                </p>
+              </ScrollReveal>
+              <ScrollReveal direction="right" delay={0.2}>
+                <p className="text-[var(--color-body-text)] text-base md:text-lg leading-relaxed mb-6">
+                  Its open circular form represents the limitless space where
+                  ideas begin, while the diagonal stroke breaks through that
+                  space creating movement, direction, and form.
+                </p>
+              </ScrollReveal>
+              <ScrollReveal direction="right" delay={0.3}>
+                <p className="text-white text-base md:text-lg leading-relaxed">
+                  It reflects the role of Nothing: starting with nothing, finding
+                  the connection, and turning possibility into something people
+                  remember.
+                </p>
+              </ScrollReveal>
+            </div>
           </div>
         </div>
       </section>

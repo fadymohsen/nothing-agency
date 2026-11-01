@@ -159,42 +159,41 @@ export default function IdentityPage() {
             </p>
           </ScrollReveal>
 
-          <ScrollReveal delay={0.1}>
-            <div className="flex justify-center mb-16">
-              <div className="relative w-full max-w-[700px] aspect-[16/9] rounded-sm overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-stretch">
+            <ScrollReveal delay={0.1}>
+              <div className="relative w-full h-full min-h-[300px] rounded-sm overflow-hidden">
                 <Image
-                  src="/images/identity-wordmark.png"
-                  alt="Nothing wordmark with symbol integrated as the O"
+                  src="/images/identity-symbol-pedestal.png"
+                  alt="The Nothing symbol sculpture on a pedestal with golden lighting"
                   fill
-                  className="object-contain"
+                  className="object-cover"
                 />
               </div>
-            </div>
-          </ScrollReveal>
+            </ScrollReveal>
 
-          <div className="max-w-[800px]">
-            <ScrollReveal delay={0.2}>
-              <p className="text-[var(--color-body-text)] text-base md:text-lg leading-relaxed mb-6">
-                The Nothing symbol can also be integrated directly into the
-                wordmark, replacing the letter &ldquo;O&rdquo; in Nothing.
-              </p>
-            </ScrollReveal>
-            <ScrollReveal delay={0.3}>
-              <p className="text-[var(--color-body-text)] text-base md:text-lg leading-relaxed mb-6">
-                This creates a more distinctive and memorable expression of the
-                brand, allowing the symbol to become an integral part of the
-                name rather than functioning as a separate graphic element.
-              </p>
-            </ScrollReveal>
-            <ScrollReveal delay={0.4}>
-              <p className="text-[var(--color-body-text)] text-base md:text-lg leading-relaxed mb-6">
-                The integration reinforces the connection between the brand name
-                and its visual identity, creating a compact and recognizable
-                mark while preserving the original character of the Nothing
-                symbol.
-              </p>
-            </ScrollReveal>
-            <ScrollReveal delay={0.5}>
+            <div>
+              <ScrollReveal delay={0.2}>
+                <p className="text-[var(--color-body-text)] text-base md:text-lg leading-relaxed mb-6">
+                  The Nothing symbol can also be integrated directly into the
+                  wordmark, replacing the letter &ldquo;O&rdquo; in Nothing.
+                </p>
+              </ScrollReveal>
+              <ScrollReveal delay={0.3}>
+                <p className="text-[var(--color-body-text)] text-base md:text-lg leading-relaxed mb-6">
+                  This creates a more distinctive and memorable expression of the
+                  brand, allowing the symbol to become an integral part of the
+                  name rather than functioning as a separate graphic element.
+                </p>
+              </ScrollReveal>
+              <ScrollReveal delay={0.4}>
+                <p className="text-[var(--color-body-text)] text-base md:text-lg leading-relaxed mb-6">
+                  The integration reinforces the connection between the brand name
+                  and its visual identity, creating a compact and recognizable
+                  mark while preserving the original character of the Nothing
+                  symbol.
+                </p>
+              </ScrollReveal>
+              <ScrollReveal delay={0.5}>
               <p className="text-white text-xl md:text-2xl font-light leading-relaxed">
                 The symbol becomes the &ldquo;O&rdquo; &mdash; turning the name
                 itself into the identity.

@@ -2,12 +2,12 @@
 
 @theme inline {
   /* Core Brand Colors */
-  --color-body: #0B1A28;
+  --color-body: #2D3239;
   --color-body-text: #c2b9a7;
-  --color-dark: #0B1A28;
+  --color-dark: #2D3239;
   --color-dark-1: #252A2E;
-  --color-dark-2: #0B1A28;
-  --color-dark-3: #091320;
+  --color-dark-2: #2D3239;
+  --color-dark-3: #272C31;
   --color-accent: #F0B31C;
   --color-accent-hover: #d9a018;
   --color-ivory: #F4F1E8;
@@ -608,7 +608,7 @@ a:hover {
   height: 100vh;
   overflow: hidden;
   z-index: 10;
-  background-color: #0B1A28;
+  background-color: #2D3239;
 }
 
 /* Background images */

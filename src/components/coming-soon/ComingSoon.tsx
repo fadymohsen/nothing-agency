@@ -135,7 +135,7 @@ export default function ComingSoon() {
 
             {/* Contact link */}
             <motion.a
-              href="mailto:hello@nothingagency.com"
+              href="mailto:info@nothing-ads.com"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 1.3 }}

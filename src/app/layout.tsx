@@ -49,11 +49,11 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
   ),
   title: {
-    default: "Nothing Advertising Agency",
+    default: "Coming Soon | Nothing Advertising Agency",
     template: "%s | Nothing Advertising Agency",
   },
   description:
-    "Nothing Advertising Agency — Where bold ideas meet creative execution. We craft compelling brand identities, advertising campaigns, and digital experiences.",
+    "Something extraordinary is on its way. Nothing Advertising Agency — where bold ideas meet creative execution. Stay tuned.",
   keywords: [
     "creative agency",
     "ad studio",
@@ -62,29 +62,21 @@ export const metadata: Metadata = {
     "digital marketing",
     "creative design",
     "Nothing Advertising Agency",
+    "coming soon",
   ],
   authors: [{ name: "Nothing Advertising Agency" }],
   openGraph: {
     type: "website",
-    title: "Nothing Advertising Agency",
+    title: "Coming Soon | Nothing Advertising Agency",
     description:
-      "Where bold ideas meet creative execution. We craft compelling brand identities, advertising campaigns, and digital experiences.",
+      "Something extraordinary is on its way. Bold ideas, sharp execution, and a new standard in creative advertising.",
     siteName: "Nothing Advertising Agency",
-    images: [
-      {
-        url: "/images/nothing-logo.png",
-        width: 1200,
-        height: 630,
-        alt: "Nothing Advertising Agency Logo",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nothing Advertising Agency",
+    title: "Coming Soon | Nothing Advertising Agency",
     description:
-      "Where bold ideas meet creative execution. We craft compelling brand identities, advertising campaigns, and digital experiences.",
-    images: ["/images/nothing-logo.png"],
+      "Something extraordinary is on its way. Bold ideas, sharp execution, and a new standard in creative advertising.",
   },
   robots: {
     index: true,

@@ -71,12 +71,21 @@ export const metadata: Metadata = {
     description:
       "Something extraordinary is on its way. Bold ideas, sharp execution, and a new standard in creative advertising.",
     siteName: "Nothing Advertising Agency",
+    images: [
+      {
+        url: "/images/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Nothing Advertising Agency — Coming Soon",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Coming Soon | Nothing Advertising Agency",
     description:
       "Something extraordinary is on its way. Bold ideas, sharp execution, and a new standard in creative advertising.",
+    images: ["/images/og-image.png"],
   },
   robots: {
     index: true,

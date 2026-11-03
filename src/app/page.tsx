@@ -1,11 +1,5 @@
-import PortfolioSlider from "@/components/portfolio/PortfolioSlider";
-import HomeSections from "@/components/home/HomeSections";
+import ComingSoon from "@/components/coming-soon/ComingSoon";
 
 export default function HomePage() {
-  return (
-    <>
-      <PortfolioSlider />
-      <HomeSections />
-    </>
-  );
+  return <ComingSoon />;
 }

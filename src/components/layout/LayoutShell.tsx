@@ -12,11 +12,16 @@ import { navItems } from "@/data/navigation";
 export default function LayoutShell({ children }: { children: React.ReactNode }) {
   const [navActive, setNavActive] = useState(false);
   const pathname = usePathname();
+  const isComingSoon = pathname === "/";
 
   const currentNav = navItems.find((item) =>
     item.href === "/" ? pathname === "/" : pathname.startsWith(item.href)
   );
   const currentPageTitle = currentNav?.titleAttr || "home";
+
+  if (isComingSoon) {
+    return <>{children}</>;
+  }
 
   return (
     <div className={navActive ? "nav-active" : ""}>

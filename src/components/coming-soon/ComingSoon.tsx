@@ -103,45 +103,64 @@ export default function ComingSoon() {
               className="w-[60px] h-[2px] bg-[var(--color-accent)] mb-10 origin-center"
             />
 
-            {/* COMING SOON headline */}
+            {/* YOUR BRAND DESERVES NOTHING. */}
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="text-white text-center !text-[36px] md:!text-[56px] lg:!text-[72px] !font-[100] !leading-[1.1] tracking-[8px] md:tracking-[14px] uppercase mb-6"
+              className="text-white text-center !text-[32px] md:!text-[48px] lg:!text-[64px] !font-[100] !leading-[1.1] tracking-[6px] md:tracking-[10px] uppercase mb-8"
               style={{ fontFamily: "var(--font-muli)" }}
             >
-              Coming Soon
+              Your brand deserves nothing.
             </motion.h1>
 
-            {/* Subtext */}
+            {/* We should talk. */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.9 }}
-              className="text-[var(--color-body-text)] text-center text-sm md:text-base max-w-[480px] leading-relaxed tracking-[1px] mb-14"
+              className="text-[var(--color-body-text)] text-center text-lg md:text-xl tracking-[2px] mb-3"
             >
-              We are crafting something extraordinary. Bold ideas, sharp execution,
-              and a new standard in creative advertising.
+              We should talk.
+            </motion.p>
+
+            {/* Website coming soon. */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1.05 }}
+              className="text-[var(--color-body-text)] text-center text-sm md:text-base tracking-[2px] mb-1"
+            >
+              Website coming soon.
+            </motion.p>
+
+            {/* Ideas available now. */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1.2 }}
+              className="text-[var(--color-body-text)] text-center text-sm md:text-base tracking-[2px] mb-14"
+            >
+              Ideas available now.
             </motion.p>
 
             {/* Accent line below */}
             <motion.div
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
-              transition={{ duration: 0.8, delay: 1.1, ease: [0.25, 0.1, 0.25, 1] }}
+              transition={{ duration: 0.8, delay: 1.35, ease: [0.25, 0.1, 0.25, 1] }}
               className="w-[120px] h-px bg-white/10 mb-14 origin-center"
             />
 
-            {/* Contact link */}
+            {/* CTA — LET'S MAKE SOMETHING together. */}
             <motion.a
               href="mailto:info@nothing-ads.com"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 1.3 }}
-              className="group relative text-[var(--color-accent)] text-sm tracking-[3px] uppercase transition-all duration-300 hover:text-white"
+              transition={{ duration: 0.8, delay: 1.5 }}
+              className="group relative text-[var(--color-accent)] text-sm md:text-base tracking-[3px] uppercase transition-all duration-300 hover:text-white"
             >
-              Get in Touch
+              Let&apos;s make something together.
               <span className="block h-[1px] w-0 bg-white mt-1 transition-all duration-300 group-hover:w-full" />
             </motion.a>
 

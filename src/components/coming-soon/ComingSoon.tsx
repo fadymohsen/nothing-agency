@@ -108,7 +108,7 @@ export default function ComingSoon() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="text-white text-center !text-[32px] md:!text-[48px] lg:!text-[64px] !font-[100] !leading-[1.1] tracking-[6px] md:tracking-[10px] uppercase mb-8"
+              className="text-white text-center !text-[32px] md:!text-[48px] lg:!text-[64px] !font-[100] !leading-[1.1] tracking-[6px] md:tracking-[10px] uppercase mb-12 md:mb-16"
               style={{ fontFamily: "var(--font-muli)" }}
             >
               Your brand deserves nothing.
@@ -119,7 +119,7 @@ export default function ComingSoon() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.9 }}
-              className="text-[var(--color-body-text)] text-center text-lg md:text-xl tracking-[2px] mb-3"
+              className="text-[var(--color-body-text)] text-center text-lg md:text-xl tracking-[2px] mb-6 md:mb-8"
             >
               We should talk.
             </motion.p>
@@ -129,7 +129,7 @@ export default function ComingSoon() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.05 }}
-              className="text-[var(--color-body-text)] text-center text-sm md:text-base tracking-[2px] mb-1"
+              className="text-[var(--color-body-text)] text-center text-sm md:text-base tracking-[2px] mb-4 md:mb-5"
             >
               Website coming soon.
             </motion.p>
@@ -139,7 +139,7 @@ export default function ComingSoon() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.2 }}
-              className="text-[var(--color-body-text)] text-center text-sm md:text-base tracking-[2px] mb-14"
+              className="text-[var(--color-body-text)] text-center text-sm md:text-base tracking-[2px] mb-16 md:mb-20"
             >
               Ideas available now.
             </motion.p>

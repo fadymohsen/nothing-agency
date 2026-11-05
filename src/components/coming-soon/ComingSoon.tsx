@@ -79,39 +79,30 @@ export default function ComingSoon() {
             transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
             className="relative z-10 min-h-screen flex flex-col items-center justify-center px-6"
           >
-            {/* Logo at top */}
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="mb-10 md:mb-14"
-            >
-              <Image
-                src="/images/nothing-logo.png"
-                alt="Nothing Advertising Agency"
-                width={200}
-                height={60}
-                className="opacity-80"
-              />
-            </motion.div>
-
             {/* Accent line */}
             <motion.div
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
-              transition={{ duration: 1, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+              transition={{ duration: 1, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
               className="w-[60px] h-[2px] bg-[var(--color-accent)] mb-8 md:mb-10 origin-center"
             />
 
-            {/* YOUR BRAND DESERVES NOTHING. */}
+            {/* YOUR BRAND DESERVES NOTHING. — with logo replacing "nothing" */}
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="text-white text-center !text-[24px] md:!text-[36px] lg:!text-[48px] !font-[100] !leading-[1.2] tracking-[6px] md:tracking-[10px] uppercase mb-10 md:mb-14"
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="text-white text-center !text-[24px] md:!text-[36px] lg:!text-[48px] !font-[100] !leading-[1.2] tracking-[6px] md:tracking-[10px] uppercase mb-10 md:mb-14 flex flex-wrap items-center justify-center gap-x-3 md:gap-x-4"
               style={{ fontFamily: "var(--font-muli)" }}
             >
-              Your brand deserves nothing.
+              <span>Your brand deserves</span>
+              <Image
+                src="/images/nothing-logo.png"
+                alt="Nothing"
+                width={200}
+                height={57}
+                className="inline-block h-[28px] md:h-[40px] lg:h-[52px] w-auto opacity-90"
+              />
             </motion.h1>
 
             {/* We should talk. */}
@@ -152,16 +143,17 @@ export default function ComingSoon() {
               className="w-[120px] h-px bg-white/10 mb-10 md:mb-12 origin-center"
             />
 
-            {/* CTA — LET'S MAKE SOMETHING together. */}
+            {/* CTA — LET'S MAKE SOMETHING TOGETHER button */}
             <motion.a
-              href="mailto:info@nothing-ads.com"
+              href="https://nothing-ads.com/contact"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 1.5 }}
-              className="group relative text-[var(--color-accent)] text-sm md:text-base tracking-[3px] uppercase transition-all duration-300 hover:text-white"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
+              className="inline-block px-10 py-4 border border-[var(--color-accent)] text-[var(--color-accent)] text-sm md:text-base tracking-[3px] uppercase transition-all duration-500 hover:bg-[var(--color-accent)] hover:text-[#2D3239] cursor-pointer"
             >
               Let&apos;s make something together.
-              <span className="block h-[1px] w-0 bg-white mt-1 transition-all duration-300 group-hover:w-full" />
             </motion.a>
 
             {/* Bottom copyright */}

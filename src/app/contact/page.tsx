@@ -47,11 +47,11 @@ export default function ContactPage() {
 
                     <h6 className="mb-3">Visit Us</h6>
                     <p className="mb-6">
-                      123 Creative Street
+                      2 Al-Maza Main Street, at the intersection
                       <br />
-                      Design District
+                      with Al-Thawra Main Street, Office 1
                       <br />
-                      New York, NY 10001
+                      Cairo, Egypt
                     </p>
 
                     <div className="separator-wrap py-4">
@@ -84,7 +84,7 @@ export default function ContactPage() {
             <div className="absolute inset-0 flex items-center justify-center z-10">
               <div className="text-center">
                 <h5 className="text-white mb-4">
-                  123 Creative Street, New York
+                  2 Al-Maza Main Street, Cairo, Egypt
                 </h5>
                 <a
                   href="#"

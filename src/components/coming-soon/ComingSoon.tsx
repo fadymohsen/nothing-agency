@@ -84,7 +84,7 @@ export default function ComingSoon() {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="mb-16 md:mb-20"
+              className="mb-10 md:mb-14"
             >
               <Image
                 src="/images/nothing-logo.png"
@@ -100,7 +100,7 @@ export default function ComingSoon() {
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ duration: 1, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-              className="w-[60px] h-[2px] bg-[var(--color-accent)] mb-10 origin-center"
+              className="w-[60px] h-[2px] bg-[var(--color-accent)] mb-8 md:mb-10 origin-center"
             />
 
             {/* YOUR BRAND DESERVES NOTHING. */}
@@ -108,7 +108,7 @@ export default function ComingSoon() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="text-white text-center !text-[32px] md:!text-[48px] lg:!text-[64px] !font-[100] !leading-[1.1] tracking-[6px] md:tracking-[10px] uppercase mb-12 md:mb-16"
+              className="text-white text-center !text-[24px] md:!text-[36px] lg:!text-[48px] !font-[100] !leading-[1.2] tracking-[6px] md:tracking-[10px] uppercase mb-10 md:mb-14"
               style={{ fontFamily: "var(--font-muli)" }}
             >
               Your brand deserves nothing.
@@ -119,7 +119,7 @@ export default function ComingSoon() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.9 }}
-              className="text-[var(--color-body-text)] text-center text-lg md:text-xl tracking-[2px] mb-6 md:mb-8"
+              className="text-white/70 text-center text-base md:text-lg tracking-[2px] mb-8 md:mb-10"
             >
               We should talk.
             </motion.p>
@@ -129,7 +129,7 @@ export default function ComingSoon() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.05 }}
-              className="text-[var(--color-body-text)] text-center text-sm md:text-base tracking-[2px] mb-4 md:mb-5"
+              className="text-[var(--color-body-text)] text-center text-sm md:text-base tracking-[2px] mb-3"
             >
               Website coming soon.
             </motion.p>
@@ -139,7 +139,7 @@ export default function ComingSoon() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.2 }}
-              className="text-[var(--color-body-text)] text-center text-sm md:text-base tracking-[2px] mb-16 md:mb-20"
+              className="text-[var(--color-body-text)] text-center text-sm md:text-base tracking-[2px] mb-12 md:mb-16"
             >
               Ideas available now.
             </motion.p>
@@ -149,7 +149,7 @@ export default function ComingSoon() {
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ duration: 0.8, delay: 1.35, ease: [0.25, 0.1, 0.25, 1] }}
-              className="w-[120px] h-px bg-white/10 mb-14 origin-center"
+              className="w-[120px] h-px bg-white/10 mb-10 md:mb-12 origin-center"
             />
 
             {/* CTA — LET'S MAKE SOMETHING together. */}

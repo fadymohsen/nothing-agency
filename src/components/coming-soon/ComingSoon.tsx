@@ -151,7 +151,7 @@ export default function ComingSoon() {
               transition={{ duration: 0.8, delay: 1.5 }}
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
-              className="inline-block px-10 py-4 border border-[var(--color-accent)] text-[var(--color-accent)] text-sm md:text-base tracking-[3px] uppercase transition-all duration-500 hover:bg-[var(--color-accent)] hover:text-[#2D3239] cursor-pointer"
+              className="inline-block px-10 py-4 border border-[var(--color-accent)] text-[var(--color-accent)] text-sm md:text-base tracking-[3px] uppercase transition-all duration-500 hover:bg-[#F5C518] hover:border-[#F5C518] hover:text-black cursor-pointer"
             >
               Let&apos;s make something together.
             </motion.a>

@@ -13,6 +13,7 @@ export default function LayoutShell({ children }: { children: React.ReactNode })
   const [navActive, setNavActive] = useState(false);
   const pathname = usePathname();
   const isComingSoon = pathname === "/";
+  const isContact = pathname === "/contact";
 
   const currentNav = navItems.find((item) =>
     item.href === "/" ? pathname === "/" : pathname.startsWith(item.href)
@@ -26,14 +27,18 @@ export default function LayoutShell({ children }: { children: React.ReactNode })
   return (
     <div className={navActive ? "nav-active" : ""}>
       <SparkleBackground />
-      <Header
-        onToggleNav={() => setNavActive(!navActive)}
-        navActive={navActive}
-      />
-      <Navigation
-        onClose={() => setNavActive(false)}
-        currentPageTitle={currentPageTitle}
-      />
+      {!isContact && (
+        <>
+          <Header
+            onToggleNav={() => setNavActive(!navActive)}
+            navActive={navActive}
+          />
+          <Navigation
+            onClose={() => setNavActive(false)}
+            currentPageTitle={currentPageTitle}
+          />
+        </>
+      )}
       {children}
       <Footer />
       <CustomCursor />

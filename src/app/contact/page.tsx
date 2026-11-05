@@ -37,7 +37,7 @@ export default function ContactPage() {
                 <ScrollReveal delay={0.2}>
                   <div className="bg-dark-3 rounded-[0.35rem] p-10">
                     <h6 className="mb-3">Call Us</h6>
-                    <p className="mb-6">+1 234 567 890</p>
+                    <p className="mb-6">+20 12 73890104</p>
 
                     <div className="separator-wrap py-4">
                       <span className="separator">

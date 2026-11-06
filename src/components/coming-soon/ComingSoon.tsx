@@ -101,7 +101,7 @@ export default function ComingSoon() {
                 alt="Nothing"
                 width={280}
                 height={80}
-                className="mt-4 md:mt-6 h-[36px] md:h-[50px] lg:h-[64px] w-auto opacity-90"
+                className="mt-4 md:mt-6 h-[46px] md:h-[62px] lg:h-[80px] w-auto opacity-90"
               />
             </motion.h1>
 

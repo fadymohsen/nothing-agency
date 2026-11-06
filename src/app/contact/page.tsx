@@ -47,7 +47,7 @@ export default function ContactPage() {
 
                     <h6 className="mb-3">Visit Us</h6>
                     <p className="mb-6">
-                      2 Al-Maza Main Street, at the intersection
+                      2 Almaza Main Street, at the intersection
                       <br />
                       with Al-Thawra Main Street, Office 1
                       <br />
@@ -63,10 +63,10 @@ export default function ContactPage() {
                     <h6 className="mb-3">Email Us</h6>
                     <p>
                       <a
-                        href="mailto:hello@nothingagency.com"
+                        href="mailto:info@nothing-ads.com"
                         className="hover-target text-body-text hover:text-white transition-colors"
                       >
-                        hello@nothingagency.com
+                        info@nothing-ads.com
                       </a>
                     </p>
                   </div>
@@ -84,7 +84,7 @@ export default function ContactPage() {
             <div className="absolute inset-0 flex items-center justify-center z-10">
               <div className="text-center">
                 <h5 className="text-white mb-4">
-                  2 Al-Maza Main Street, Cairo, Egypt
+                  2 Almaza Main Street, Cairo, Egypt
                 </h5>
                 <a
                   href="#"
@@ -100,7 +100,7 @@ export default function ContactPage() {
 
       <FooterSection
         shadowText="Hello"
-        links={[{ label: "hello@nothingagency.com", href: "mailto:hello@nothingagency.com" }]}
+        links={[{ label: "info@nothing-ads.com", href: "mailto:info@nothing-ads.com" }]}
       />
     </>
   );

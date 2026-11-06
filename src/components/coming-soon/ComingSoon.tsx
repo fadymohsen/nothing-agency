@@ -92,16 +92,16 @@ export default function ComingSoon() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
-              className="text-white text-center !text-[24px] md:!text-[36px] lg:!text-[48px] !font-[100] !leading-[1.2] tracking-[6px] md:tracking-[10px] uppercase mb-10 md:mb-14 flex flex-wrap items-center justify-center gap-x-3 md:gap-x-4"
+              className="text-white text-center !text-[24px] md:!text-[36px] lg:!text-[48px] !font-[100] !leading-[1.2] tracking-[6px] md:tracking-[10px] uppercase mb-10 md:mb-14 flex flex-col items-center"
               style={{ fontFamily: "var(--font-muli)" }}
             >
               <span>Your brand deserves</span>
               <Image
                 src="/images/nothing-logo.png"
                 alt="Nothing"
-                width={200}
-                height={57}
-                className="inline-block h-[28px] md:h-[40px] lg:h-[52px] w-auto opacity-90"
+                width={280}
+                height={80}
+                className="mt-4 md:mt-6 h-[36px] md:h-[50px] lg:h-[64px] w-auto opacity-90"
               />
             </motion.h1>
 

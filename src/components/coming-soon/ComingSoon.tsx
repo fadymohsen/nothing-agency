@@ -105,35 +105,23 @@ export default function ComingSoon() {
               />
             </motion.h1>
 
-            {/* We should talk. */}
-            <motion.p
+            {/* Three lines grouped together with spacing above and below */}
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.9 }}
-              className="text-white/70 text-center text-base md:text-lg tracking-[2px] mb-8 md:mb-10"
+              className="mt-6 md:mt-8 mb-12 md:mb-16 flex flex-col items-center gap-2"
             >
-              We should talk.
-            </motion.p>
-
-            {/* Website coming soon. */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.05 }}
-              className="text-[var(--color-body-text)] text-center text-sm md:text-base tracking-[2px] mb-3"
-            >
-              Website coming soon.
-            </motion.p>
-
-            {/* Ideas available now. */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.2 }}
-              className="text-[var(--color-body-text)] text-center text-sm md:text-base tracking-[2px] mb-12 md:mb-16"
-            >
-              Ideas available now.
-            </motion.p>
+              <p className="text-white/70 text-center text-base md:text-lg tracking-[2px]">
+                We should talk.
+              </p>
+              <p className="text-[var(--color-body-text)] text-center text-sm md:text-base tracking-[2px]">
+                Website coming soon.
+              </p>
+              <p className="text-[var(--color-body-text)] text-center text-sm md:text-base tracking-[2px]">
+                Ideas available now.
+              </p>
+            </motion.div>
 
             {/* Accent line below */}
             <motion.div

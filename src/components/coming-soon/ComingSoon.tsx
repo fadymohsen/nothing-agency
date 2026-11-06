@@ -92,7 +92,7 @@ export default function ComingSoon() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
-              className="text-white text-center !text-[24px] md:!text-[36px] lg:!text-[48px] !font-[100] !leading-[1.2] tracking-[6px] md:tracking-[10px] uppercase mb-10 md:mb-14 flex flex-col items-center"
+              className="w-full text-white text-center !text-[24px] md:!text-[36px] lg:!text-[48px] !font-[100] !leading-[1.2] tracking-[6px] md:tracking-[10px] uppercase mb-10 md:mb-14 flex flex-col items-center"
               style={{ fontFamily: "var(--font-muli)" }}
             >
               <span>Your brand deserves</span>

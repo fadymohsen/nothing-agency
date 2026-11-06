@@ -77,7 +77,7 @@ export default function ComingSoon() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
-            className="relative z-10 min-h-screen flex flex-col items-center justify-center px-6"
+            className="relative z-10 min-h-screen flex flex-col items-center justify-center px-6 pt-0 md:pt-0 -mt-16 md:mt-0"
           >
             {/* Accent line */}
             <motion.div
@@ -101,7 +101,7 @@ export default function ComingSoon() {
                 alt="Nothing"
                 width={280}
                 height={80}
-                className="mt-4 md:mt-6 h-[46px] md:h-[62px] lg:h-[80px] w-auto opacity-90"
+                className="mt-4 md:mt-6 h-[60px] md:h-[80px] lg:h-[100px] w-auto opacity-90"
               />
             </motion.h1>
 

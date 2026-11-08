@@ -131,7 +131,7 @@ export default function ComingSoon() {
               className="w-[120px] h-px bg-white/10 mb-10 md:mb-12 origin-center"
             />
 
-            {/* CTA — LET'S MAKE SOMETHING TOGETHER button */}
+            {/* CTA — LET'S CREATE SOMETHING TOGETHER button */}
             <motion.a
               href="https://nothing-ads.com/contact"
               initial={{ opacity: 0 }}
@@ -139,7 +139,7 @@ export default function ComingSoon() {
               transition={{ duration: 0.8, delay: 1.5 }}
               className="px-12 md:px-16 py-5 border border-[var(--color-accent)] text-[var(--color-accent)] text-sm md:text-base tracking-[3px] uppercase text-center transition-colors duration-500 hover:bg-[var(--color-accent)] hover:!text-[#1a1d21] cursor-pointer"
             >
-              Let&apos;s make something together.
+              Let&apos;s create something together.
             </motion.a>
 
             {/* Bottom copyright */}

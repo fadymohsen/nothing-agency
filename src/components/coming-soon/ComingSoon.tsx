@@ -137,9 +137,7 @@ export default function ComingSoon() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 1.5 }}
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.98 }}
-              className="px-12 md:px-16 py-5 border border-[var(--color-accent)] text-[var(--color-accent)] text-sm md:text-base tracking-[3px] uppercase text-center transition-all duration-500 hover:bg-[var(--color-accent)] hover:text-[#2D3239] cursor-pointer"
+              className="px-12 md:px-16 py-5 border border-[var(--color-accent)] text-[var(--color-accent)] text-sm md:text-base tracking-[3px] uppercase text-center transition-colors duration-500 hover:bg-[var(--color-accent)] hover:!text-[#1a1d21] cursor-pointer"
             >
               Let&apos;s make something together.
             </motion.a>
@@ -149,7 +147,7 @@ export default function ComingSoon() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 1.5 }}
-              className="absolute bottom-8 text-white/20 text-xs tracking-[2px] uppercase"
+              className="absolute bottom-6 text-white/20 text-xs tracking-[2px] uppercase"
             >
               Nothing Advertising Agency
             </motion.p>

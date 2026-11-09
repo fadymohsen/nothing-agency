@@ -304,6 +304,20 @@ export default function PortfolioSlider() {
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
+      {/* Mobile only: rotate the slide photos 90deg counter-clockwise so landscape art fills a portrait screen */}
+      <style>{`@media (max-width: 767px) {
+        .euthenia-slider .euthenia-bg-image {
+          top: 50% !important;
+          left: 50% !important;
+          width: 100vh !important;
+          height: 100vw !important;
+          transform: translate(-50%, -50%) rotate(-90deg) scale(1.05) !important;
+        }
+        .euthenia-slider .euthenia-bg-image.active {
+          transform: translate(-50%, -50%) rotate(-90deg) scale(1) !important;
+        }
+      }`}</style>
+
       {/* Background Images */}
       <div className="euthenia-bg-images">
         {sliderItems.map((item, i) => {

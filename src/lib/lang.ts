@@ -1,16 +1,13 @@
 export type Lang = "en" | "ar";
 
 /** Slugs that have a full content page (English at /slug, Arabic at /ar/slug). */
+// Hidden for now (content kept in data files): home, nothing-lab, nothing-just-feel, lets-create
 export const PAGE_SLUGS = [
-  "home",
   "about-us",
   "what-we-do",
   "manifesto",
   "from-nothing",
-  "nothing-lab",
   "unseen",
-  "nothing-just-feel",
-  "lets-create",
 ] as const;
 
 /** Routes that exist in the Arabic tree (used by the language switcher). */

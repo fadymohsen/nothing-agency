@@ -18,7 +18,7 @@ export default function PortfolioSlider() {
 
   const lang = useLang();
   const sliderItems = portfolioItems
-    .filter((item) => !item.hideFromSlider)
+    .filter((item) => !item.hideFromSlider && !item.hidden)
     .map((item) => ({
       ...item,
       title: getPage(item.slug, lang)?.title ?? item.title,

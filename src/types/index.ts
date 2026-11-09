@@ -12,6 +12,8 @@ export interface PortfolioItem {
   concept?: string;
   images?: string[];
   hideFromSlider?: boolean;
+  /** Content page kept in the codebase but not routed, listed or shown while true. */
+  hidden?: boolean;
   page?: PageContent;
 }
 

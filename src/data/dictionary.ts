@@ -3,17 +3,14 @@ import type { Lang } from "@/lib/lang";
 export const dict = {
   en: {
     nav: [
-      { label: "Home", href: "/", titleAttr: "home" },
       { label: "About Us", href: "/about-us", titleAttr: "about" },
       { label: "What We Do", href: "/what-we-do", titleAttr: "services" },
       { label: "Manifesto", href: "/manifesto", titleAttr: "manifesto" },
       { label: "From Nothing", href: "/from-nothing", titleAttr: "story" },
-      { label: "Nothing Lab", href: "/nothing-lab", titleAttr: "lab" },
       { label: "Unseen", href: "/unseen", titleAttr: "unseen" },
-      { label: "Nothing Just Feel", href: "/nothing-just-feel", titleAttr: "feel" },
-      { label: "Let's Create", href: "/lets-create", titleAttr: "create" },
       { label: "Contact", href: "/contact", titleAttr: "contact" },
     ],
+    homeTitle: "home",
     switchLabel: "العربية",
     prev: "Prev Page",
     next: "Next Page",
@@ -53,17 +50,14 @@ export const dict = {
   },
   ar: {
     nav: [
-      { label: "الرئيسية", href: "/", titleAttr: "الرئيسية" },
       { label: "من نحن", href: "/about-us", titleAttr: "من نحن" },
       { label: "ماذا نفعل", href: "/what-we-do", titleAttr: "خدماتنا" },
       { label: "المانيفستو", href: "/manifesto", titleAttr: "المانيفستو" },
       { label: "من اللاشيء", href: "/from-nothing", titleAttr: "قصتنا" },
-      { label: "مختبر اللاشيء", href: "/nothing-lab", titleAttr: "المختبر" },
       { label: "ما وراء الكواليس", href: "/unseen", titleAttr: "الكواليس" },
-      { label: "مساحة الشعور", href: "/nothing-just-feel", titleAttr: "الشعور" },
-      { label: "لنبدع معاً", href: "/lets-create", titleAttr: "لنبدع" },
       { label: "تواصل معنا", href: "/contact", titleAttr: "تواصل" },
     ],
+    homeTitle: "الرئيسية",
     switchLabel: "English",
     prev: "الصفحة السابقة",
     next: "الصفحة التالية",

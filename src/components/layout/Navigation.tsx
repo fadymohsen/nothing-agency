@@ -22,10 +22,7 @@ export default function Navigation({ onClose, currentPageTitle }: NavigationProp
         <ul className="relative p-0 m-0 z-[2] list-none">
           {items.map((item) => {
             const href = withLang(item.href, lang);
-            const isActive =
-              item.href === "/"
-                ? pathname === href || pathname === withLang("/home", lang)
-                : pathname.startsWith(href);
+            const isActive = pathname.startsWith(href);
             return (
               <li
                 key={item.href}

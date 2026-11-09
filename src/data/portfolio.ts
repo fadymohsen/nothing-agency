@@ -24,6 +24,7 @@ export const portfolioItems: PortfolioItem[] = [
   },
   {
     slug: "home",
+    hidden: true,
     title: "Home",
     category: "Pages",
     categorySlug: "pages",
@@ -160,6 +161,7 @@ export const portfolioItems: PortfolioItem[] = [
   },
   {
     slug: "nothing-lab",
+    hidden: true,
     title: "Nothing Lab",
     category: "Pages",
     categorySlug: "pages",
@@ -193,6 +195,7 @@ export const portfolioItems: PortfolioItem[] = [
   },
   {
     slug: "nothing-just-feel",
+    hidden: true,
     title: "Nothing Just Feel",
     category: "Pages",
     categorySlug: "pages",
@@ -208,6 +211,7 @@ export const portfolioItems: PortfolioItem[] = [
   },
   {
     slug: "lets-create",
+    hidden: true,
     title: "Let's Create",
     category: "Pages",
     categorySlug: "pages",

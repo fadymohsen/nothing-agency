@@ -11,7 +11,7 @@ export interface ResolvedPage {
   page: PageContent;
 }
 
-export const sitePages = portfolioItems.filter((p) => p.page);
+export const sitePages = portfolioItems.filter((p) => p.page && !p.hidden);
 
 export function getPage(slug: string, lang: Lang): ResolvedPage | undefined {
   const item = sitePages.find((p) => p.slug === slug);

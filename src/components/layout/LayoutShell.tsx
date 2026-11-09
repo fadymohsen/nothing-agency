@@ -18,12 +18,9 @@ export default function LayoutShell({ children }: { children: React.ReactNode })
 
   const currentNav = t(lang).nav.find((item) => {
     const href = withLang(item.href, lang);
-    if (item.href === "/") {
-      return pathname === href || pathname === withLang("/home", lang);
-    }
     return pathname.startsWith(href);
   });
-  const currentPageTitle = currentNav?.titleAttr ?? t(lang).nav[0].titleAttr;
+  const currentPageTitle = currentNav?.titleAttr ?? t(lang).homeTitle;
 
   useEffect(() => {
     document.documentElement.lang = lang;

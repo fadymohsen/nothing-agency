@@ -8,7 +8,7 @@ interface FooterSectionProps {
 
 export default function FooterSection({ shadowText, links }: FooterSectionProps) {
   return (
-    <section className="relative w-full block py-[100px] overflow-hidden z-10 bg-dark-3">
+    <section className="relative w-full block py-[var(--space-section)] overflow-hidden z-10 bg-dark-3">
       {shadowText && (
         <ScrollReveal>
           <div className="shadow-on-footer">{shadowText}</div>

@@ -12,6 +12,17 @@ export interface PortfolioItem {
   concept?: string;
   images?: string[];
   hideFromSlider?: boolean;
+  page?: PageContent;
+}
+
+export interface PageContent {
+  heading: string;
+  lead?: string;
+  paragraphs?: string[];
+  pointsTitle?: string;
+  points?: { title: string; text: string }[];
+  closing?: string;
+  ctas?: { label: string; href: string }[];
 }
 
 export interface BlogPost {

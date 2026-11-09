@@ -3,6 +3,9 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import Link from "next/link";
 import { portfolioItems } from "@/data/portfolio";
+import { getPage } from "@/lib/pages";
+import { pageHref } from "@/lib/lang";
+import { useLang } from "@/lib/useLang";
 
 export default function PortfolioSlider() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -13,8 +16,15 @@ export default function PortfolioSlider() {
   const scrubberRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
 
-  const sliderItems = portfolioItems.filter((item) => !item.hideFromSlider);
+  const lang = useLang();
+  const sliderItems = portfolioItems
+    .filter((item) => !item.hideFromSlider)
+    .map((item) => ({
+      ...item,
+      title: getPage(item.slug, lang)?.title ?? item.title,
+    }));
   const total = sliderItems.length;
+  const rtl = lang === "ar";
   const [titleWidth, setTitleWidth] = useState(420);
   const [titleOffset, setTitleOffset] = useState(100);
   const [gap, setGap] = useState(200);
@@ -64,7 +74,7 @@ export default function PortfolioSlider() {
     return () => window.removeEventListener("resize", updateWidth);
   }, []);
 
-  // Smooth animation loop — lerp toward target
+  // Smooth animation loop -  lerp toward target
   const animate = useCallback(() => {
     const current = scrollPosRef.current;
     const target = targetScrollRef.current;
@@ -124,14 +134,16 @@ export default function PortfolioSlider() {
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowRight" || e.key === "ArrowDown") goNext();
-      if (e.key === "ArrowLeft" || e.key === "ArrowUp") goPrev();
+      const forward = rtl ? "ArrowLeft" : "ArrowRight";
+      const back = rtl ? "ArrowRight" : "ArrowLeft";
+      if (e.key === forward || e.key === "ArrowDown") goNext();
+      if (e.key === back || e.key === "ArrowUp") goPrev();
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [goNext, goPrev]);
+  }, [goNext, goPrev, rtl]);
 
-  // Mouse wheel — smooth continuous scroll, release at boundaries
+  // Mouse wheel -  smooth continuous scroll, release at boundaries
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -176,7 +188,7 @@ export default function PortfolioSlider() {
         "touches" in e
           ? (e as TouchEvent).touches[0].clientX
           : (e as MouseEvent).clientX;
-      const diff = clientX - dragRef.current.startX;
+      const diff = (clientX - dragRef.current.startX) * (rtl ? -1 : 1);
       const trackWidth = trackRef.current.offsetWidth;
       const newX = Math.max(
         0,
@@ -214,7 +226,7 @@ export default function PortfolioSlider() {
       window.removeEventListener("touchmove", handleMove);
       window.removeEventListener("touchend", handleUp);
     };
-  }, [isDragging, dragX, maxScroll, stepSize, goToSlide]);
+  }, [isDragging, dragX, maxScroll, stepSize, goToSlide, rtl]);
 
   // Sync scrubber position to scroll
   useEffect(() => {
@@ -241,7 +253,7 @@ export default function PortfolioSlider() {
     return () => container.removeEventListener("touchmove", preventScroll);
   }, [maxScroll]);
 
-  // Touch drag on main container — continuous smooth scroll
+  // Touch drag on main container -  continuous smooth scroll
   const touchRef = useRef<{ startY: number; startScroll: number } | null>(null);
 
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -280,12 +292,14 @@ export default function PortfolioSlider() {
   };
 
   // Compute the track translateX from continuous scroll position
-  const trackTranslateX = titleOffset - scrollPos;
+  // Arabic mirrors the axis: slide 1 sits on the right and progress moves right-to-left
+  const trackTranslateX = rtl ? scrollPos - titleOffset : titleOffset - scrollPos;
 
   return (
     <div
       ref={containerRef}
-      className="euthenia-slider"
+      dir="ltr"
+      className={`euthenia-slider ${rtl ? "is-rtl" : ""}`}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
@@ -328,12 +342,13 @@ export default function PortfolioSlider() {
           style={{
             transform: `translateX(${trackTranslateX}px)`,
             transition: "none",
+            direction: rtl ? "rtl" : "ltr",
           }}
         >
           {sliderItems.map((item, i) => (
             <Link
               key={item.slug}
-              href={`/portfolio/${item.slug}`}
+              href={pageHref(item.slug, lang)}
               className={`euthenia-title hover-target ${i === clampedActive ? "active" : ""}`}
               onMouseEnter={() => setHoveredIndex(i)}
               onMouseLeave={() => setHoveredIndex(null)}
@@ -345,7 +360,10 @@ export default function PortfolioSlider() {
       </div>
 
       {/* Slide counter */}
-      <div className="euthenia-counter">
+      <div
+        className="euthenia-counter"
+        style={rtl ? { flexDirection: "row-reverse" } : undefined}
+      >
         <span className="euthenia-counter-current">
           {String(clampedActive + 1).padStart(2, "0")}
         </span>
@@ -357,7 +375,11 @@ export default function PortfolioSlider() {
 
       {/* Scrubber dot */}
       <div className="euthenia-scrubber">
-        <div className="euthenia-scrubber-track" ref={trackRef}>
+        <div
+          className="euthenia-scrubber-track"
+          ref={trackRef}
+          style={rtl ? { transform: "scaleX(-1)" } : undefined}
+        >
           <div
             ref={scrubberRef}
             className="euthenia-scrubber-dot hover-target"

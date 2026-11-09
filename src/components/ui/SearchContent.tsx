@@ -38,7 +38,7 @@ function SearchInner() {
           .map((p) => ({
             title: p.title,
             excerpt: p.description,
-            href: `/portfolio/${p.slug}`,
+            href: p.page ? `/${p.slug}` : `/portfolio/${p.slug}`,
             type: "Portfolio" as const,
           })),
       ]

@@ -37,6 +37,14 @@
   --font-noto-kufi: "Noto Kufi Arabic", sans-serif;
 }
 
+/* Spacing scale: fluid vertical rhythm shared by every page */
+:root {
+  --space-hero: clamp(128px, 17vw, 250px);
+  --space-section: clamp(64px, 7vw, 100px);
+  --space-section-lg: clamp(80px, 9.7vw, 140px);
+  --space-block: clamp(40px, 4.2vw, 60px);
+}
+
 /* Base styles */
 html::-webkit-scrollbar,
 body::-webkit-scrollbar,
@@ -65,28 +73,31 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-muli);
+  font-family: var(--font-digits), var(--font-muli);
   font-weight: 300;
   margin-bottom: 0;
   line-height: 1.35;
   color: #fff;
 }
-h1 { font-size: 3.2rem; font-weight: 600; }
-h2 { font-size: 3.2rem; }
+h1 { font-size: clamp(2.1rem, 1.2rem + 3.4vw, 3.2rem); font-weight: 600; }
+h2 { font-size: clamp(2.1rem, 1.2rem + 3.4vw, 3.2rem); }
 h3 { font-size: 2.6rem; font-weight: 400; }
 h4 { font-size: 1.9rem; font-weight: 400; }
 h5 { font-size: 1.35rem; font-weight: 400; }
 h6 { font-size: 1rem; text-transform: uppercase; font-weight: 700; margin-bottom: 1rem; }
 
-a {
-  cursor: pointer;
-  color: inherit;
-  text-decoration: none;
-  transition: all 200ms linear;
-}
+/* Kept in the base layer so Tailwind utilities (text-*, transition-*) win on links */
+@layer base {
+  a {
+    cursor: pointer;
+    color: inherit;
+    text-decoration: none;
+    transition: all 200ms linear;
+  }
 
-a:hover {
-  text-decoration: none;
+  a:hover {
+    text-decoration: none;
+  }
 }
 
 /* Preloader */
@@ -223,7 +234,7 @@ a:hover {
   width: 100%;
   height: 300%;
   text-align: left;
-  font-family: var(--font-muli);
+  font-family: var(--font-digits), var(--font-muli);
   writing-mode: vertical-lr;
   font-size: 14vw;
   line-height: 1;
@@ -243,7 +254,7 @@ a:hover {
   left: -50%;
   width: 200%;
   text-align: center;
-  font-family: var(--font-muli);
+  font-family: var(--font-digits), var(--font-muli);
   font-size: 14vw;
   line-height: 1;
   color: rgba(200, 200, 200, 0.1);
@@ -419,6 +430,11 @@ a:hover {
 .nav-active .nav-list-item:nth-child(6) { transition-delay: 1.0s; }
 .nav-active .nav-list-item:nth-child(7) { transition-delay: 1.1s; }
 .nav-active .nav-list-item:nth-child(8) { transition-delay: 1.2s; }
+.nav-active .nav-list-item:nth-child(9) { transition-delay: 1.3s; }
+.nav-active .nav-list-item:nth-child(10) { transition-delay: 1.4s; }
+.nav-active .nav-list-item:nth-child(11) { transition-delay: 1.5s; }
+.nav-lang-switch a { font-size: 0.8em; }
+.nav-active .nav-list-item:nth-child(8) { transition-delay: 1.2s; }
 
 @media (min-width: 768px) {
   .nav-list-item {
@@ -478,7 +494,7 @@ a:hover {
 /* Page title */
 .page-title h1 {
   position: relative;
-  font-size: 70px;
+  font-size: clamp(2.5rem, 1rem + 5.5vw, 70px);
   color: #fff;
   font-weight: 900;
   line-height: 1;
@@ -658,7 +674,7 @@ a:hover {
   bottom: 0;
   width: 100%;
   text-align: center;
-  font-family: var(--font-muli);
+  font-family: var(--font-digits), var(--font-muli);
   font-size: 16vw;
   font-weight: 900;
   line-height: 0.85;
@@ -705,7 +721,7 @@ a:hover {
 }
 
 .euthenia-title span {
-  font-family: var(--font-muli);
+  font-family: var(--font-digits), var(--font-muli);
   font-size: 60px;
   font-weight: 800;
   letter-spacing: 3px;
@@ -1177,7 +1193,7 @@ figure.youtube {
   content: "\201C";
   top: 0;
   left: 0;
-  font-family: var(--font-muli);
+  font-family: var(--font-digits), var(--font-muli);
   font-size: 120px;
   line-height: 0.9;
   -webkit-text-stroke: 2px var(--color-studio-line);
@@ -1316,19 +1332,21 @@ figure.youtube {
   font-weight: 700;
 }
 .ajax-form button {
-  color: rgba(255, 255, 255, 0.5);
+  color: #14171a;
+  font-weight: 700;
   cursor: pointer;
   font-size: 15px;
   padding: 12px 25px;
   letter-spacing: 2px;
-  background-color: var(--color-dark-3);
+  background-color: var(--color-accent);
   border: none;
   outline: none;
   text-align: center;
   transition: all 250ms linear;
 }
 .ajax-form button:hover {
-  background-color: #090909;
+  background-color: #fff;
+  color: #14171a;
 }
 
 /* Contact map */
@@ -1482,4 +1500,64 @@ figure.youtube {
   .page-title p {
     font-size: 17px;
   }
+}
+
+
+/* Arabic: use an Arabic-capable font everywhere (the brand trial fonts have no Arabic glyphs) */
+.lang-ar,
+.lang-ar h1,
+.lang-ar h2,
+.lang-ar h3,
+.lang-ar h4,
+.lang-ar h5,
+.lang-ar h6,
+.lang-ar p,
+.lang-ar a,
+.lang-ar span,
+.lang-ar li,
+.lang-ar input,
+.lang-ar textarea,
+.lang-ar button,
+.lang-ar .nav-list-item,
+.lang-ar .current-page-shadow,
+.lang-ar .shadow-on-footer,
+.lang-ar .euthenia-title,
+.lang-ar .euthenia-watermark-text {
+  font-family: var(--font-noto-kufi), sans-serif;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+}
+.lang-ar h1,
+.lang-ar h2,
+.lang-ar h3,
+.lang-ar h4,
+.lang-ar h5,
+.lang-ar h6 {
+  line-height: 1.5;
+}
+
+/* Header language switcher */
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  font-family: var(--font-poppins);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: rgba(255, 255, 255, 0.6);
+  transition: color 200ms linear, border-color 200ms linear, background-color 200ms linear;
+}
+.lang-switch .is-current {
+  color: var(--color-accent);
+}
+.lang-switch:hover {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent);
+  color: #14171a;
+}
+.lang-switch:hover .is-current {
+  color: #14171a;
 }

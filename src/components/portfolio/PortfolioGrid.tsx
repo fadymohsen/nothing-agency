@@ -69,7 +69,7 @@ export default function PortfolioGrid() {
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.3 }}
               >
-                <Link href={`/portfolio/${item.slug}`} className="hover-target block">
+                <Link href={item.page ? `/${item.slug}` : `/portfolio/${item.slug}`} className="hover-target block">
                   <div className="portfolio-box">
                     <Image
                       src={item.image}

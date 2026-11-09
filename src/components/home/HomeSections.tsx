@@ -3,14 +3,48 @@
 import Link from "next/link";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import { blogPosts } from "@/data/blog";
+import { t } from "@/data/dictionary";
+import { useLang } from "@/lib/useLang";
 
 export default function HomeSections() {
+  const lang = useLang();
   const latestPosts = blogPosts.slice(0, 3);
+
+  if (lang === "ar") {
+    const h = t("ar").home;
+    return (
+      <div className="relative z-10 bg-[var(--color-body)]" dir="rtl">
+        <section className="py-[var(--space-section-lg)]">
+          <div className="max-w-[1140px] mx-auto px-6 md:px-4 text-center">
+            <ScrollReveal>
+              <p className="text-[var(--color-accent)] text-sm mb-4">{h.eyebrow}</p>
+              <h2 className="text-white text-[36px] md:text-[56px] font-bold leading-tight mb-6">
+                {h.titleA}
+                <br />
+                {h.titleB}
+              </h2>
+              <p className="text-[var(--color-body-text)] text-lg max-w-[500px] mx-auto mb-12">
+                {h.text}
+              </p>
+            </ScrollReveal>
+            <ScrollReveal delay={0.3}>
+              <Link
+                href="/ar/contact"
+                className="hover-target inline-block bg-[var(--color-accent)] text-[#14171a] px-12 py-4 text-sm font-bold transition-colors duration-300 hover:bg-white"
+              >
+                {h.cta}
+              </Link>
+            </ScrollReveal>
+          </div>
+        </section>
+      </div>
+    );
+  }
 
   return (
     <div className="relative z-10 bg-[var(--color-body)]">
       {/* News Section */}
-      <section className="py-[120px] md:py-[160px]">
+      <section className="py-[var(--space-section-lg)]">
         <div className="max-w-[1140px] mx-auto px-6 md:px-4">
           <ScrollReveal>
             <p className="text-[var(--color-accent)] uppercase tracking-[3px] text-sm mb-4">
@@ -54,7 +88,7 @@ export default function HomeSections() {
             <div className="mt-12 text-center">
               <Link
                 href="/blog"
-                className="hover-target inline-block border border-[var(--color-accent)] text-[var(--color-accent)] px-10 py-3 uppercase tracking-[2px] text-sm transition-all hover:bg-[var(--color-accent)] hover:text-[var(--color-body)]"
+                className="hover-target inline-block border border-[var(--color-accent)] text-[var(--color-accent)] px-10 py-3 uppercase tracking-[2px] text-sm transition-all hover:bg-[var(--color-accent)] hover:text-[#14171a]"
               >
                 Read All News
               </Link>
@@ -69,7 +103,7 @@ export default function HomeSections() {
       </div>
 
       {/* Contact Section */}
-      <section className="py-[120px] md:py-[160px]">
+      <section className="py-[var(--space-section-lg)]">
         <div className="max-w-[1140px] mx-auto px-6 md:px-4 text-center">
           <ScrollReveal>
             <p className="text-[var(--color-accent)] uppercase tracking-[3px] text-sm mb-4">
@@ -86,7 +120,7 @@ export default function HomeSections() {
           <ScrollReveal delay={0.3}>
             <Link
               href="/contact"
-              className="hover-target inline-block bg-[var(--color-accent)] text-[#0a0a0a] px-12 py-4 uppercase tracking-[2px] text-sm font-bold transition-all duration-300 hover:bg-white hover:shadow-[0_0_30px_rgba(240,179,28,0.35)]"
+              className="hover-target inline-block bg-[var(--color-accent)] text-[#14171a] px-12 py-4 uppercase tracking-[2px] text-sm font-bold transition-all duration-300 hover:bg-white hover:shadow-[0_0_30px_rgba(240,179,28,0.35)]"
             >
               Say Hello
             </Link>

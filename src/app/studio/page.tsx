@@ -6,7 +6,7 @@ import Link from "next/link";
 export const metadata = {
   title: "Who We Are",
   description:
-    "Nothing Creative Ad Studio — A team of passionate creatives crafting bold brand identities, advertising campaigns, and digital experiences.",
+    "Nothing Creative Ad Studio -  A team of passionate creatives crafting bold brand identities, advertising campaigns, and digital experiences.",
 };
 
 const stats = [
@@ -20,7 +20,7 @@ const services = [
   {
     title: "Branding",
     description:
-      "We build brands from the ground up — crafting identities that resonate, tell stories, and stand the test of time. From logo design to full brand systems, every element is intentional.",
+      "We build brands from the ground up -  crafting identities that resonate, tell stories, and stand the test of time. From logo design to full brand systems, every element is intentional.",
     items: ["Brand Identity", "Visual Design", "Logo Design", "Brand Strategy", "Brand Guidelines"],
   },
   {
@@ -75,14 +75,14 @@ export default function StudioPage() {
             </h1>
             <p className="text-[var(--color-body-text)] text-lg md:text-xl max-w-[700px] mx-auto text-center leading-relaxed">
               A creative ad studio where bold ideas meet fearless execution.
-              We don&apos;t follow trends — we set them.
+              We don&apos;t follow trends -  we set them.
             </p>
           </ScrollReveal>
         </div>
       </section>
 
       {/* Mission + Stats */}
-      <section className="py-[100px] md:py-[140px] relative z-10">
+      <section className="py-[var(--space-section-lg)] relative z-10">
         <div className="max-w-[1140px] mx-auto px-6 md:px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <ScrollReveal>
@@ -97,7 +97,7 @@ export default function StudioPage() {
                 Founded on the belief that the most powerful ideas start from nothing,
                 we transform blank canvases into compelling brand stories. Our studio
                 blends strategic thinking with creative audacity to deliver work that
-                doesn&apos;t just look good — it moves people.
+                doesn&apos;t just look good -  it moves people.
               </p>
               <p className="text-[var(--color-body-text)] text-base md:text-lg leading-relaxed">
                 We work with ambitious brands who refuse to blend in. Whether you&apos;re
@@ -126,7 +126,7 @@ export default function StudioPage() {
       </div>
 
       {/* Philosophy */}
-      <section className="py-[100px] md:py-[140px] relative z-10">
+      <section className="py-[var(--space-section-lg)] relative z-10">
         <div className="max-w-[900px] mx-auto px-6 md:px-4 text-center">
           <ScrollReveal>
             <p className="text-[var(--color-accent)] uppercase tracking-[3px] text-sm mb-6">
@@ -134,7 +134,7 @@ export default function StudioPage() {
             </p>
             <h3 className="text-white text-[28px] md:text-[40px] font-light leading-relaxed">
               We believe that <span className="text-[var(--color-accent)] font-bold">great design</span> is
-              invisible — it feels natural, effortless, and inevitable. But behind that simplicity lies{" "}
+              invisible -  it feels natural, effortless, and inevitable. But behind that simplicity lies{" "}
               <span className="text-[var(--color-accent)] font-bold">relentless craft</span>, deep
               understanding, and a refusal to compromise on{" "}
               <span className="text-[var(--color-accent)] font-bold">quality</span>.
@@ -149,7 +149,7 @@ export default function StudioPage() {
       </div>
 
       {/* What We Do */}
-      <section className="py-[100px] md:py-[140px] relative z-10">
+      <section className="py-[var(--space-section-lg)] relative z-10">
         <div className="max-w-[1140px] mx-auto px-6 md:px-4">
           <ScrollReveal>
             <p className="text-[var(--color-accent)] uppercase tracking-[3px] text-sm mb-4 text-center">
@@ -189,7 +189,7 @@ export default function StudioPage() {
       </div>
 
       {/* Values */}
-      <section className="py-[100px] md:py-[140px] relative z-10">
+      <section className="py-[var(--space-section-lg)] relative z-10">
         <div className="max-w-[1140px] mx-auto px-6 md:px-4">
           <ScrollReveal>
             <p className="text-[var(--color-accent)] uppercase tracking-[3px] text-sm mb-4 text-center">
@@ -222,7 +222,7 @@ export default function StudioPage() {
       </div>
 
       {/* Quote */}
-      <section className="py-[100px] md:py-[140px] relative z-10">
+      <section className="py-[var(--space-section-lg)] relative z-10">
         <div className="max-w-[900px] mx-auto px-6 md:px-4">
           <ScrollReveal>
             <div className="blockquote-custom">
@@ -230,14 +230,14 @@ export default function StudioPage() {
                 Design is not just what it looks like and feels like. Design
                 is how it works.
               </h3>
-              <p className="mt-6 text-white/60">— Steve Jobs</p>
+              <p className="mt-6 text-white/60"> -  Steve Jobs</p>
             </div>
           </ScrollReveal>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="py-[100px] md:py-[140px] relative z-10">
+      <section className="py-[var(--space-section-lg)] relative z-10">
         <div className="max-w-[1140px] mx-auto px-6 md:px-4 text-center">
           <ScrollReveal>
             <p className="text-[var(--color-accent)] uppercase tracking-[3px] text-sm mb-4">
@@ -255,7 +255,7 @@ export default function StudioPage() {
           <ScrollReveal delay={0.3}>
             <Link
               href="/contact"
-              className="hover-target inline-block bg-[var(--color-accent)] text-[var(--color-body)] px-12 py-4 uppercase tracking-[2px] text-sm font-bold transition-all hover:opacity-90"
+              className="hover-target inline-block bg-[var(--color-accent)] text-[#14171a] px-12 py-4 uppercase tracking-[2px] text-sm font-bold transition-colors duration-300 hover:bg-white"
             >
               Get in Touch
             </Link>

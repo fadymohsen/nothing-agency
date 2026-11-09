@@ -52,6 +52,8 @@ export default function CustomCursor() {
 
   return (
     <>
+      {/* Hide the native cursor wherever the custom one is shown (matches the 1200px breakpoint in globals.css) */}
+      <style>{`@media (min-width: 1201px) and (pointer: fine) { *, *::before, *::after { cursor: none !important; } }`}</style>
       <div className="cursor" ref={cursorRef} />
       <div className="cursor2" ref={cursor2Ref} />
       <div className="cursor3" ref={cursor3Ref} />

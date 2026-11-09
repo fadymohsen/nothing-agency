@@ -6,7 +6,7 @@ import Link from "next/link";
 export const metadata = {
   title: "Our Process",
   description:
-    "Discover how Nothing Creative Ad Studio brings ideas to life — from discovery and strategy through design, development, and launch.",
+    "Discover how Nothing Creative Ad Studio brings ideas to life -  from discovery and strategy through design, development, and launch.",
 };
 
 const processSteps = [
@@ -14,7 +14,7 @@ const processSteps = [
     number: "01",
     title: "Discovery",
     description:
-      "Every great project begins with understanding. We dive deep into your brand, market, and audience through research, audits, and open conversations. We listen more than we talk — because the best solutions come from truly understanding the problem.",
+      "Every great project begins with understanding. We dive deep into your brand, market, and audience through research, audits, and open conversations. We listen more than we talk -  because the best solutions come from truly understanding the problem.",
     details: ["Brand Audit", "Market Research", "Competitor Analysis", "Stakeholder Interviews", "Goal Definition"],
   },
   {
@@ -28,14 +28,14 @@ const processSteps = [
     number: "03",
     title: "Design",
     description:
-      "This is where ideas become visual. We explore, iterate, and refine — creating designs that don't just look beautiful, but work beautifully. Every color, typeface, and layout decision is driven by strategy and crafted with obsessive attention to detail.",
+      "This is where ideas become visual. We explore, iterate, and refine -  creating designs that don't just look beautiful, but work beautifully. Every color, typeface, and layout decision is driven by strategy and crafted with obsessive attention to detail.",
     details: ["Concept Development", "Wireframing", "Visual Design", "Prototyping", "Design Iteration"],
   },
   {
     number: "04",
     title: "Development",
     description:
-      "Design meets engineering. We build with precision, ensuring every interaction feels smooth, every animation is intentional, and every line of code serves a purpose. We don't cut corners — we craft corners.",
+      "Design meets engineering. We build with precision, ensuring every interaction feels smooth, every animation is intentional, and every line of code serves a purpose. We don't cut corners -  we craft corners.",
     details: ["Frontend Development", "Animation & Motion", "CMS Integration", "Quality Assurance", "Performance Optimization"],
   },
   {
@@ -56,7 +56,7 @@ const highlights = [
   {
     title: "Iterative Refinement",
     description:
-      "Good isn't good enough. We refine, test, and polish until every element meets our exacting standards — and exceeds your expectations.",
+      "Good isn't good enough. We refine, test, and polish until every element meets our exacting standards -  and exceeds your expectations.",
   },
   {
     title: "Results-Driven Approach",
@@ -71,7 +71,7 @@ export default function ProcessPage() {
       <ParallaxTopShadow>Process</ParallaxTopShadow>
 
       {/* Hero */}
-      <section className="page-hero pt-[140px] md:pt-[180px]">
+      <section className="page-hero pt-[var(--space-hero)]">
         <div className="page-hero-inner">
           <ScrollReveal>
             <p className="text-[var(--color-accent)] uppercase tracking-[4px] text-sm mb-5 text-center">
@@ -84,14 +84,14 @@ export default function ProcessPage() {
             </h1>
             <p className="text-[var(--color-body-text)] text-lg md:text-xl max-w-[650px] mx-auto text-center leading-relaxed">
               A proven creative process that transforms raw concepts into
-              polished, impactful work — every single time.
+              polished, impactful work -  every single time.
             </p>
           </ScrollReveal>
         </div>
       </section>
 
       {/* Process Timeline */}
-      <section className="py-[80px] md:py-[120px] relative z-10">
+      <section className="py-[var(--space-section)] relative z-10">
         <div className="max-w-[900px] mx-auto px-6 md:px-4">
           <div className="process-timeline">
             {processSteps.map((step, i) => (
@@ -129,7 +129,7 @@ export default function ProcessPage() {
       </div>
 
       {/* Why It Works */}
-      <section className="py-[100px] md:py-[140px] relative z-10">
+      <section className="py-[var(--space-section-lg)] relative z-10">
         <div className="max-w-[1140px] mx-auto px-6 md:px-4">
           <ScrollReveal>
             <p className="text-[var(--color-accent)] uppercase tracking-[3px] text-sm mb-4 text-center">
@@ -162,7 +162,7 @@ export default function ProcessPage() {
       </div>
 
       {/* CTA */}
-      <section className="py-[100px] md:py-[140px] relative z-10">
+      <section className="py-[var(--space-section-lg)] relative z-10">
         <div className="max-w-[1140px] mx-auto px-6 md:px-4 text-center">
           <ScrollReveal>
             <p className="text-[var(--color-accent)] uppercase tracking-[3px] text-sm mb-4">
@@ -180,7 +180,7 @@ export default function ProcessPage() {
           <ScrollReveal delay={0.3}>
             <Link
               href="/contact"
-              className="hover-target inline-block bg-[var(--color-accent)] text-white px-12 py-4 uppercase tracking-[2px] text-sm font-bold transition-all duration-300 hover:bg-white hover:text-[#0a0a0a] hover:shadow-[0_0_30px_rgba(240,179,28,0.35)]"
+              className="hover-target inline-block bg-[var(--color-accent)] text-[#14171a] px-12 py-4 uppercase tracking-[2px] text-sm font-bold transition-colors duration-300 hover:bg-white hover:shadow-[0_0_30px_rgba(240,179,28,0.35)]"
             >
               Start a Project
             </Link>

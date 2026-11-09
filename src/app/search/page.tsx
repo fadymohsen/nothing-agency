@@ -10,7 +10,7 @@ export default function SearchPage() {
     <>
       <ParallaxTopShadow>Search</ParallaxTopShadow>
 
-      <section className="relative w-full block pt-[250px] pb-[100px] overflow-hidden z-10">
+      <section className="relative w-full block pt-[var(--space-hero)] pb-[var(--space-section)] overflow-hidden z-10">
         <div className="max-w-[1140px] mx-auto px-4 z-[50]">
           <div className="page-title px-5 xl:px-2">
             <div className="w-full">
@@ -20,7 +20,7 @@ export default function SearchPage() {
         </div>
       </section>
 
-      <section className="relative w-full block pb-[140px] z-10 overflow-hidden">
+      <section className="relative w-full block pb-[var(--space-section-lg)] z-10 overflow-hidden">
         <div className="max-w-[1140px] mx-auto px-4 z-[50]">
           <div className="px-5 xl:px-2">
             <SearchContent />

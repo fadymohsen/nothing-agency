@@ -6,7 +6,7 @@ import ScrollReveal from "@/components/animations/ScrollReveal";
 import { portfolioItems } from "@/data/portfolio";
 
 export function generateStaticParams() {
-  return portfolioItems.map((item) => ({ slug: item.slug }));
+  return portfolioItems.filter((item) => !item.page).map((item) => ({ slug: item.slug }));
 }
 
 export function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
@@ -33,7 +33,7 @@ export default async function PortfolioItemPage({
     <>
       <ParallaxTopShadow>{item.title}</ParallaxTopShadow>
 
-      <section className="relative w-full block pt-[250px] pb-[100px] overflow-hidden z-10">
+      <section className="relative w-full block pt-[var(--space-hero)] pb-[var(--space-section)] overflow-hidden z-10">
         <div className="max-w-[1140px] mx-auto px-4 z-[50]">
           <ScrollReveal>
             <div className="w-full">
@@ -49,7 +49,7 @@ export default async function PortfolioItemPage({
         </div>
       </section>
 
-      <section className="relative w-full block pb-[100px] overflow-hidden z-10">
+      <section className="relative w-full block pb-[var(--space-section)] overflow-hidden z-10">
         <div className="max-w-[1140px] mx-auto px-4 z-[50]">
           <ScrollReveal delay={0.2}>
             <div className="px-5 xl:px-2">
@@ -115,7 +115,7 @@ export default async function PortfolioItemPage({
         item.images.slice(1).map((img, idx) => (
           <section
             key={idx}
-            className="relative w-full block pb-[100px] overflow-hidden z-10"
+            className="relative w-full block pb-[var(--space-section)] overflow-hidden z-10"
           >
             <div className="max-w-[1140px] mx-auto px-4 z-[50]">
               <ScrollReveal delay={0.1 * (idx + 1)}>
@@ -133,7 +133,7 @@ export default async function PortfolioItemPage({
           </section>
         ))
       ) : (
-        <section className="relative w-full block pb-[100px] overflow-hidden z-10">
+        <section className="relative w-full block pb-[var(--space-section)] overflow-hidden z-10">
           <div className="max-w-[1140px] mx-auto px-4 z-[50]">
             <ScrollReveal delay={0.3}>
               <div className="w-full">

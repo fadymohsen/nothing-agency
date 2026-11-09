@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { navItems } from "@/data/navigation";
+import { t } from "@/data/dictionary";
+import { langFromPath, withLang } from "@/lib/lang";
 
 interface NavigationProps {
   onClose: () => void;
@@ -11,27 +12,27 @@ interface NavigationProps {
 
 export default function Navigation({ onClose, currentPageTitle }: NavigationProps) {
   const pathname = usePathname();
+  const lang = langFromPath(pathname);
+  const items = t(lang).nav;
 
   return (
     <div className="nav-overlay">
       <div className="nav-content">
         <div className="current-page-shadow">{currentPageTitle}</div>
         <ul className="relative p-0 m-0 z-[2] list-none">
-          {navItems.map((item) => {
+          {items.map((item) => {
+            const href = withLang(item.href, lang);
             const isActive =
               item.href === "/"
-                ? pathname === "/"
-                : pathname.startsWith(item.href);
+                ? pathname === href || pathname === withLang("/home", lang)
+                : pathname.startsWith(href);
             return (
               <li
                 key={item.href}
                 className={`nav-list-item ${isActive ? "active" : ""}`}
+                style={{ fontSize: "clamp(18px, 4.6vh, 44px)", lineHeight: 1.3 }}
               >
-                <Link
-                  href={item.href}
-                  className="hover-target"
-                  onClick={onClose}
-                >
+                <Link href={href} className="hover-target" onClick={onClose}>
                   {item.label}
                 </Link>
               </li>

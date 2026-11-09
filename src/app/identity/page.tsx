@@ -6,22 +6,22 @@ import Image from "next/image";
 export const metadata = {
   title: "Our Identity",
   description:
-    "The Nothing brand identity — our symbol, our philosophy, and the system behind everything we create.",
+    "The Nothing brand identity -  our symbol, our philosophy, and the system behind everything we create.",
 };
 
 export default function IdentityPage() {
   return (
     <div className="bg-[#2D3239]">
-      {/* Section 1 — Hero: Everything Starts As */}
+      {/* Section 1 -  Hero: Everything Starts As */}
       <IdentityHero />
 
-      {/* Section 2 — Philosophy */}
-      <section className="relative z-10 py-[100px] md:py-[140px]">
+      {/* Section 2 -  Philosophy */}
+      <section className="relative z-10 py-[var(--space-section-lg)]">
         <div className="max-w-[900px] mx-auto px-6 md:px-4">
           <ScrollReveal>
             <p className="text-[var(--color-body-text)] text-lg md:text-xl leading-relaxed mb-10">
               Before an idea has a name, a shape or a campaign plan, there is
-              nothing &mdash; a blank space with no inherited answers and no
+              nothing - a blank space with no inherited answers and no
               limits... That is where we begin.
             </p>
           </ScrollReveal>
@@ -40,8 +40,8 @@ export default function IdentityPage() {
         <div className="h-px bg-[var(--color-accent)]/20" />
       </div>
 
-      {/* Section 3 — The Symbol (text left, image right) */}
-      <section className="relative z-10 py-[100px] md:py-[140px]">
+      {/* Section 3 -  The Symbol (text left, image right) */}
+      <section className="relative z-10 py-[var(--space-section-lg)]">
         <div className="max-w-[1140px] mx-auto px-6 md:px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Logo Display */}
@@ -61,7 +61,7 @@ export default function IdentityPage() {
             <div>
               <ScrollReveal direction="right">
                 <p className="text-[var(--color-body-text)] text-base md:text-lg leading-relaxed mb-6">
-                  The symbol begins with an open space &mdash; a possibility
+                  The symbol begins with an open space - a possibility
                   without limits.
                 </p>
               </ScrollReveal>
@@ -96,8 +96,8 @@ export default function IdentityPage() {
         <div className="h-px bg-[var(--color-accent)]/20" />
       </div>
 
-      {/* Section 4 — Logo Proportional System */}
-      <section className="relative z-10 py-[100px] md:py-[140px]">
+      {/* Section 4 -  Logo Proportional System */}
+      <section className="relative z-10 py-[var(--space-section-lg)]">
         <div className="max-w-[1140px] mx-auto px-6 md:px-4">
           <ScrollReveal>
             <p className="text-[var(--color-accent)] uppercase tracking-[4px] text-sm mb-5">
@@ -116,9 +116,9 @@ export default function IdentityPage() {
               <ScrollReveal direction="left" delay={0.3}>
                 <p className="text-[var(--color-body-text)] text-base md:text-lg leading-relaxed mb-6">
                   The symbol height is equal to 4&times; the height of the
-                  initial &ldquo;n&rdquo; in the wordmark. The horizontal
+                  initial &quot;n&quot; in the wordmark. The horizontal
                   spacing between the symbol and the wordmark is defined by 1 of
-                  the &ldquo;n&rdquo; height, establishing a consistent visual
+                  the &quot;n&quot; height, establishing a consistent visual
                   unit across the logo.
                 </p>
               </ScrollReveal>
@@ -150,8 +150,8 @@ export default function IdentityPage() {
         <div className="h-px bg-[var(--color-accent)]/20" />
       </div>
 
-      {/* Section 5 — Symbol Integration */}
-      <section className="relative z-10 py-[100px] md:py-[140px]">
+      {/* Section 5 -  Symbol Integration */}
+      <section className="relative z-10 py-[var(--space-section-lg)]">
         <div className="max-w-[1140px] mx-auto px-6 md:px-4">
           <ScrollReveal>
             <p className="text-[var(--color-accent)] uppercase tracking-[4px] text-sm mb-5">
@@ -175,7 +175,7 @@ export default function IdentityPage() {
               <ScrollReveal direction="right" delay={0.2}>
                 <p className="text-[var(--color-body-text)] text-base md:text-lg leading-relaxed mb-6">
                   The Nothing symbol can also be integrated directly into the
-                  wordmark, replacing the letter &ldquo;O&rdquo; in Nothing.
+                  wordmark, replacing the letter &quot;O&quot; in Nothing.
                 </p>
               </ScrollReveal>
               <ScrollReveal direction="right" delay={0.3}>
@@ -195,7 +195,7 @@ export default function IdentityPage() {
               </ScrollReveal>
               <ScrollReveal direction="right" delay={0.5}>
                 <p className="text-white text-xl md:text-2xl font-light leading-relaxed">
-                  The symbol becomes the &ldquo;O&rdquo; &mdash; turning the name
+                  The symbol becomes the &quot;O&quot; - turning the name
                   itself into the identity.
                 </p>
               </ScrollReveal>

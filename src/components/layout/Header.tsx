@@ -3,6 +3,9 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { switchLangPath } from "@/lib/lang";
+import { useLang } from "@/lib/useLang";
 
 interface HeaderProps {
   onToggleNav: () => void;
@@ -10,6 +13,9 @@ interface HeaderProps {
 }
 
 export default function Header({ onToggleNav, navActive }: HeaderProps) {
+  const lang = useLang();
+  const pathname = usePathname();
+  const target = lang === "ar" ? "en" : "ar";
   const [isFixed, setIsFixed] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [lastScroll, setLastScroll] = useState(0);
@@ -47,7 +53,7 @@ export default function Header({ onToggleNav, navActive }: HeaderProps) {
     <header className={headerClasses}>
       <div className="relative w-[calc(100%-30px)] ml-[15px] md:w-[calc(100%-100px)] md:ml-[50px]">
         <div className="absolute left-0 top-[30px] md:top-[22px] block cursor-pointer">
-          <Link href="/" className="hover-target cursor-pointer">
+          <Link href={lang === "ar" ? "/ar" : "/"} className="hover-target cursor-pointer">
             <Image
               src="/images/nothing-logo.png"
               alt="Nothing Creative Ad Studio"
@@ -58,7 +64,17 @@ export default function Header({ onToggleNav, navActive }: HeaderProps) {
             />
           </Link>
         </div>
-        <div className="relative inline-block float-right pt-[10px] mt-[28px] md:mt-[26px] md:pl-[15px] md:pt-[15px] transition-all duration-300 ease-out">
+        <div className="relative flex items-center gap-5 md:gap-7 float-right pt-[10px] mt-[28px] md:mt-[26px] md:pl-[15px] md:pt-[15px] transition-all duration-300 ease-out">
+          <Link
+            href={switchLangPath(pathname, target)}
+            hrefLang={target}
+            aria-label={target === "ar" ? "Switch to Arabic" : "Switch to English"}
+            className="lang-switch hover-target"
+          >
+            <span className={lang === "en" ? "is-current" : ""}>EN</span>
+            <span aria-hidden="true">/</span>
+            <span className={lang === "ar" ? "is-current" : ""}>AR</span>
+          </Link>
           <div
             className="menu-icon hover-target"
             onClick={onToggleNav}

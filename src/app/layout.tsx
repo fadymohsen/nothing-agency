@@ -4,7 +4,7 @@ import { Poppins, Anton, Noto_Kufi_Arabic } from "next/font/google";
 import "./globals.css";
 import LayoutShell from "@/components/layout/LayoutShell";
 
-// Altair — brand headline font (replaces Mulish)
+// Altair -  brand headline font (replaces Mulish)
 const altair = localFont({
   variable: "--font-muli",
   src: [
@@ -13,7 +13,7 @@ const altair = localFont({
   ],
 });
 
-// Nexa — brand body font (replaces Roboto)
+// Nexa -  brand body font (replaces Roboto)
 const nexa = localFont({
   variable: "--font-roboto",
   src: [
@@ -23,6 +23,19 @@ const nexa = localFont({
     { path: "../fonts/nexa/Nexa Regular.otf", weight: "500", style: "normal" },
     { path: "../fonts/nexa/Nexa Bold.otf", weight: "600 700", style: "normal" },
     { path: "../fonts/nexa/Nexa Heavy.otf", weight: "800 900", style: "normal" },
+  ],
+});
+
+// The Altair trial font draws a ZetaFonts watermark for digits, so digits are
+// served from Nexa instead (unicode-range limits this face to 0-9).
+const digits = localFont({
+  variable: "--font-digits",
+  adjustFontFallback: false,
+  declarations: [{ prop: "unicode-range", value: "U+0030-0039" }],
+  src: [
+    { path: "../fonts/nexa/Nexa Light.otf", weight: "100 300", style: "normal" },
+    { path: "../fonts/nexa/Nexa Book.otf", weight: "400 500", style: "normal" },
+    { path: "../fonts/nexa/Nexa Bold.otf", weight: "600 900", style: "normal" },
   ],
 });
 
@@ -41,7 +54,7 @@ const anton = Anton({
 const notoKufiArabic = Noto_Kufi_Arabic({
   variable: "--font-noto-kufi",
   subsets: ["arabic"],
-  weight: "400",
+  weight: ["300", "400", "700"],
 });
 
 export const metadata: Metadata = {
@@ -53,7 +66,7 @@ export const metadata: Metadata = {
     template: "%s | Nothing Advertising Agency",
   },
   description:
-    "Nothing Advertising Agency — Where bold ideas meet creative execution. We craft compelling brand identities, advertising campaigns, and digital experiences.",
+    "Nothing Advertising Agency -  Where bold ideas meet creative execution. We craft compelling brand identities, advertising campaigns, and digital experiences.",
   keywords: [
     "creative agency",
     "ad studio",
@@ -100,7 +113,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${altair.variable} ${nexa.variable} ${poppins.variable} ${anton.variable} ${notoKufiArabic.variable}`}
+      className={`${altair.variable} ${nexa.variable} ${digits.variable} ${poppins.variable} ${anton.variable} ${notoKufiArabic.variable}`}
       suppressHydrationWarning
     >
       <body className="overflow-x-hidden" suppressHydrationWarning>

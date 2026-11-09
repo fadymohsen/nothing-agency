@@ -9,10 +9,10 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Exploring how modern branding transcends traditional boundaries and creates meaningful connections with audiences.",
     content: `
-      <p>Branding has evolved far beyond logos and color palettes. In today's digital landscape, a brand is an experience — a feeling that resonates with people on a deeply personal level.</p>
+      <p>Branding has evolved far beyond logos and color palettes. In today's digital landscape, a brand is an experience -  a feeling that resonates with people on a deeply personal level.</p>
       <p>At Nothing Agency, we believe that the best brands are built on authenticity. They tell stories that matter, create experiences that inspire, and build communities that last.</p>
       <h3>The Evolution of Brand Identity</h3>
-      <p>The shift from static to dynamic brand identities has opened up new possibilities for creative expression. Brands are no longer confined to rigid guidelines — they breathe, move, and adapt to their environment.</p>
+      <p>The shift from static to dynamic brand identities has opened up new possibilities for creative expression. Brands are no longer confined to rigid guidelines -  they breathe, move, and adapt to their environment.</p>
       <p>This fluidity allows brands to maintain consistency while remaining fresh and relevant across different platforms and contexts.</p>
     `,
     thumbnail: "https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&q=80",
@@ -44,7 +44,7 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "How photography goes beyond capturing moments to tell compelling visual narratives.",
     content: `
-      <p>Photography has always been about more than just capturing a moment — it's about telling a story. The best photographs evoke emotion, spark curiosity, and transport viewers to another place and time.</p>
+      <p>Photography has always been about more than just capturing a moment -  it's about telling a story. The best photographs evoke emotion, spark curiosity, and transport viewers to another place and time.</p>
       <p>In our work, we approach every photographic project as a narrative opportunity. Each image is carefully composed to contribute to a larger story.</p>
       <h3>Finding the Story in Every Frame</h3>
       <p>The challenge of visual storytelling lies in finding the extraordinary in the ordinary. It's about seeing the world with fresh eyes and capturing the moments that others might overlook.</p>
@@ -61,7 +61,7 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Inside the principles and practices that foster creativity and innovation in agency culture.",
     content: `
-      <p>Culture is the invisible force that shapes everything an agency creates. A thriving creative culture doesn't happen by accident — it's cultivated through intentional practices and genuine care for the people who make the work possible.</p>
+      <p>Culture is the invisible force that shapes everything an agency creates. A thriving creative culture doesn't happen by accident -  it's cultivated through intentional practices and genuine care for the people who make the work possible.</p>
       <p>At Nothing Agency, we've learned that the best creative work comes from environments where people feel safe to take risks, experiment, and occasionally fail.</p>
       <h3>The Ingredients of Creative Culture</h3>
       <p>Trust, autonomy, and a shared sense of purpose are the foundations upon which great creative cultures are built. When people believe in what they're doing and feel empowered to do it their way, magic happens.</p>
@@ -79,7 +79,7 @@ export const blogPosts: BlogPost[] = [
       "Why less truly is more in design, and how minimalism creates space for meaning.",
     content: `
       <p>In a world of constant noise and visual clutter, minimalism offers a breath of fresh air. By stripping away the unnecessary, we create space for what truly matters.</p>
-      <p>Minimalist design isn't about being empty — it's about being intentional. Every element serves a purpose, every space has meaning, and every detail is considered.</p>
+      <p>Minimalist design isn't about being empty -  it's about being intentional. Every element serves a purpose, every space has meaning, and every detail is considered.</p>
       <h3>The Discipline of Restraint</h3>
       <p>The hardest part of minimalist design is knowing what to leave out. It requires discipline, confidence, and a deep understanding of the problem you're solving.</p>
     `,

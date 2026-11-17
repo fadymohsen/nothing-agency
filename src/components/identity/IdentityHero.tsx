@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function IdentityHero() {
   return (
-    <section className="relative min-h-screen flex items-center pt-[var(--space-hero)] pb-[var(--space-section)] bg-[#2D3239]">
+    <section className="relative min-h-screen flex items-center pt-[var(--space-hero)] pb-[var(--space-section)] bg-[#252A2E]">
       <div className="max-w-[1140px] mx-auto px-6 md:px-4 w-full">
         {/* Text -  fades in + slides from left with letter spacing animation */}
         <motion.p

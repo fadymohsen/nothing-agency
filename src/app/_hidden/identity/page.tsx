@@ -11,7 +11,7 @@ export const metadata = {
 
 export default function IdentityPage() {
   return (
-    <div className="bg-[#2D3239]">
+    <div className="bg-[#252A2E]">
       {/* Section 1 -  Hero: Everything Starts As */}
       <IdentityHero />
 

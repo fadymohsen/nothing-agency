@@ -30,7 +30,7 @@ export default function Splash() {
           key="splash"
           exit={{ opacity: 0 }}
           transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-          className="fixed inset-0 z-[100001] flex items-center bg-[#2D3239]"
+          className="fixed inset-0 z-[100001] flex items-center bg-[#252A2E]"
           dir="ltr"
         >
           <div className="max-w-[1140px] mx-auto px-6 md:px-4 w-full">

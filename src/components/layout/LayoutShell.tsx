@@ -6,7 +6,6 @@ import Header from "./Header";
 import Navigation from "./Navigation";
 import Footer from "./Footer";
 import CustomCursor from "@/components/animations/CustomCursor";
-import SparkleBackground from "@/components/animations/SparkleBackground";
 import Splash from "./Splash";
 import { t } from "@/data/dictionary";
 import { langFromPath, withLang } from "@/lib/lang";
@@ -29,7 +28,6 @@ export default function LayoutShell({ children }: { children: React.ReactNode })
   return (
     <div className={`${navActive ? "nav-active" : ""} ${lang === "ar" ? "lang-ar" : ""}`}>
       <Splash />
-      <SparkleBackground />
       <Header
         onToggleNav={() => setNavActive(!navActive)}
         navActive={navActive}

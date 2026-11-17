@@ -50,6 +50,7 @@ export const portfolioItems: PortfolioItem[] = [
     category: "Pages",
     categorySlug: "pages",
     image: "/pages/about-us.png",
+    mobileImage: "/pages/mobile/about-us.jpg",
     description:
       "We are the engineers of the void and the creators of impact.",
     page: {
@@ -82,6 +83,7 @@ export const portfolioItems: PortfolioItem[] = [
     category: "Pages",
     categorySlug: "pages",
     image: "/pages/what-we-do.png",
+    mobileImage: "/pages/mobile/what-we-do.jpg",
     description:
       "Every service we offer is a vital gear in the machine of our creative process.",
     page: {
@@ -115,6 +117,7 @@ export const portfolioItems: PortfolioItem[] = [
     category: "Pages",
     categorySlug: "pages",
     image: "/pages/manifesto.png",
+    mobileImage: "/pages/mobile/manifesto.jpg",
     description:
       "The creative process map: how we turn the void into a successful campaign.",
     page: {
@@ -150,6 +153,7 @@ export const portfolioItems: PortfolioItem[] = [
     category: "Pages",
     categorySlug: "pages",
     image: "/pages/from-nothing.png",
+    mobileImage: "/pages/mobile/from-nothing.jpg",
     description: "Our story: the philosophy of \"Nothing\" and why this name.",
     page: {
       heading: "The Philosophy of \"Nothing\"... Why This Name?",
@@ -184,6 +188,7 @@ export const portfolioItems: PortfolioItem[] = [
     category: "Pages",
     categorySlug: "pages",
     image: "/pages/unseen.png",
+    mobileImage: "/pages/mobile/unseen.jpg",
     description: "Behind the scenes: beauty in organized chaos.",
     page: {
       heading: "Beauty in Organized Chaos.",

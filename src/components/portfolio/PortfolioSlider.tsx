@@ -304,19 +304,9 @@ export default function PortfolioSlider() {
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      {/* Mobile only: rotate the slide photos 90deg counter-clockwise so landscape art fills a portrait screen */}
-      <style>{`@media (max-width: 767px) {
-        .euthenia-slider .euthenia-bg-image {
-          top: 50% !important;
-          left: 50% !important;
-          width: 100vh !important;
-          height: 100vw !important;
-          transform: translate(-50%, -50%) rotate(-90deg) scale(1.05) !important;
-        }
-        .euthenia-slider .euthenia-bg-image.active {
-          transform: translate(-50%, -50%) rotate(-90deg) scale(1) !important;
-        }
-      }`}</style>
+      {/* Phones use the portrait photo of each slide (falls back to the desktop photo) */}
+      <style>{`@media (max-width: 767px) { .euthenia-slider .euthenia-bg-image { background-image: var(--bg-m) !important; } }`}</style>
+
 
       {/* Background Images */}
       <div className="euthenia-bg-images">
@@ -327,7 +317,12 @@ export default function PortfolioSlider() {
             <div
               key={item.slug}
               className={`euthenia-bg-image ${visible ? "active" : ""}`}
-              style={{ backgroundImage: `url('${item.image}')` }}
+              style={
+                {
+                  backgroundImage: `url('${item.image}')`,
+                  "--bg-m": `url('${item.mobileImage ?? item.image}')`,
+                } as React.CSSProperties
+              }
             />
           );
         })}

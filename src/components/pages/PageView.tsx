@@ -31,7 +31,7 @@ export default function PageView({ slug, lang }: { slug: string; lang: Lang }) {
           src={current.image}
           alt={current.title}
           fill
-          className="object-cover opacity-20"
+          className="object-cover opacity-40"
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-body)] via-[var(--color-body)]/50 to-transparent" />

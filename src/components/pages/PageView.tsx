@@ -40,6 +40,7 @@ export default function PageView({ slug, lang }: { slug: string; lang: Lang }) {
             <h1 className="text-white font-bold leading-[1.1] text-[clamp(2.8rem,7vw,6.5rem)]">
               {current.title}
             </h1>
+            <div className="mt-6 h-[2px] w-[80px] bg-[var(--color-accent)]" />
           </ScrollReveal>
         </div>
       </section>

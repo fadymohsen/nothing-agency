@@ -25,19 +25,21 @@ export default function PageView({ slug, lang }: { slug: string; lang: Lang }) {
     <>
       <ParallaxTopShadow>{current.title}</ParallaxTopShadow>
 
-      <section className="relative w-full block pt-[var(--space-hero)] pb-[var(--space-section)] overflow-hidden z-10">
-        <div className="max-w-[1140px] mx-auto px-4 z-[50]">
+      {/* Hero — transparent background image with page title */}
+      <section className="relative w-full overflow-hidden z-10 min-h-[520px] md:min-h-[620px] flex items-end">
+        <Image
+          src={current.image}
+          alt={current.title}
+          fill
+          className="object-cover opacity-20"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-body)] via-[var(--color-body)]/50 to-transparent" />
+        <div className="relative z-10 w-full max-w-[1140px] mx-auto px-6 md:px-10 pt-[var(--space-hero)] pb-14 md:pb-20">
           <ScrollReveal>
-            <div className="w-full">
-              <Image
-                src={current.image}
-                alt={current.title}
-                width={1200}
-                height={800}
-                className="w-full h-auto block"
-                priority
-              />
-            </div>
+            <h1 className="text-white font-bold leading-[1.1] text-[clamp(2.8rem,7vw,6.5rem)]">
+              {current.title}
+            </h1>
           </ScrollReveal>
         </div>
       </section>

@@ -10,9 +10,9 @@ import { t } from "@/data/dictionary";
 
 /** Wraps occurrences of "Nothing" / "Nothing Agency" in gold accent color */
 function brandText(text: string) {
-  const parts = text.split(/(Nothing Agency|Nothing)/g);
+  const parts = text.split(/(Nothing Agency|Nothing|Creators of Impact)/g);
   return parts.map((part, i) =>
-    part === "Nothing Agency" || part === "Nothing" ? (
+    part === "Nothing Agency" || part === "Nothing" || part === "Creators of Impact" ? (
       <span key={i} className="text-[var(--color-accent)]">
         {part}
       </span>
@@ -70,20 +70,6 @@ export default function PageView({ slug, lang }: { slug: string; lang: Lang }) {
       <section className="relative w-full block pb-[var(--space-section)] overflow-hidden z-10">
         <div className="max-w-[1140px] mx-auto px-4 z-[50]">
           <div className="px-5 xl:px-2">
-
-            {/* Logo eyebrow */}
-            <ScrollReveal direction="left" delay={0}>
-              <div className="flex items-center gap-4 mt-[var(--space-block)] mb-10">
-                <div className="h-px w-10 bg-[var(--color-accent)]" />
-                <Image
-                  src="/images/nothing-logo.png"
-                  alt="Nothing Advertising Agency"
-                  width={90}
-                  height={26}
-                  className="opacity-60"
-                />
-              </div>
-            </ScrollReveal>
 
             {/* Page heading */}
             <ScrollReveal direction="left" delay={0.1}>

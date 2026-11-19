@@ -10,9 +10,9 @@ import { t } from "@/data/dictionary";
 
 /** Wraps occurrences of "Nothing" / "Nothing Agency" in gold accent color */
 function brandText(text: string) {
-  const parts = text.split(/(Nothing Agency|Nothing|Creators of Impact)/g);
+  const parts = text.split(/(Nothing Agency|Nothing|Creators of Impact|The Anatomy of Creativity)/g);
   return parts.map((part, i) =>
-    part === "Nothing Agency" || part === "Nothing" || part === "Creators of Impact" ? (
+    part === "Nothing Agency" || part === "Nothing" || part === "Creators of Impact" || part === "The Anatomy of Creativity" ? (
       <span key={i} className="text-[var(--color-accent)]">
         {part}
       </span>
@@ -64,12 +64,14 @@ export default function PageView({ slug, lang }: { slug: string; lang: Lang }) {
         <div className="max-w-[1140px] mx-auto px-4 z-[50]">
           <div className="px-5 xl:px-2">
 
-            {/* Page heading */}
-            <ScrollReveal direction="left" delay={0.1}>
-              <h1 className="text-3xl md:text-5xl font-bold mb-[var(--space-block)] text-white leading-tight max-w-[26ch]">
-                {brandText(page.heading)}
-              </h1>
-            </ScrollReveal>
+            {/* Page heading — hidden when it repeats the hero title */}
+            {page.heading !== current.title && (
+              <ScrollReveal direction="left" delay={0.1}>
+                <h1 className="text-3xl md:text-5xl font-bold mb-[var(--space-block)] text-white leading-tight max-w-[26ch]">
+                  {brandText(page.heading)}
+                </h1>
+              </ScrollReveal>
+            )}
 
             {/* Lead */}
             {page.lead && (

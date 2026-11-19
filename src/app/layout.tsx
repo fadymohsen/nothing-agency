@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import { Poppins, Anton, Noto_Kufi_Arabic } from "next/font/google";
 import "./globals.css";
 import LayoutShell from "@/components/layout/LayoutShell";
+import { orgSchema } from "@/lib/seo";
 
 // Altair -  brand headline font (replaces Mulish)
 const altair = localFont({
@@ -59,7 +60,8 @@ const notoKufiArabic = Noto_Kufi_Arabic({
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000")
   ),
   title: {
     default: "Nothing Advertising Agency",
@@ -117,6 +119,10 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="overflow-x-hidden" suppressHydrationWarning>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema()) }}
+        />
         <LayoutShell>{children}</LayoutShell>
       </body>
     </html>

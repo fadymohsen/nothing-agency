@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import PageView from "@/components/pages/PageView";
 import { PAGE_SLUGS } from "@/lib/lang";
 import { getPage } from "@/lib/pages";
+import { buildAlternates, getPageSchemas, SITE_URL } from "@/lib/seo";
 
 export const dynamicParams = false;
 
@@ -24,16 +25,18 @@ export async function generateMetadata({
   return {
     title,
     description: p.description,
+    alternates: buildAlternates(`/${page}`),
     openGraph: {
       title,
       description: p.description,
-      images: [{ url: p.image, width: 1200, height: 800, alt: p.title }],
+      locale: "en_US",
+      images: [{ url: `${SITE_URL}${p.image}`, width: 1200, height: 800, alt: p.title }],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description: p.description,
-      images: [p.image],
+      images: [`${SITE_URL}${p.image}`],
     },
   };
 }
@@ -44,6 +47,21 @@ export default async function Page({
   params: Promise<{ page: string }>;
 }) {
   const { page } = await params;
-  if (!getPage(page, "en")) notFound();
-  return <PageView slug={page} lang="en" />;
+  const p = getPage(page, "en");
+  if (!p) notFound();
+
+  const schemas = getPageSchemas(page, "en", p.title);
+
+  return (
+    <>
+      {schemas.map((schema, i) => (
+        <script
+          key={i}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      ))}
+      <PageView slug={page} lang="en" />
+    </>
+  );
 }

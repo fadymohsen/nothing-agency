@@ -52,7 +52,7 @@ export const portfolioItems: PortfolioItem[] = [
     image: "/pages/about-us.png",
     mobileImage: "/pages/mobile/about-us.jpg",
     description:
-      "We are the engineers of the void and the creators of impact.",
+      "Nothing Agency is a creative advertising agency that builds powerful brands without big budgets — using critical thinking, market analysis, and a systematic, process-driven creative approach.",
     page: {
       heading:
         "Who Are We? We Are the Engineers of the Void ... and the Creators of Impact.",
@@ -85,7 +85,7 @@ export const portfolioItems: PortfolioItem[] = [
     image: "/pages/what-we-do.png",
     mobileImage: "/pages/mobile/what-we-do.jpg",
     description:
-      "Every service we offer is a vital gear in the machine of our creative process.",
+      "Nothing Agency offers campaign management, brand identity design, content production & copywriting, and social media marketing — each engineered as a gear in our proven Creative Process.",
     page: {
       heading: "What We Do",
       lead: "We don't sell you random ideas pulled out of thin air. Every service we offer is a vital gear in the machine of our \"Creative Process.\" We turn abstract thinking into tangible results.",
@@ -119,7 +119,7 @@ export const portfolioItems: PortfolioItem[] = [
     image: "/pages/manifesto.png",
     mobileImage: "/pages/mobile/manifesto.jpg",
     description:
-      "The creative process map: how we turn the void into a successful campaign.",
+      "Discover Nothing Agency's 4-phase Creative Process: Discovery, Idea Engineering, Execution, and Measurement — a transparent methodology that turns any brief into real campaign impact.",
     page: {
       heading:
         "The Anatomy of Creativity: How Do We Turn the Void into a Successful Campaign?",
@@ -154,7 +154,8 @@ export const portfolioItems: PortfolioItem[] = [
     categorySlug: "pages",
     image: "/pages/from-nothing.png",
     mobileImage: "/pages/mobile/from-nothing.jpg",
-    description: "Our story: the philosophy of \"Nothing\" and why this name.",
+    description:
+      "Nothing Agency was built on the belief that resource-free beginnings aren't excuses — they're the ultimate test of human intelligence. This is the philosophy and story behind our name.",
     page: {
       heading: "The Philosophy of \"Nothing\"... Why This Name?",
       paragraphs: [
@@ -189,7 +190,8 @@ export const portfolioItems: PortfolioItem[] = [
     categorySlug: "pages",
     image: "/pages/unseen.png",
     mobileImage: "/pages/mobile/unseen.jpg",
-    description: "Behind the scenes: beauty in organized chaos.",
+    description:
+      "Go behind the scenes at Nothing Agency: rejected drafts, brainstorming chaos, and the exhausting research behind every successful campaign. Beauty lives in organized chaos.",
     page: {
       heading: "Beauty in Organized Chaos.",
       paragraphs: [

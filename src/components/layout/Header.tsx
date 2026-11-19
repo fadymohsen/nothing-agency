@@ -53,7 +53,7 @@ export default function Header({ onToggleNav, navActive }: HeaderProps) {
     <header className={headerClasses}>
       <div className="relative w-[calc(100%-30px)] ml-[15px] md:w-[calc(100%-100px)] md:ml-[50px]">
         <div className="absolute left-0 top-[30px] md:top-[22px] block cursor-pointer">
-          <Link href={lang === "ar" ? "/ar" : "/"} className="hover-target cursor-pointer">
+          <Link href={lang === "ar" ? "/ar" : "/en"} className="hover-target cursor-pointer">
             <Image
               src="/images/nothing-logo.png"
               alt="Nothing Creative Ad Studio"

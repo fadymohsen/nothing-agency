@@ -1,6 +1,6 @@
 export type Lang = "en" | "ar";
 
-/** Slugs that have a full content page (English at /slug, Arabic at /ar/slug). */
+/** Slugs that have a full content page (English at /en/slug, Arabic at /ar/slug). */
 // Hidden for now (content kept in data files): home, nothing-lab, nothing-just-feel, lets-create
 export const PAGE_SLUGS = [
   "about-us",
@@ -10,35 +10,37 @@ export const PAGE_SLUGS = [
   "unseen",
 ] as const;
 
-/** Routes that exist in the Arabic tree (used by the language switcher). */
-const AR_ROUTES = new Set<string>(["", "contact", ...PAGE_SLUGS]);
+/** Routes that exist in both language trees. */
+const ROUTABLE_SLUGS = new Set<string>(["", "contact", ...PAGE_SLUGS]);
 
 export function langFromPath(pathname: string | null): Lang {
-  return pathname === "/ar" || pathname?.startsWith("/ar/") ? "ar" : "en";
+  if (pathname === "/ar" || pathname?.startsWith("/ar/")) return "ar";
+  return "en";
 }
 
 export function withLang(path: string, lang: Lang): string {
   const clean = path === "/" ? "" : path;
-  return lang === "ar" ? `/ar${clean}` || "/ar" : clean || "/";
+  return lang === "ar" ? `/ar${clean}` || "/ar" : `/en${clean}` || "/en";
 }
 
 export function stripLang(pathname: string): string {
-  const stripped = pathname.replace(/^\/ar(?=\/|$)/, "");
+  const stripped = pathname.replace(/^\/(en|ar)(?=\/|$)/, "");
   return stripped === "" ? "/" : stripped;
 }
 
 export function switchLangPath(pathname: string, target: Lang): string {
   const base = stripLang(pathname).replace(/\/$/, "") || "/";
-  if (target === "en") return base;
   const key = base === "/" ? "" : base.slice(1);
-  return AR_ROUTES.has(key) ? withLang(base, "ar") : "/ar";
+  if (!ROUTABLE_SLUGS.has(key)) return target === "ar" ? "/ar" : "/en";
+  return withLang(base, target);
 }
 
-/** Localize an internal href; routes without an Arabic version are left as-is. */
+/** Localize an internal href to the correct language prefix (/en/... or /ar/...). */
 export function localizeHref(href: string, lang: Lang): string {
-  if (lang === "en" || !href.startsWith("/")) return href;
+  if (!href.startsWith("/")) return href;
   const key = href === "/" ? "" : href.slice(1);
-  return AR_ROUTES.has(key) ? withLang(href, "ar") : href;
+  if (!ROUTABLE_SLUGS.has(key)) return href;
+  return withLang(href, lang);
 }
 
 export function pageHref(slug: string, lang: Lang): string {

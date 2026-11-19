@@ -1,11 +1,5 @@
-import PortfolioSlider from "@/components/portfolio/PortfolioSlider";
-import HomeSections from "@/components/home/HomeSections";
+import { redirect } from "next/navigation";
 
-export default function HomePage() {
-  return (
-    <>
-      <PortfolioSlider />
-      <HomeSections />
-    </>
-  );
+export default function RootPage() {
+  redirect("/en");
 }

@@ -1,9 +1,5 @@
-import ContactView from "@/components/pages/ContactView";
-
-export const metadata = {
-  title: "Contact Us - Nothing Agency",
-};
+import { redirect } from "next/navigation";
 
 export default function ContactPage() {
-  return <ContactView lang="en" />;
+  redirect("/en/contact");
 }

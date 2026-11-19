@@ -55,7 +55,7 @@ export const portfolioItems: PortfolioItem[] = [
       "We are the engineers of the void and the creators of impact.",
     page: {
       heading:
-        "Who Are We? We Are the Engineers of the Void... and the Creators of Impact.",
+        "Who Are We? We Are the Engineers of the Void ... and the Creators of Impact.",
       paragraphs: [
         "Many believe that building strong brands requires astronomical budgets and perfect beginnings. We are here to shatter that myth. Our mission is to strip the advertising industry of its aura of \"magic and mystery\" and return it to its core: critical thinking, precise market analysis, and a creative process that doesn't recognize the word \"impossible.\"",
         "We are not just a digital marketing agency; we are an entity built from nothing. We didn't have the traditional precursors to success, but we had what matters most: \"The Process.\" This type of logical, practical creativity is what enables us to take your brand from ground zero, giving it a powerful voice, a striking identity, and an unbeatable market share.",

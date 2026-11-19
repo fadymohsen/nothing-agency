@@ -56,13 +56,6 @@ export default function PageView({ slug, lang }: { slug: string; lang: Lang }) {
             </h1>
             <div className="mt-6 h-[2px] w-[80px] bg-[var(--color-accent)]" />
           </ScrollReveal>
-          {current.description && (
-            <ScrollReveal direction="left" delay={0.18}>
-              <p className="mt-5 text-[var(--color-body-text)] text-base md:text-lg max-w-[52ch] leading-relaxed">
-                {brandText(current.description)}
-              </p>
-            </ScrollReveal>
-          )}
         </div>
       </section>
 

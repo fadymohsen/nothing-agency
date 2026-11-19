@@ -8,6 +8,20 @@ import { sitePages, getPage } from "@/lib/pages";
 import { localizeHref, pageHref, type Lang } from "@/lib/lang";
 import { t } from "@/data/dictionary";
 
+/** Wraps occurrences of "Nothing" / "Nothing Agency" in gold accent color */
+function brandText(text: string) {
+  const parts = text.split(/(Nothing Agency|Nothing)/g);
+  return parts.map((part, i) =>
+    part === "Nothing Agency" || part === "Nothing" ? (
+      <span key={i} className="text-[var(--color-accent)]">
+        {part}
+      </span>
+    ) : (
+      part
+    )
+  );
+}
+
 export default function PageView({ slug, lang }: { slug: string; lang: Lang }) {
   const current = getPage(slug, lang);
   if (!current) return null;
@@ -36,72 +50,115 @@ export default function PageView({ slug, lang }: { slug: string; lang: Lang }) {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-body)] via-[var(--color-body)]/50 to-transparent" />
         <div className="relative z-10 w-full max-w-[1140px] mx-auto px-6 md:px-10 pt-[var(--space-hero)] pb-14 md:pb-20">
-          <ScrollReveal>
+          <ScrollReveal direction="left" delay={0}>
             <h1 className="text-white font-bold leading-[1.1] text-[clamp(2.8rem,7vw,6.5rem)]">
               {current.title}
             </h1>
             <div className="mt-6 h-[2px] w-[80px] bg-[var(--color-accent)]" />
           </ScrollReveal>
+          {current.description && (
+            <ScrollReveal direction="left" delay={0.18}>
+              <p className="mt-5 text-[var(--color-body-text)] text-base md:text-lg max-w-[52ch] leading-relaxed">
+                {brandText(current.description)}
+              </p>
+            </ScrollReveal>
+          )}
         </div>
       </section>
 
+      {/* Content */}
       <section className="relative w-full block pb-[var(--space-section)] overflow-hidden z-10">
         <div className="max-w-[1140px] mx-auto px-4 z-[50]">
-          <ScrollReveal delay={0.2}>
-            <div className="px-5 xl:px-2">
-              <h1 className="text-3xl md:text-5xl font-bold mb-[var(--space-block)] text-white leading-tight max-w-[26ch]">
-                {page.heading}
-              </h1>
-              {page.lead && (
-                <p className="text-[1.3rem] font-light leading-relaxed mb-8 text-white/90 max-w-[62ch]">
-                  {page.lead}
-                </p>
-              )}
-              {page.paragraphs?.map((para, i) => (
-                <p
-                  key={i}
-                  className="text-[1.15rem] font-light leading-relaxed mb-6 max-w-[68ch]"
-                >
-                  {para}
-                </p>
-              ))}
+          <div className="px-5 xl:px-2">
 
-              {page.points && (
-                <div className="mt-[var(--space-block)]">
-                  {page.pointsTitle && (
-                    <h3 className="text-xl font-bold mb-8 text-white uppercase tracking-wider">
-                      {page.pointsTitle}
-                    </h3>
-                  )}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12">
-                    {page.points.map((pt, i) => (
-                      <div key={i} className="border-t border-white/10 pt-6">
-                        <h4 className="text-xs uppercase tracking-[2px] text-[var(--color-accent)] mb-3">
+            {/* Logo eyebrow */}
+            <ScrollReveal direction="left" delay={0}>
+              <div className="flex items-center gap-4 mt-[var(--space-block)] mb-10">
+                <div className="h-px w-10 bg-[var(--color-accent)]" />
+                <Image
+                  src="/images/nothing-logo.png"
+                  alt="Nothing Advertising Agency"
+                  width={90}
+                  height={26}
+                  className="opacity-60"
+                />
+              </div>
+            </ScrollReveal>
+
+            {/* Page heading */}
+            <ScrollReveal direction="left" delay={0.1}>
+              <h1 className="text-3xl md:text-5xl font-bold mb-[var(--space-block)] text-white leading-tight max-w-[26ch]">
+                {brandText(page.heading)}
+              </h1>
+            </ScrollReveal>
+
+            {/* Lead */}
+            {page.lead && (
+              <ScrollReveal delay={0.15}>
+                <p className="text-[1.3rem] font-light leading-relaxed mb-8 text-white/90 max-w-[62ch]">
+                  {brandText(page.lead)}
+                </p>
+              </ScrollReveal>
+            )}
+
+            {/* Paragraphs — each one individually animated */}
+            {page.paragraphs?.map((para, i) => (
+              <ScrollReveal key={i} delay={0.12 * (i + 1)}>
+                <p className="text-[1.15rem] font-light leading-relaxed mb-6 max-w-[68ch]">
+                  {brandText(para)}
+                </p>
+              </ScrollReveal>
+            ))}
+
+            {/* Points / Values */}
+            {page.points && (
+              <div className="mt-[var(--space-block)]">
+                {page.pointsTitle && (
+                  <ScrollReveal delay={0.1}>
+                    <div className="mb-12">
+                      <p className="text-[var(--color-accent)] uppercase tracking-[3px] text-xs mb-3">
+                        {page.pointsTitle}
+                      </p>
+                      <div className="h-px w-12 bg-[var(--color-accent)]/30" />
+                    </div>
+                  </ScrollReveal>
+                )}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
+                  {page.points.map((pt, i) => (
+                    <ScrollReveal key={i} delay={0.12 * (i + 1)} direction="left">
+                      <div className="border-l-2 border-[var(--color-accent)] pl-6 py-1 group">
+                        <span className="text-[var(--color-accent)] text-[2.8rem] font-bold leading-none opacity-20 block mb-2">
                           {String(i + 1).padStart(2, "0")}
-                        </h4>
-                        <h5 className="text-white text-xl font-bold mb-3">
+                        </span>
+                        <h5 className="text-white text-xl font-bold mb-3 group-hover:text-[var(--color-accent)] transition-colors duration-300">
                           {pt.title}
                         </h5>
                         <p className="font-light leading-relaxed">{pt.text}</p>
                       </div>
-                    ))}
-                  </div>
+                    </ScrollReveal>
+                  ))}
                 </div>
-              )}
+              </div>
+            )}
 
-              {page.closing && (
-                <p className="text-[1.15rem] italic font-light leading-relaxed mt-12">
-                  {page.closing}
+            {/* Closing quote */}
+            {page.closing && (
+              <ScrollReveal delay={0.2}>
+                <p className="text-[1.15rem] italic font-light leading-relaxed mt-14 border-l-2 border-[var(--color-accent)]/40 pl-6 text-white/80">
+                  {brandText(page.closing)}
                 </p>
-              )}
+              </ScrollReveal>
+            )}
 
-              {slug === "lets-create" && (
-                <div className="mt-16 max-w-[760px]">
-                  <ContactForm />
-                </div>
-              )}
+            {slug === "lets-create" && (
+              <div className="mt-16 max-w-[760px]">
+                <ContactForm />
+              </div>
+            )}
 
-              {page.ctas && (
+            {/* CTAs */}
+            {page.ctas && (
+              <ScrollReveal delay={0.2}>
                 <div className="flex flex-wrap gap-4 mt-12">
                   {page.ctas.map((cta, i) => (
                     <Link
@@ -117,9 +174,10 @@ export default function PageView({ slug, lang }: { slug: string; lang: Lang }) {
                     </Link>
                   ))}
                 </div>
-              )}
-            </div>
-          </ScrollReveal>
+              </ScrollReveal>
+            )}
+
+          </div>
         </div>
       </section>
 

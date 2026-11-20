@@ -45,7 +45,7 @@ export default function ContactView({ lang }: { lang: Lang }) {
                 <ScrollReveal delay={0.2}>
                   <div className="bg-dark-3 rounded-[0.35rem] p-10">
                     <h6 className="mb-3">{c.call}</h6>
-                    <p className="mb-6" dir="ltr">+1 234 567 890</p>
+                    <p className="mb-6" dir="ltr">+20 12 73890104</p>
 
                     <div className="separator-wrap py-4">
                       <span className="separator">
@@ -55,11 +55,11 @@ export default function ContactView({ lang }: { lang: Lang }) {
 
                     <h6 className="mb-3">{c.visit}</h6>
                     <p className="mb-6" dir="ltr">
-                      123 Creative Street
+                      2 Almaza Main Street, at the intersection
                       <br />
-                      Design District
+                      with Al-Thawra Main Street, Office 1
                       <br />
-                      New York, NY 10001
+                      Cairo, Egypt
                     </p>
 
                     <div className="separator-wrap py-4">
@@ -71,10 +71,10 @@ export default function ContactView({ lang }: { lang: Lang }) {
                     <h6 className="mb-3">{c.email}</h6>
                     <p>
                       <a
-                        href="mailto:hello@nothingagency.com"
+                        href="mailto:info@nothing-ads.com"
                         className="hover-target text-body-text hover:text-white transition-colors"
                       >
-                        hello@nothingagency.com
+                        info@nothing-ads.com
                       </a>
                     </p>
                   </div>
@@ -87,7 +87,7 @@ export default function ContactView({ lang }: { lang: Lang }) {
 
       <FooterSection
         shadowText={c.footerShadow}
-        links={[{ label: "hello@nothingagency.com", href: "mailto:hello@nothingagency.com" }]}
+        links={[{ label: "info@nothing-ads.com", href: "mailto:info@nothing-ads.com" }]}
       />
     </>
   );

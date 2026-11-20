@@ -122,14 +122,16 @@ export default function RootLayout({
       <body className="overflow-x-hidden" suppressHydrationWarning>
         {/* Google Tag Manager */}
         <Script
-          id="gtm-script"
+          src="https://www.googletagmanager.com/gtm.js?id=GTM-N3F3W2CM"
+          strategy="afterInteractive"
+        />
+        <Script
+          id="gtm-init"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
-            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-N3F3W2CM');`,
+            __html: `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());`,
           }}
         />
         {/* Google Tag Manager (noscript) */}

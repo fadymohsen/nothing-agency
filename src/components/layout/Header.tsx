@@ -18,7 +18,7 @@ export default function Header({ onToggleNav, navActive }: HeaderProps) {
 
   return (
     <header className="cd-header">
-      <div className="flex items-center justify-between h-full w-[calc(100%-20px)] ml-[10px] md:w-[calc(100%-60px)] md:ml-[10px]">
+      <div className="flex items-start justify-between w-[calc(100%-20px)] ml-[10px] md:w-[calc(100%-60px)] md:ml-[10px] pt-2">
         <Link href={lang === "ar" ? "/ar" : "/en"} className="hover-target cursor-pointer">
           <Image
             src="/images/nothing-logo.png"

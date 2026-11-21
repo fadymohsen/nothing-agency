@@ -61,7 +61,7 @@ export default function Splash() {
                 alt="Nothing Advertising Agency"
                 width={280}
                 height={80}
-                className="opacity-90"
+                className="opacity-90 brightness-0 invert"
                 priority
               />
             </motion.div>

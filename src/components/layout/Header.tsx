@@ -51,7 +51,7 @@ export default function Header({ onToggleNav, navActive }: HeaderProps) {
 
   return (
     <header className={headerClasses}>
-      <div className="flex items-center justify-between w-[calc(100%-30px)] ml-[15px] md:w-[calc(100%-100px)] md:ml-[50px] py-1 md:py-2">
+      <div className="flex items-start justify-between w-[calc(100%-16px)] ml-[8px] md:w-[calc(100%-40px)] md:ml-[8px] pt-0 pb-1">
         <Link href={lang === "ar" ? "/ar" : "/en"} className="hover-target cursor-pointer">
           <Image
             src="/images/nothing-logo.png"
@@ -62,7 +62,7 @@ export default function Header({ onToggleNav, navActive }: HeaderProps) {
             className="w-[260px] md:w-[480px] h-auto"
           />
         </Link>
-        <div className="flex items-center gap-5 md:gap-7 transition-all duration-300 ease-out">
+        <div className="flex items-center gap-5 md:gap-7 transition-all duration-300 ease-out mt-3 md:mt-4">
           <Link
             href={switchLangPath(pathname, target)}
             hrefLang={target}

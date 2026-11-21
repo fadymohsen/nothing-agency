@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -16,41 +15,9 @@ export default function Header({ onToggleNav, navActive }: HeaderProps) {
   const lang = useLang();
   const pathname = usePathname();
   const target = lang === "ar" ? "en" : "ar";
-  const [isFixed, setIsFixed] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
-  const [lastScroll, setLastScroll] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScroll = window.scrollY;
-      if (currentScroll > 100) {
-        setIsFixed(true);
-        if (currentScroll < lastScroll) {
-          setIsVisible(true);
-        } else {
-          setIsVisible(false);
-        }
-      } else {
-        setIsFixed(false);
-        setIsVisible(false);
-      }
-      setLastScroll(currentScroll);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScroll]);
-
-  const headerClasses = [
-    "cd-header",
-    isFixed ? "is-fixed" : "",
-    isVisible || (navActive && isFixed) ? "is-visible" : "",
-  ]
-    .filter(Boolean)
-    .join(" ");
 
   return (
-    <header className={headerClasses}>
+    <header className="cd-header">
       <div className="flex items-center justify-between h-full w-[calc(100%-20px)] ml-[10px] md:w-[calc(100%-60px)] md:ml-[10px]">
         <Link href={lang === "ar" ? "/ar" : "/en"} className="hover-target cursor-pointer">
           <Image
@@ -59,7 +26,7 @@ export default function Header({ onToggleNav, navActive }: HeaderProps) {
             width={931}
             height={268}
             priority
-            className="h-[100px] md:h-[180px] w-auto"
+            className="h-[100px] md:h-[180px] w-auto brightness-0 invert"
           />
         </Link>
         <div className="flex items-center gap-5 md:gap-7 transition-all duration-300 ease-out">

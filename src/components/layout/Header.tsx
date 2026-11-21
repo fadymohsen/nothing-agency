@@ -18,18 +18,21 @@ export default function Header({ onToggleNav, navActive }: HeaderProps) {
 
   return (
     <header className="cd-header">
-      <div className="flex items-center justify-between w-[calc(100%-20px)] ml-[10px] md:w-[calc(100%-60px)] md:ml-[10px] h-full">
+      <div className="flex items-center justify-between w-[calc(100%-40px)] ml-[20px] md:w-[calc(100%-100px)] md:ml-[50px] h-[97px] md:h-[120px]">
         <Link href={lang === "ar" ? "/ar" : "/en"} className="hover-target cursor-pointer">
           <Image
-            src="/images/nothing-logo.png"
-            alt="Nothing Creative Ad Studio"
-            width={931}
-            height={268}
+            src="/images/nothing-logo-tight.png"
+            alt="Nothing Advertising Agency"
+            width={1200}
+            height={324}
             priority
-            className="h-[130px] md:h-[200px] w-auto brightness-0 invert"
+            className="h-[39px] md:h-[60px] w-auto brightness-0 invert"
           />
         </Link>
-        <div className="flex items-center gap-5 md:gap-7 transition-all duration-300 ease-out">
+        <div
+          className="flex items-center gap-5 md:gap-7 transition-all duration-300 ease-out"
+          style={{ transform: "scale(1.15)", transformOrigin: "right center" }}
+        >
           <Link
             href={switchLangPath(pathname, target)}
             hrefLang={target}

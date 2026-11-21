@@ -57,11 +57,11 @@ export default function Splash() {
               className="flex justify-end"
             >
               <Image
-                src="/images/nothing-logo.png"
+                src="/images/nothing-logo-yellow.png"
                 alt="Nothing Advertising Agency"
                 width={280}
                 height={80}
-                className="opacity-90 brightness-0 invert"
+                className="opacity-90"
                 priority
               />
             </motion.div>

@@ -51,20 +51,18 @@ export default function Header({ onToggleNav, navActive }: HeaderProps) {
 
   return (
     <header className={headerClasses}>
-      <div className="relative w-[calc(100%-30px)] ml-[10px] md:w-[calc(100%-60px)] md:ml-[20px]">
-        <div className="absolute left-0 top-[12px] md:top-[10px] block cursor-pointer">
-          <Link href={lang === "ar" ? "/ar" : "/en"} className="hover-target cursor-pointer">
-            <Image
-              src="/images/nothing-logo.png"
-              alt="Nothing Creative Ad Studio"
-              width={931}
-              height={268}
-              priority
-              className="w-[200px] md:w-[320px] h-auto"
-            />
-          </Link>
-        </div>
-        <div className="relative flex items-center gap-5 md:gap-7 float-right pt-[10px] mt-[28px] md:mt-[26px] md:pl-[15px] md:pt-[15px] transition-all duration-300 ease-out">
+      <div className="flex items-center justify-between w-[calc(100%-30px)] ml-[15px] md:w-[calc(100%-100px)] md:ml-[50px] py-4 md:py-5">
+        <Link href={lang === "ar" ? "/ar" : "/en"} className="hover-target cursor-pointer">
+          <Image
+            src="/images/nothing-logo.png"
+            alt="Nothing Creative Ad Studio"
+            width={931}
+            height={268}
+            priority
+            className="w-[220px] md:w-[380px] h-auto"
+          />
+        </Link>
+        <div className="flex items-center gap-5 md:gap-7 transition-all duration-300 ease-out">
           <Link
             href={switchLangPath(pathname, target)}
             hrefLang={target}

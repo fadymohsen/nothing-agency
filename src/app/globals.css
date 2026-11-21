@@ -524,12 +524,14 @@ h6 { font-size: 1rem; text-transform: uppercase; font-weight: 700; margin-bottom
   bottom: 40px;
   left: 30px;
   z-index: 94;
-  writing-mode: vertical-lr;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   transition: all 250ms linear;
 }
 .social-fixed a {
   position: relative;
-  text-align: center;
+  text-align: left;
   margin-top: 7px;
   margin-bottom: 7px;
   font-family: var(--font-poppins);
@@ -537,7 +539,7 @@ h6 { font-size: 1rem; text-transform: uppercase; font-weight: 700; margin-bottom
   font-weight: 500;
   letter-spacing: 1px;
   color: #fff;
-  display: inline-block;
+  display: block;
   transition: all 200ms linear;
 }
 .social-fixed a:hover {

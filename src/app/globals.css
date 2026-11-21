@@ -531,15 +531,12 @@ h6 { font-size: 1rem; text-transform: uppercase; font-weight: 700; margin-bottom
 }
 .social-fixed a {
   position: relative;
-  text-align: left;
-  margin-top: 7px;
-  margin-bottom: 7px;
-  font-family: var(--font-poppins);
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 1px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   color: #fff;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: all 200ms linear;
 }
 .social-fixed a:hover {

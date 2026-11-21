@@ -60,7 +60,7 @@ export default function Header({ onToggleNav, navActive }: HeaderProps) {
               width={931}
               height={268}
               priority
-              className="w-[140px] md:w-[200px] h-auto"
+              className="w-[180px] md:w-[260px] h-auto brightness-0 invert"
             />
           </Link>
         </div>

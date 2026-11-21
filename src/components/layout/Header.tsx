@@ -18,7 +18,7 @@ export default function Header({ onToggleNav, navActive }: HeaderProps) {
 
   return (
     <header className="cd-header">
-      <div className="flex items-start justify-between w-[calc(100%-20px)] ml-[10px] md:w-[calc(100%-60px)] md:ml-[10px] pt-2">
+      <div className="flex items-center justify-between w-[calc(100%-20px)] ml-[10px] md:w-[calc(100%-60px)] md:ml-[10px] h-full">
         <Link href={lang === "ar" ? "/ar" : "/en"} className="hover-target cursor-pointer">
           <Image
             src="/images/nothing-logo.png"
@@ -26,7 +26,7 @@ export default function Header({ onToggleNav, navActive }: HeaderProps) {
             width={931}
             height={268}
             priority
-            className="h-[120px] md:h-[220px] w-auto brightness-0 invert"
+            className="h-[100px] md:h-[130px] w-auto brightness-0 invert"
           />
         </Link>
         <div className="flex items-center gap-5 md:gap-7 transition-all duration-300 ease-out">

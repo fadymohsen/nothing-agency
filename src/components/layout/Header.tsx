@@ -60,7 +60,7 @@ export default function Header({ onToggleNav, navActive }: HeaderProps) {
               width={931}
               height={268}
               priority
-              className="w-[180px] md:w-[260px] h-auto brightness-0 invert"
+              className="w-[180px] md:w-[260px] h-auto invert mix-blend-screen"
             />
           </Link>
         </div>

@@ -51,8 +51,8 @@ export default function Header({ onToggleNav, navActive }: HeaderProps) {
 
   return (
     <header className={headerClasses}>
-      <div className="relative w-[calc(100%-30px)] ml-[15px] md:w-[calc(100%-100px)] md:ml-[50px]">
-        <div className="absolute left-0 top-[30px] md:top-[22px] block cursor-pointer">
+      <div className="relative w-[calc(100%-30px)] ml-[10px] md:w-[calc(100%-60px)] md:ml-[20px]">
+        <div className="absolute left-0 top-[12px] md:top-[10px] block cursor-pointer">
           <Link href={lang === "ar" ? "/ar" : "/en"} className="hover-target cursor-pointer">
             <Image
               src="/images/nothing-logo.png"
@@ -60,7 +60,7 @@ export default function Header({ onToggleNav, navActive }: HeaderProps) {
               width={931}
               height={268}
               priority
-              className="w-[180px] md:w-[260px] h-auto brightness-0 invert"
+              className="w-[200px] md:w-[320px] h-auto"
             />
           </Link>
         </div>

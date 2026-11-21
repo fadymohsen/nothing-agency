@@ -59,7 +59,7 @@ export default function Header({ onToggleNav, navActive }: HeaderProps) {
             width={931}
             height={268}
             priority
-            className="h-[65px] md:h-[90px] w-auto"
+            className="h-[80px] md:h-[130px] w-auto"
           />
         </Link>
         <div className="flex items-center gap-5 md:gap-7 transition-all duration-300 ease-out">

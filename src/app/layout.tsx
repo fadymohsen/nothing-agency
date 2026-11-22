@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { Poppins, Anton, Noto_Kufi_Arabic } from "next/font/google";
+import { Poppins, Anton } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import LayoutShell from "@/components/layout/LayoutShell";
@@ -53,10 +53,14 @@ const anton = Anton({
   weight: ["400"],
 });
 
-const notoKufiArabic = Noto_Kufi_Arabic({
+// Self-hosted so the build never depends on fetching this font from Google
+const notoKufiArabic = localFont({
   variable: "--font-noto-kufi",
-  subsets: ["arabic"],
-  weight: ["300", "400", "700"],
+  src: [
+    { path: "../fonts/noto-kufi/NotoKufiArabic-Light.ttf", weight: "300", style: "normal" },
+    { path: "../fonts/noto-kufi/NotoKufiArabic-Regular.ttf", weight: "400", style: "normal" },
+    { path: "../fonts/noto-kufi/NotoKufiArabic-Bold.ttf", weight: "700", style: "normal" },
+  ],
 });
 
 export const metadata: Metadata = {

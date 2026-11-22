@@ -3,6 +3,8 @@ import SectionIntro from "@/components/ui/SectionIntro";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import FooterSection from "@/components/ui/FooterSection";
 import ContactForm from "@/components/ui/ContactForm";
+import IconBadge from "@/components/ui/IconBadge";
+import { icon } from "@/data/scenes";
 import { t } from "@/data/dictionary";
 import type { Lang } from "@/lib/lang";
 
@@ -44,7 +46,10 @@ export default function ContactView({ lang }: { lang: Lang }) {
               <div>
                 <ScrollReveal delay={0.2}>
                   <div className="bg-dark-3 rounded-[0.35rem] p-6 sm:p-8 md:p-10">
-                    <h6 className="mb-3">{c.call}</h6>
+                    <div className="mb-3 flex items-center gap-3">
+                      <IconBadge src={icon("chat")} size={44} />
+                      <h6 className="!mb-0">{c.call}</h6>
+                    </div>
                     <p className="mb-6" dir="ltr">+20 12 73890104</p>
 
                     <div className="separator-wrap py-4">
@@ -53,7 +58,10 @@ export default function ContactView({ lang }: { lang: Lang }) {
                       </span>
                     </div>
 
-                    <h6 className="mb-3">{c.visit}</h6>
+                    <div className="mb-3 flex items-center gap-3">
+                      <IconBadge src={icon("handshake")} size={44} />
+                      <h6 className="!mb-0">{c.visit}</h6>
+                    </div>
                     <p className="mb-6 whitespace-nowrap text-[12.5px] sm:text-[15px]" dir="ltr">
                       2 Almaza Main Street, at the intersection
                       <br />
@@ -68,7 +76,10 @@ export default function ContactView({ lang }: { lang: Lang }) {
                       </span>
                     </div>
 
-                    <h6 className="mb-3">{c.email}</h6>
+                    <div className="mb-3 flex items-center gap-3">
+                      <IconBadge src={icon("mail")} size={44} />
+                      <h6 className="!mb-0">{c.email}</h6>
+                    </div>
                     <p>
                       <a
                         href="mailto:info@nothing-ads.com"

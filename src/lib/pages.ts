@@ -22,7 +22,7 @@ export function getPage(slug: string, lang: Lang): ResolvedPage | undefined {
       slug,
       title: ar.title,
       description: ar.description,
-      image: item.image,
+      image: item.heroImage ?? item.image,
       page: ar.page,
     };
   }
@@ -30,7 +30,7 @@ export function getPage(slug: string, lang: Lang): ResolvedPage | undefined {
     slug,
     title: item.title,
     description: item.description,
-    image: item.image,
+    image: item.heroImage ?? item.image,
     page: item.page,
   };
 }

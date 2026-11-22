@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import ClipImage from "@/components/animations/ClipImage";
 import { EASE } from "@/components/animations/motion";
+import IconBadge from "@/components/ui/IconBadge";
 import type { SceneImage } from "@/data/scenes";
 
 interface Point {
@@ -48,12 +49,17 @@ export default function ServiceRows({
               viewport={{ once: true, margin: "0px 0px -15% 0px" }}
               transition={{ duration: 0.9, ease: EASE, delay: 0.15 }}
             >
-              <span
-                aria-hidden="true"
-                className="block text-[clamp(4rem,9vw,7.5rem)] font-bold leading-none text-transparent [-webkit-text-stroke:1px_var(--color-accent)]"
-              >
-                {String(i + 1).padStart(2, "0")}
-              </span>
+              <div className="flex items-center gap-5">
+                <span
+                  aria-hidden="true"
+                  className="block text-[clamp(4rem,9vw,7.5rem)] font-bold leading-none text-transparent [-webkit-text-stroke:1px_var(--color-accent)]"
+                >
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                {images[i % images.length].icon && (
+                  <IconBadge src={images[i % images.length].icon!} size={72} />
+                )}
+              </div>
               <h3 className="mt-4 mb-4 text-2xl font-bold !text-white md:text-3xl">
                 {pt.title}
               </h3>

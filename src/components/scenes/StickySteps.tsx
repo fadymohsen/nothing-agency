@@ -9,6 +9,8 @@ import {
   useScroll,
 } from "framer-motion";
 import { EASE } from "@/components/animations/motion";
+import IconBadge from "@/components/ui/IconBadge";
+import type { SceneImage } from "@/data/scenes";
 
 interface Step {
   title?: string;
@@ -26,7 +28,7 @@ export default function StickySteps({
   numbered = true,
 }: {
   steps: Step[];
-  images: string[];
+  images: SceneImage[];
   numbered?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -47,7 +49,7 @@ export default function StickySteps({
     return (
       <div className="grid gap-10 md:grid-cols-2">
         <div className="relative aspect-[4/3] overflow-hidden">
-          <Image src={images[0]} alt="" fill sizes="50vw" className="object-cover" />
+          <Image src={images[0].src} alt="" fill sizes="50vw" className="object-cover" />
         </div>
         <ol className="flex flex-col gap-8">
           {steps.map((s, i) => (
@@ -68,7 +70,7 @@ export default function StickySteps({
         <div className="ss-grid">
           {/* Pinned photo stack */}
           <div className="ss-photo">
-            {images.map((src, i) => (
+            {images.map(({ src }, i) => (
               <motion.div
                 key={src}
                 style={{ position: "absolute", inset: 0 }}
@@ -98,7 +100,12 @@ export default function StickySteps({
                     animate={{ opacity: active ? 1 : 0.32 }}
                     transition={{ duration: 0.6, ease: EASE }}
                   >
-                    {numbered && <span className="ss-num">{String(i + 1).padStart(2, "0")}</span>}
+                    {numbered && (
+                      <div className="ss-badge">
+                        {images[i]?.icon && <IconBadge src={images[i].icon!} size={44} />}
+                        <span className="ss-num">{String(i + 1).padStart(2, "0")}</span>
+                      </div>
+                    )}
                     {s.title && <h4 className="ss-title">{s.title}</h4>}
                     {/* Only the current step opens its text, so the list always fits the screen */}
                     <div className={`ss-collapse ${active || !s.title ? "open" : ""}`}>
@@ -126,7 +133,8 @@ const CSS = `
 .ss-track{position:relative;width:1px;flex-shrink:0;align-self:stretch;background:rgba(255,255,255,.1)}
 .ss-fill{position:absolute;left:0;right:0;top:0;height:100%;transform-origin:top;background:var(--color-accent)}
 .ss-list{display:flex;flex-direction:column;gap:1rem;margin:0;padding:0;list-style:none;min-width:0}
-.ss-num{display:block;margin-bottom:.25rem;font-size:.75rem;letter-spacing:3px;text-transform:uppercase;color:var(--color-accent)}
+.ss-badge{display:flex;align-items:center;gap:.75rem;margin-bottom:.35rem}
+.ss-num{display:block;font-size:.75rem;letter-spacing:3px;text-transform:uppercase;color:var(--color-accent)}
 .ss-title{font-size:1.125rem;font-weight:700;line-height:1.35;color:#fff}
 .ss-collapse{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s cubic-bezier(.22,1,.36,1)}
 .ss-collapse.open{grid-template-rows:1fr}

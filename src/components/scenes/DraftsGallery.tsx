@@ -9,6 +9,8 @@ import {
   useTransform,
   type MotionValue,
 } from "framer-motion";
+import IconBadge from "@/components/ui/IconBadge";
+import type { SceneImage } from "@/data/scenes";
 
 const TILTS = [-2.6, 1.8, -1.4, 2.4, -2, 1.2, -1.8];
 
@@ -54,8 +56,8 @@ export default function DraftsGallery({
   finalImage,
   finalLabel,
 }: {
-  images: string[];
-  finalImage: string;
+  images: SceneImage[];
+  finalImage: SceneImage;
   finalLabel: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -94,7 +96,7 @@ export default function DraftsGallery({
     return (
       <div className="-mx-4 overflow-x-auto px-4">
         <div className="flex gap-4 pb-4">
-          {[...images, finalImage].map((src) => (
+          {[...images, finalImage].map(({ src }) => (
             // eslint-disable-next-line @next/next/no-img-element
             <img key={src} src={src} alt="" className="h-[40vh] w-auto max-w-none" />
           ))}
@@ -108,15 +110,16 @@ export default function DraftsGallery({
       <style>{CSS}</style>
       <div className="dg-sticky">
         <div className="dg-count" dir="ltr">
+          {finalImage.icon && <IconBadge src={finalImage.icon} size={56} />}
           <span>{String(count).padStart(2, "0")}</span>
         </div>
         <motion.div ref={trackRef} dir="ltr" className="dg-track" style={{ x }}>
-          {images.map((src, i) => (
+          {images.map(({ src }, i) => (
             <DraftCard key={src} src={src} index={i} total={images.length} progress={scrollYProgress} />
           ))}
           <motion.div className="dg-card dg-final" style={{ scale: finalScale }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={finalImage} alt="" loading="lazy" className="dg-img" />
+            <img src={finalImage.src} alt="" loading="lazy" className="dg-img" />
             <span className="dg-final-label">{finalLabel}</span>
           </motion.div>
         </motion.div>
@@ -128,7 +131,7 @@ export default function DraftsGallery({
 /* Layout lives here (not in utility classes) so it can never come out half-styled. */
 const CSS = `
 .dg-sticky{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
-.dg-count{width:100%;max-width:1140px;margin:0 auto 2rem;padding:0 1.5rem;display:flex;justify-content:flex-end}
+.dg-count{width:100%;max-width:1140px;margin:0 auto 2rem;padding:0 1.5rem;display:flex;justify-content:flex-end;align-items:center;gap:1.25rem}
 .dg-count span{font-size:2.25rem;font-weight:700;line-height:1;color:#fff}
 .dg-track{display:flex;align-items:center;gap:2rem;padding:0 3rem 0 1.5rem}
 .dg-card{position:relative;flex-shrink:0;overflow:hidden;height:46vh}

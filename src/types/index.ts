@@ -13,6 +13,8 @@ export interface PortfolioItem {
   images?: string[];
   /** Portrait photo used by the slider on phones. */
   mobileImage?: string;
+  /** Photo used at the top of the content page (the slider keeps `image`). */
+  heroImage?: string;
   hideFromSlider?: boolean;
   /** Content page kept in the codebase but not routed, listed or shown while true. */
   hidden?: boolean;

@@ -10,6 +10,7 @@ import {
 } from "framer-motion";
 import ClipImage from "@/components/animations/ClipImage";
 import { EASE } from "@/components/animations/motion";
+import IconBadge from "@/components/ui/IconBadge";
 import type { SceneImage } from "@/data/scenes";
 
 interface Point {
@@ -42,9 +43,12 @@ function Column({
         transition={{ duration: 0.8, ease: EASE, delay: 0.2 + index * 0.1 }}
         className="pt-6"
       >
-        <span className="mb-3 block text-xs uppercase tracking-[3px] text-[var(--color-accent)]">
-          {String(index + 1).padStart(2, "0")}
-        </span>
+        <div className="mb-4 flex items-center gap-4">
+          {image.icon && <IconBadge src={image.icon} size={64} />}
+          <span className="block text-xs uppercase tracking-[3px] text-[var(--color-accent)]">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+        </div>
         <h4 className="mb-3 text-xl font-bold !text-white md:text-2xl">{point.title}</h4>
         <p className="font-light leading-relaxed">{point.text}</p>
       </motion.div>

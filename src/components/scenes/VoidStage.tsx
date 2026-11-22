@@ -2,6 +2,8 @@
 
 import { useRef } from "react";
 import Image from "next/image";
+import IconBadge from "@/components/ui/IconBadge";
+import type { SceneImage } from "@/data/scenes";
 import {
   motion,
   useReducedMotion,
@@ -40,6 +42,35 @@ function Word({
     >
       {word}
     </motion.span>
+  );
+}
+
+/** The badge for each photo fades in as that photo opens and out as the next one arrives. */
+function StageBadge({
+  src,
+  index,
+  progress,
+  total,
+}: {
+  src: string;
+  index: number;
+  progress: MotionValue<number>;
+  total: number;
+}) {
+  const from = OPEN[index][0];
+  const to = OPEN[index][1];
+  const isLast = index >= total - 1;
+  const nextFrom = isLast ? to : OPEN[index + 1][0];
+  const opacity = useTransform(
+    progress,
+    isLast ? [from, to] : [from, to, nextFrom, nextFrom + 0.06],
+    isLast ? [0, 1] : [0, 1, 1, 0]
+  );
+  const y = useTransform(progress, [from, to], [14, 0]);
+  return (
+    <motion.div className="vs-badge" style={{ opacity, y }}>
+      <IconBadge src={src} size={84} />
+    </motion.div>
   );
 }
 
@@ -90,7 +121,7 @@ export default function VoidStage({
   images,
 }: {
   paragraphs: string[];
-  images: string[];
+  images: SceneImage[];
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
@@ -102,7 +133,6 @@ export default function VoidStage({
   const ring = useTransform(p, [0, 0.14], [0, 1]);
   const diagonal = useTransform(p, [0.04, 0.2], [0, 1]);
   const glow = useTransform(p, [0.7, 1], [0, 1]);
-  const positions = ["50% 78%", "50% 50%", "50% 50%"];
 
   const flat = paragraphs.flatMap((para, pi) =>
     para.split(" ").map((w) => ({ w, pi }))
@@ -113,7 +143,7 @@ export default function VoidStage({
       <div className="vs-static">
         <style>{CSS}</style>
         <div className="vs-circle vs-circle-static">
-          <Image src={images[images.length - 1]} alt="" fill sizes="80vw" className="vs-img" />
+          <Image src={images[images.length - 1].src} alt="" fill sizes="80vw" className="vs-img" />
         </div>
         <div className="vs-copy">
           {paragraphs.map((para, i) => (
@@ -134,9 +164,14 @@ export default function VoidStage({
           <div className="vs-stage">
             <motion.div className="vs-halo" aria-hidden="true" style={{ opacity: glow }} />
             <div className="vs-circle">
-              {images.map((src, i) => (
-                <Layer key={src} src={src} index={i} progress={p} position={positions[i % positions.length]} />
+              {images.map((im, i) => (
+                <Layer key={im.src} src={im.src} index={i} progress={p} position="50% 50%" />
               ))}
+            </div>
+            <div className="vs-badges" aria-hidden="true">
+              {images.map((im, i) =>
+                im.icon ? <StageBadge key={im.icon} src={im.icon} index={i} progress={p} total={images.length} /> : null
+              )}
             </div>
             <svg className="vs-mark" viewBox="0 0 100 100" aria-hidden="true">
               <motion.circle
@@ -193,6 +228,9 @@ const CSS = `
 .vs-circle{position:absolute;inset:2%;border-radius:50%;overflow:hidden;background:rgba(255,255,255,.03)}
 .vs-layer{position:absolute;inset:0}
 .vs-img{object-fit:cover}
+.vs-badges{position:absolute;right:-5%;bottom:-4%;width:31%;aspect-ratio:1;z-index:3;pointer-events:none}
+.vs-badge{position:absolute;inset:0}
+.vs-badge img{width:100% !important;height:100% !important}
 .vs-mark{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
 .vs-copy{width:100%;max-width:34rem}
 .vs-copy p{margin:0 0 1rem;font-size:.98rem;font-weight:300;line-height:1.65}

@@ -34,8 +34,8 @@ export default function ContactView({ lang }: { lang: Lang }) {
       <section className="relative w-full block pb-[var(--space-section-lg)] z-10 overflow-hidden">
         <div className="max-w-[1140px] mx-auto px-4 z-[50]">
           <div className="px-5 xl:px-2">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              <div className="lg:col-span-2">
+            <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_400px] gap-8">
+              <div>
                 <ScrollReveal>
                   <ContactForm />
                 </ScrollReveal>
@@ -43,7 +43,7 @@ export default function ContactView({ lang }: { lang: Lang }) {
 
               <div>
                 <ScrollReveal delay={0.2}>
-                  <div className="bg-dark-3 rounded-[0.35rem] p-10">
+                  <div className="bg-dark-3 rounded-[0.35rem] p-6 sm:p-8 md:p-10">
                     <h6 className="mb-3">{c.call}</h6>
                     <p className="mb-6" dir="ltr">+20 12 73890104</p>
 
@@ -54,7 +54,7 @@ export default function ContactView({ lang }: { lang: Lang }) {
                     </div>
 
                     <h6 className="mb-3">{c.visit}</h6>
-                    <p className="mb-6" dir="ltr">
+                    <p className="mb-6 whitespace-nowrap text-[12.5px] sm:text-[15px]" dir="ltr">
                       2 Almaza Main Street, at the intersection
                       <br />
                       with Al-Thawra Main Street, Office 1

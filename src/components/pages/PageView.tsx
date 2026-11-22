@@ -10,6 +10,7 @@ import ContactForm from "@/components/ui/ContactForm";
 import ServiceRows from "@/components/scenes/ServiceRows";
 import ValuesStrip from "@/components/scenes/ValuesStrip";
 import StickySteps from "@/components/scenes/StickySteps";
+import VoidStage from "@/components/scenes/VoidStage";
 import DraftsGallery from "@/components/scenes/DraftsGallery";
 import { sitePages, getPage } from "@/lib/pages";
 import { localizeHref, pageHref, type Lang } from "@/lib/lang";
@@ -99,7 +100,7 @@ export default function PageView({ slug, lang }: { slug: string; lang: Lang }) {
             )}
 
             {/* Paragraphs */}
-            {page.paragraphs?.map((para, i) =>
+            {scene?.type !== "story" && page.paragraphs?.map((para, i) =>
               readIn ? (
                 <WordReveal
                   key={i}
@@ -186,11 +187,7 @@ export default function PageView({ slug, lang }: { slug: string; lang: Lang }) {
         <section className="relative z-10 w-full">
           <div className="max-w-[1140px] mx-auto px-4">
             <div className="px-5 xl:px-2">
-              <StickySteps
-                steps={page.paragraphs.map((text) => ({ text }))}
-                images={scene.images}
-                numbered={false}
-              />
+              <VoidStage paragraphs={page.paragraphs} images={scene.images} />
             </div>
           </div>
         </section>

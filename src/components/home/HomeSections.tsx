@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import ScrollReveal from "@/components/animations/ScrollReveal";
+import ClientsSection from "./ClientsSection";
 import { t } from "@/data/dictionary";
 import { useLang } from "@/lib/useLang";
 import { localizeHref } from "@/lib/lang";
@@ -12,6 +13,8 @@ export default function HomeSections() {
   const isAr = lang === "ar";
 
   return (
+    <>
+    <ClientsSection />
     <div className="relative z-10 bg-[var(--color-body)]" dir={isAr ? "rtl" : "ltr"}>
       <section className="py-[var(--space-section-lg)]">
         <div className="max-w-[1140px] mx-auto px-6 md:px-4 text-center">
@@ -39,5 +42,6 @@ export default function HomeSections() {
         </div>
       </section>
     </div>
+    </>
   );
 }

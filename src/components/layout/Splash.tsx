@@ -13,13 +13,17 @@ export default function Splash() {
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
+    document.documentElement.dataset.splash = "on";
     const timer = setTimeout(() => {
       setVisible(false);
       document.body.style.overflow = "";
+      delete document.documentElement.dataset.splash;
+      window.dispatchEvent(new Event("splash:done"));
     }, SPLASH_MS);
     return () => {
       clearTimeout(timer);
       document.body.style.overflow = "";
+      delete document.documentElement.dataset.splash;
     };
   }, []);
 

@@ -3,7 +3,6 @@ import Link from "next/link";
 import { ParallaxTopShadow } from "@/components/animations/ParallaxText";
 import FooterSection from "@/components/ui/FooterSection";
 import ScrollReveal from "@/components/animations/ScrollReveal";
-import ScrollProgressBar from "@/components/animations/ScrollProgressBar";
 import ParallaxLayer from "@/components/animations/ParallaxLayer";
 import HeadlineReveal from "@/components/animations/HeadlineReveal";
 import WordReveal from "@/components/animations/WordReveal";
@@ -18,7 +17,7 @@ import { t } from "@/data/dictionary";
 import { scenes } from "@/data/scenes";
 
 /** Pages whose paragraphs read in word by word as they scroll past */
-const READ_IN = new Set(["about-us", "from-nothing"]);
+const READ_IN = new Set(["about-us", "from-nothing", "unseen"]);
 
 /** Wraps occurrences of "Nothing" / "Nothing Agency" in gold accent color */
 function brandText(text: string) {
@@ -51,7 +50,6 @@ export default function PageView({ slug, lang }: { slug: string; lang: Lang }) {
 
   return (
     <>
-      <ScrollProgressBar />
       <ParallaxTopShadow>{current.title}</ParallaxTopShadow>
 
       {/* Hero: backdrop drifts slower than the page, headline rises out of a mask */}
@@ -173,23 +171,27 @@ export default function PageView({ slug, lang }: { slug: string; lang: Lang }) {
       {/* Pinned scenes need full-width, non-clipping sections */}
       {scene?.type === "steps" && page.points && (
         <section className="relative z-10 w-full">
-          <div className="max-w-[1140px] mx-auto px-6 md:px-10">
-            <StickySteps
-              steps={page.points.map((p) => ({ title: p.title, text: p.text }))}
-              images={scene.images}
-            />
+          <div className="max-w-[1140px] mx-auto px-4">
+            <div className="px-5 xl:px-2">
+              <StickySteps
+                steps={page.points.map((p) => ({ title: p.title, text: p.text }))}
+                images={scene.images}
+              />
+            </div>
           </div>
         </section>
       )}
 
       {scene?.type === "story" && page.paragraphs && (
         <section className="relative z-10 w-full">
-          <div className="max-w-[1140px] mx-auto px-6 md:px-10">
-            <StickySteps
-              steps={page.paragraphs.map((text) => ({ text }))}
-              images={scene.images}
-              numbered={false}
-            />
+          <div className="max-w-[1140px] mx-auto px-4">
+            <div className="px-5 xl:px-2">
+              <StickySteps
+                steps={page.paragraphs.map((text) => ({ text }))}
+                images={scene.images}
+                numbered={false}
+              />
+            </div>
           </div>
         </section>
       )}
@@ -199,7 +201,6 @@ export default function PageView({ slug, lang }: { slug: string; lang: Lang }) {
           <DraftsGallery
             images={scene.images}
             finalImage={scene.final}
-            label={d.scene.drafts}
             finalLabel={d.scene.final}
           />
         </section>
@@ -251,8 +252,8 @@ export default function PageView({ slug, lang }: { slug: string; lang: Lang }) {
       <FooterSection
         shadowText={current.title}
         links={[
-          ...(prev ? [{ label: d.prev, href: pageHref(prev.slug, lang) }] : []),
-          ...(next ? [{ label: d.next, href: pageHref(next.slug, lang) }] : []),
+          ...(prev ? [{ label: prev.title, href: pageHref(prev.slug, lang) }] : []),
+          ...(next ? [{ label: next.title, href: pageHref(next.slug, lang) }] : []),
         ]}
       />
     </>

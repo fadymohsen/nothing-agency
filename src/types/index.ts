@@ -15,6 +15,8 @@ export interface PortfolioItem {
   mobileImage?: string;
   /** Photo used at the top of the content page (the slider keeps `image`). */
   heroImage?: string;
+  /** CSS object-position of the hero photo on phones, so the subject stays in frame */
+  heroFocusMobile?: string;
   hideFromSlider?: boolean;
   /** Content page kept in the codebase but not routed, listed or shown while true. */
   hidden?: boolean;

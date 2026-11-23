@@ -69,7 +69,7 @@ function StageBadge({
   const y = useTransform(progress, [from, to], [14, 0]);
   return (
     <motion.div className="vs-badge" style={{ opacity, y }}>
-      <IconBadge src={src} size={84} />
+      <IconBadge src={src} size={72} shape="diamond" />
     </motion.div>
   );
 }
@@ -228,9 +228,8 @@ const CSS = `
 .vs-circle{position:absolute;inset:2%;border-radius:50%;overflow:hidden;background:rgba(255,255,255,.03)}
 .vs-layer{position:absolute;inset:0}
 .vs-img{object-fit:cover}
-.vs-badges{position:absolute;right:-5%;bottom:-4%;width:31%;aspect-ratio:1;z-index:3;pointer-events:none}
-.vs-badge{position:absolute;inset:0}
-.vs-badge img{width:100% !important;height:100% !important}
+.vs-badges{position:absolute;right:2%;bottom:2%;width:110px;height:110px;z-index:3;pointer-events:none}
+.vs-badge{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
 .vs-mark{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
 .vs-copy{width:100%;max-width:34rem}
 .vs-copy p{margin:0 0 1rem;font-size:.98rem;font-weight:300;line-height:1.65}

@@ -102,7 +102,7 @@ export default function StickySteps({
                   >
                     {numbered && (
                       <div className="ss-badge">
-                        {images[i]?.icon && <IconBadge src={images[i].icon!} size={44} />}
+                        {images[i]?.icon && <IconBadge src={images[i].icon!} size={46} shape="ring" />}
                         <span className="ss-num">{String(i + 1).padStart(2, "0")}</span>
                       </div>
                     )}
@@ -133,7 +133,7 @@ const CSS = `
 .ss-track{position:relative;width:1px;flex-shrink:0;align-self:stretch;background:rgba(255,255,255,.1)}
 .ss-fill{position:absolute;left:0;right:0;top:0;height:100%;transform-origin:top;background:var(--color-accent)}
 .ss-list{display:flex;flex-direction:column;gap:1rem;margin:0;padding:0;list-style:none;min-width:0}
-.ss-badge{display:flex;align-items:center;gap:.75rem;margin-bottom:.35rem}
+.ss-badge{display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem}
 .ss-num{display:block;font-size:.75rem;letter-spacing:3px;text-transform:uppercase;color:var(--color-accent)}
 .ss-title{font-size:1.125rem;font-weight:700;line-height:1.35;color:#fff}
 .ss-collapse{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s cubic-bezier(.22,1,.36,1)}

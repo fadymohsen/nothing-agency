@@ -8,6 +8,7 @@ export interface ResolvedPage {
   title: string;
   description: string;
   image: string;
+  focusMobile?: string;
   page: PageContent;
 }
 
@@ -23,6 +24,7 @@ export function getPage(slug: string, lang: Lang): ResolvedPage | undefined {
       title: ar.title,
       description: ar.description,
       image: item.heroImage ?? item.image,
+      focusMobile: item.heroFocusMobile,
       page: ar.page,
     };
   }
@@ -31,6 +33,7 @@ export function getPage(slug: string, lang: Lang): ResolvedPage | undefined {
     title: item.title,
     description: item.description,
     image: item.heroImage ?? item.image,
+    focusMobile: item.heroFocusMobile,
     page: item.page,
   };
 }

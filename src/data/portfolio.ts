@@ -51,6 +51,7 @@ export const portfolioItems: PortfolioItem[] = [
     categorySlug: "pages",
     image: "/pages/about-us.png",
     heroImage: "/site/photos/hero-about.jpg",
+    heroFocusMobile: "80% 6%",
     mobileImage: "/pages/mobile/about-us.jpg",
     description:
       "Nothing Agency is a creative advertising agency that builds powerful brands without big budgets — using critical thinking, market analysis, and a systematic, process-driven creative approach.",
@@ -85,6 +86,7 @@ export const portfolioItems: PortfolioItem[] = [
     categorySlug: "pages",
     image: "/pages/what-we-do.png",
     heroImage: "/site/photos/hero-services.jpg",
+    heroFocusMobile: "62% 50%",
     mobileImage: "/pages/mobile/what-we-do.jpg",
     description:
       "Nothing Agency offers campaign management, brand identity design, content production & copywriting, and social media marketing — each engineered as a gear in our proven Creative Process.",
@@ -120,6 +122,7 @@ export const portfolioItems: PortfolioItem[] = [
     categorySlug: "pages",
     image: "/pages/manifesto.png",
     heroImage: "/site/photos/hero-manifesto.jpg",
+    heroFocusMobile: "30% 50%",
     mobileImage: "/pages/mobile/manifesto.jpg",
     description:
       "Discover Nothing Agency's 4-phase Creative Process: Discovery, Idea Engineering, Execution, and Measurement — a transparent methodology that turns any brief into real campaign impact.",
@@ -157,6 +160,7 @@ export const portfolioItems: PortfolioItem[] = [
     categorySlug: "pages",
     image: "/pages/from-nothing.png",
     heroImage: "/site/photos/hero-story.jpg",
+    heroFocusMobile: "80% 32%",
     mobileImage: "/pages/mobile/from-nothing.jpg",
     description:
       "Nothing Agency was built on the belief that resource-free beginnings aren't excuses — they're the ultimate test of human intelligence. This is the philosophy and story behind our name.",
@@ -194,6 +198,7 @@ export const portfolioItems: PortfolioItem[] = [
     categorySlug: "pages",
     image: "/pages/unseen.png",
     heroImage: "/site/photos/hero-unseen.jpg",
+    heroFocusMobile: "22% 50%",
     mobileImage: "/pages/mobile/unseen.jpg",
     description:
       "Go behind the scenes at Nothing Agency: rejected drafts, brainstorming chaos, and the exhausting research behind every successful campaign. Beauty lives in organized chaos.",

@@ -47,7 +47,7 @@ export default function ContactView({ lang }: { lang: Lang }) {
                 <ScrollReveal delay={0.2}>
                   <div className="bg-dark-3 rounded-[0.35rem] p-6 sm:p-8 md:p-10">
                     <div className="mb-3 flex items-center gap-3">
-                      <IconBadge src={icon("chat")} size={44} />
+                      <IconBadge src={icon("chat")} size={30} />
                       <h6 className="!mb-0">{c.call}</h6>
                     </div>
                     <p className="mb-6" dir="ltr">+20 12 73890104</p>
@@ -59,7 +59,7 @@ export default function ContactView({ lang }: { lang: Lang }) {
                     </div>
 
                     <div className="mb-3 flex items-center gap-3">
-                      <IconBadge src={icon("handshake")} size={44} />
+                      <IconBadge src={icon("handshake")} size={30} />
                       <h6 className="!mb-0">{c.visit}</h6>
                     </div>
                     <p className="mb-6 whitespace-nowrap text-[12.5px] sm:text-[15px]" dir="ltr">
@@ -77,7 +77,7 @@ export default function ContactView({ lang }: { lang: Lang }) {
                     </div>
 
                     <div className="mb-3 flex items-center gap-3">
-                      <IconBadge src={icon("mail")} size={44} />
+                      <IconBadge src={icon("mail")} size={30} />
                       <h6 className="!mb-0">{c.email}</h6>
                     </div>
                     <p>

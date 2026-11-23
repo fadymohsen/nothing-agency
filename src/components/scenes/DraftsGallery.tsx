@@ -110,7 +110,7 @@ export default function DraftsGallery({
       <style>{CSS}</style>
       <div className="dg-sticky">
         <div className="dg-count" dir="ltr">
-          {finalImage.icon && <IconBadge src={finalImage.icon} size={56} />}
+          {finalImage.icon && <IconBadge src={finalImage.icon} size={48} />}
           <span>{String(count).padStart(2, "0")}</span>
         </div>
         <motion.div ref={trackRef} dir="ltr" className="dg-track" style={{ x }}>

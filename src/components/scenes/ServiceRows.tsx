@@ -35,7 +35,18 @@ export default function ServiceRows({
             transition={{ duration: 1.2, ease: EASE }}
           />
           <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-12 md:gap-14">
-            <div className={`md:col-span-7 ${i % 2 === 1 ? "md:order-2" : ""}`}>
+            <div className={`relative md:col-span-7 ${i % 2 === 1 ? "md:order-2" : ""}`}>
+              {images[i % images.length].icon && (
+                <motion.div
+                  className="absolute z-10 -top-5 -left-3 md:-top-7 md:-left-7"
+                  initial={{ opacity: 0, scale: 0.6 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, margin: "0px 0px -10% 0px" }}
+                  transition={{ duration: 0.7, ease: EASE, delay: 0.5 }}
+                >
+                  <IconBadge src={images[i % images.length].icon!} size={76} shape="square" />
+                </motion.div>
+              )}
               <ClipImage
                 src={images[i % images.length].src}
                 aspect={images[i % images.length].ratio}
@@ -49,17 +60,12 @@ export default function ServiceRows({
               viewport={{ once: true, margin: "0px 0px -15% 0px" }}
               transition={{ duration: 0.9, ease: EASE, delay: 0.15 }}
             >
-              <div className="flex items-center gap-5">
-                <span
-                  aria-hidden="true"
-                  className="block text-[clamp(4rem,9vw,7.5rem)] font-bold leading-none text-transparent [-webkit-text-stroke:1px_var(--color-accent)]"
-                >
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                {images[i % images.length].icon && (
-                  <IconBadge src={images[i % images.length].icon!} size={72} />
-                )}
-              </div>
+              <span
+                aria-hidden="true"
+                className="block text-[clamp(4rem,9vw,7.5rem)] font-bold leading-none text-transparent [-webkit-text-stroke:1px_var(--color-accent)]"
+              >
+                {String(i + 1).padStart(2, "0")}
+              </span>
               <h3 className="mt-4 mb-4 text-2xl font-bold !text-white md:text-3xl">
                 {pt.title}
               </h3>

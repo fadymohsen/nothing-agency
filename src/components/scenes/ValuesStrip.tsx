@@ -43,8 +43,9 @@ function Column({
         transition={{ duration: 0.8, ease: EASE, delay: 0.2 + index * 0.1 }}
         className="pt-6"
       >
-        <div className="mb-4 flex items-center gap-4">
-          {image.icon && <IconBadge src={image.icon} size={64} />}
+        <div className="mb-5 flex items-center gap-4">
+          {image.icon && <IconBadge src={image.icon} size={48} />}
+          <span aria-hidden="true" className="h-px flex-1 bg-[var(--color-accent)]/40" />
           <span className="block text-xs uppercase tracking-[3px] text-[var(--color-accent)]">
             {String(index + 1).padStart(2, "0")}
           </span>

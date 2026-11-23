@@ -54,13 +54,16 @@ export default function PageView({ slug, lang }: { slug: string; lang: Lang }) {
       <ParallaxTopShadow>{current.title}</ParallaxTopShadow>
 
       {/* Hero: backdrop drifts slower than the page, headline rises out of a mask */}
-      <section className="relative w-full overflow-hidden z-10 min-h-[520px] md:min-h-[620px] flex items-end">
+      <section className="relative w-full overflow-hidden z-10 min-h-[560px] md:min-h-[620px] flex items-end">
         <ParallaxLayer>
+          <style>{`@media (max-width:767px){.hero-photo{object-position:var(--hp,50% 50%) !important}}`}</style>
           <Image
             src={current.image}
             alt={current.title}
             fill
-            className="object-cover opacity-40"
+            sizes="100vw"
+            className="hero-photo object-cover opacity-40"
+            style={{ "--hp": current.focusMobile } as React.CSSProperties}
             priority
           />
         </ParallaxLayer>

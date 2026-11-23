@@ -3,7 +3,7 @@
  * "icons and photos" set; optimized copies live in public/site.
  */
 const P = "/site/photos";
-const I = "/site/icons";
+const I = "/site/glyphs";
 
 export type IconName =
   | "report" | "calendar" | "cursor" | "growth-chart" | "idea" | "video" | "chat"

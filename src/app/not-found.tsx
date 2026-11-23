@@ -20,7 +20,7 @@ export default function NotFound() {
         <div className="max-w-[1140px] mx-auto px-4 z-[50]">
           <div className="px-5 xl:px-2">
             <div className="mx-auto mb-8 flex flex-col items-center gap-6">
-              <IconBadge src={icon("hourglass")} size={88} />
+              <IconBadge src={icon("hourglass")} size={80} shape="ring" />
             </div>
             <h1>404</h1>
             <h2 className="text-3xl md:text-5xl">{n.title}</h2>

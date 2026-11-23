@@ -8,6 +8,10 @@ import { icon } from "@/data/scenes";
 import { t } from "@/data/dictionary";
 import type { Lang } from "@/lib/lang";
 
+const LINK = "hover-target text-body-text hover:text-white transition-colors";
+const MAPS =
+  "https://www.google.com/maps/search/?api=1&query=2+Almaza+Al-Thawra+Main+Street+Cairo+Egypt";
+
 export default function ContactView({ lang }: { lang: Lang }) {
   const c = t(lang).contact;
 
@@ -50,7 +54,32 @@ export default function ContactView({ lang }: { lang: Lang }) {
                       <IconBadge src={icon("chat")} size={30} />
                       <h6 className="!mb-0">{c.call}</h6>
                     </div>
-                    <p className="mb-6" dir="ltr">+20 12 73890104</p>
+                    <p className="mb-6" dir="ltr">
+                      <a href="tel:+201273890104" className={LINK}>
+                        +20 12 73890104
+                      </a>
+                    </p>
+
+                    <div className="separator-wrap py-4">
+                      <span className="separator">
+                        <span className="separator-line dashed" />
+                      </span>
+                    </div>
+
+                    <div className="mb-3 flex items-center gap-3">
+                      <IconBadge src={icon("network")} size={30} />
+                      <h6 className="!mb-0">{c.whatsapp}</h6>
+                    </div>
+                    <p className="mb-6" dir="ltr">
+                      <a
+                        href="https://wa.me/201000108068"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={LINK}
+                      >
+                        +20 100 010 8068
+                      </a>
+                    </p>
 
                     <div className="separator-wrap py-4">
                       <span className="separator">
@@ -63,11 +92,16 @@ export default function ContactView({ lang }: { lang: Lang }) {
                       <h6 className="!mb-0">{c.visit}</h6>
                     </div>
                     <p className="mb-6 whitespace-nowrap text-[12.5px] sm:text-[15px]" dir="ltr">
-                      2 Almaza Main Street
-                      <br />
-                      Al-Thawra Main Street, Office 1
-                      <br />
-                      Cairo, Egypt
+                      <a
+                        href={MAPS}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={LINK}
+                      >
+                        2 Almaza / Al-Thawra Main Street, Office 1
+                        <br />
+                        Cairo, Egypt
+                      </a>
                     </p>
 
                     <div className="separator-wrap py-4">
@@ -83,7 +117,7 @@ export default function ContactView({ lang }: { lang: Lang }) {
                     <p>
                       <a
                         href="mailto:info@nothing-ads.com"
-                        className="hover-target text-body-text hover:text-white transition-colors"
+                        className={LINK}
                       >
                         info@nothing-ads.com
                       </a>

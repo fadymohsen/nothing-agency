@@ -44,13 +44,18 @@ export function orgSchema() {
       "Content Production and Copywriting",
       "Graphic Design",
       "Digital Marketing",
-      "Campaign Management",
+      "Healthcare and Pharmaceutical Marketing",
+      "Events and Experiential Marketing",
     ],
     serviceType: [
-      "Campaign Management",
-      "Graphic Design & Branding",
-      "Content Production & Copywriting",
-      "Social Media Marketing",
+      "Brand Strategy & Consulting",
+      "Creative & Advertising",
+      "Healthcare & Pharmaceutical Marketing",
+      "Digital & Social Media",
+      "Events & Experiential Marketing",
+      "Brand Identity & Design",
+      "Content & Production",
+      "Integrated Marketing Solutions",
     ],
     sameAs: [],
   };
@@ -177,10 +182,10 @@ export function servicesSchema() {
         position: 1,
         item: {
           "@type": "Service",
-          name: "Campaign Management",
+          name: "Brand Strategy & Consulting",
           provider,
           description:
-            "We analyze the market, competitors, and gaps to build an integrated advertising strategy that dominates platforms and achieves the highest ROI.",
+            "Brand positioning, communication strategy, and marketing planning built around business objectives.",
         },
       },
       {
@@ -188,10 +193,10 @@ export function servicesSchema() {
         position: 2,
         item: {
           "@type": "Service",
-          name: "Graphic Design & Branding",
+          name: "Creative & Advertising",
           provider,
           description:
-            "We design visual identities that reflect your true persona and build immediate visual trust with your audience — from first pixel to full brand system.",
+            "Creative concepts, advertising campaigns, art direction, and compelling brand storytelling.",
         },
       },
       {
@@ -199,10 +204,10 @@ export function servicesSchema() {
         position: 3,
         item: {
           "@type": "Service",
-          name: "Content Production & Copywriting",
+          name: "Healthcare & Pharmaceutical Marketing",
           provider,
           description:
-            "We write creative content, ad copies, and scripts that make noise and compel customers to stop, read, and act.",
+            "Specialized communication solutions for pharmaceutical brands, healthcare professionals, and awareness initiatives.",
         },
       },
       {
@@ -210,10 +215,54 @@ export function servicesSchema() {
         position: 4,
         item: {
           "@type": "Service",
-          name: "Social Media Marketing",
+          name: "Digital & Social Media",
           provider,
           description:
-            "We build thriving digital communities from scratch through consistency, deep platform algorithm understanding, and genuine audience engagement.",
+            "Digital strategies, social media content, and campaigns designed to engage relevant audiences.",
+        },
+      },
+      {
+        "@type": "ListItem",
+        position: 5,
+        item: {
+          "@type": "Service",
+          name: "Events & Experiential Marketing",
+          provider,
+          description:
+            "Corporate events, launches, conferences, exhibitions, and memorable brand activations.",
+        },
+      },
+      {
+        "@type": "ListItem",
+        position: 6,
+        item: {
+          "@type": "Service",
+          name: "Brand Identity & Design",
+          provider,
+          description:
+            "Visual identities, brand guidelines, corporate profiles, and marketing materials.",
+        },
+      },
+      {
+        "@type": "ListItem",
+        position: 7,
+        item: {
+          "@type": "Service",
+          name: "Content & Production",
+          provider,
+          description:
+            "Photography, video production, motion graphics, animation, and digital content.",
+        },
+      },
+      {
+        "@type": "ListItem",
+        position: 8,
+        item: {
+          "@type": "Service",
+          name: "Integrated Marketing Solutions",
+          provider,
+          description:
+            "Coordinated campaigns across channels, from initial strategy to final execution.",
         },
       },
     ],
@@ -230,7 +279,7 @@ export function servicesFaqSchemaEn() {
         name: "What services does Nothing Agency offer?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Nothing Agency offers four core services: Campaign Management, Graphic Design & Branding, Content Production & Copywriting, and Social Media Marketing. Each is engineered as a gear in the agency's proven Creative Process.",
+          text: "Nothing Agency offers eight services: Brand Strategy & Consulting, Creative & Advertising, Healthcare & Pharmaceutical Marketing, Digital & Social Media, Events & Experiential Marketing, Brand Identity & Design, Content & Production, and Integrated Marketing Solutions.",
         },
       },
       {

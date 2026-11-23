@@ -89,27 +89,43 @@ export const portfolioItems: PortfolioItem[] = [
     heroFocusMobile: "62% 50%",
     mobileImage: "/pages/mobile/what-we-do.jpg",
     description:
-      "Nothing Agency offers campaign management, brand identity design, content production & copywriting, and social media marketing — each engineered as a gear in our proven Creative Process.",
+      "Nothing Agency offers brand strategy, creative advertising, healthcare marketing, digital and social media, events, brand identity, content production, and integrated marketing solutions.",
     page: {
       heading: "What We Do",
       lead: "We don't sell you random ideas pulled out of thin air. Every service we offer is a vital gear in the machine of our \"Creative Process.\" We turn abstract thinking into tangible results.",
       pointsTitle: "Our Services",
       points: [
         {
-          title: "Campaign Management",
-          text: "A successful campaign is never an accident. We start by analyzing the nothingness (the market, competitors, gaps) to build an integrated advertising strategy that dominates platforms and achieves the highest Return on Investment (ROI).",
+          title: "Brand Strategy & Consulting",
+          text: "Brand positioning, communication strategy, and marketing planning built around business objectives.",
         },
         {
-          title: "Graphic Design & Branding",
-          text: "The first pixel doesn't come from a random doodle, but from a calculated thought. We design visual identities that reflect your true persona and build immediate visual trust with your audience.",
+          title: "Creative & Advertising",
+          text: "Creative concepts, advertising campaigns, art direction, and compelling brand storytelling.",
         },
         {
-          title: "Content Production & Copywriting",
-          text: "Words can create a need that never existed before. We write creative content, ad copies, and scripts that make noise and compel your customers to stop, read, and act.",
+          title: "Healthcare & Pharmaceutical Marketing",
+          text: "Specialized communication solutions for pharmaceutical brands, healthcare professionals, and awareness initiatives.",
         },
         {
-          title: "Social Media Marketing",
-          text: "We don't just \"post.\" We build thriving digital communities from scratch through consistency, a deep understanding of platform algorithms, and genuine audience engagement.",
+          title: "Digital & Social Media",
+          text: "Digital strategies, social media content, and campaigns designed to engage relevant audiences.",
+        },
+        {
+          title: "Events & Experiential Marketing",
+          text: "Corporate events, launches, conferences, exhibitions, and memorable brand activations.",
+        },
+        {
+          title: "Brand Identity & Design",
+          text: "Visual identities, brand guidelines, corporate profiles, and marketing materials.",
+        },
+        {
+          title: "Content & Production",
+          text: "Photography, video production, motion graphics, animation, and digital content.",
+        },
+        {
+          title: "Integrated Marketing Solutions",
+          text: "Coordinated campaigns across channels, from initial strategy to final execution.",
         },
       ],
       ctas: [{ label: "See the Campaigns Manifesto", href: "/manifesto" }],

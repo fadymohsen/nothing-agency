@@ -1,3 +1,4 @@
+import HeadlineReveal from "@/components/animations/HeadlineReveal";
 import { ParallaxFadeTop } from "@/components/animations/ParallaxText";
 
 interface SectionIntroProps {
@@ -10,7 +11,7 @@ export default function SectionIntro({ title, subtitle }: SectionIntroProps) {
     <div className="page-title px-5 xl:px-2">
       <div className="w-full">
         <ParallaxFadeTop>
-          <h1>{title}</h1>
+          <HeadlineReveal text={title} />
         </ParallaxFadeTop>
       </div>
       {subtitle && (

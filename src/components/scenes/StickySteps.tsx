@@ -127,6 +127,7 @@ export default function StickySteps({
 /* Layout lives here (not in utility classes) so it can never come out half-styled. */
 const CSS = `
 .ss-sticky{position:sticky;top:0;height:100vh;display:flex;align-items:center;padding:6rem 0}
+.ss-wrap{overflow-x:clip}
 .ss-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:2rem;width:100%;align-items:center}
 .ss-photo{position:relative;height:32vh;overflow:hidden;background:rgba(255,255,255,.03)}
 .ss-steps{display:flex;gap:1.5rem;position:relative;min-width:0}

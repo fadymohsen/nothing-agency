@@ -5,9 +5,10 @@ import FooterSection from "@/components/ui/FooterSection";
 import ScrollReveal from "@/components/animations/ScrollReveal";
 import ParallaxLayer from "@/components/animations/ParallaxLayer";
 import HeadlineReveal from "@/components/animations/HeadlineReveal";
+import AnimatedTitle from "@/components/animations/AnimatedTitle";
 import WordReveal from "@/components/animations/WordReveal";
 import ContactForm from "@/components/ui/ContactForm";
-import ServiceDeck from "@/components/scenes/ServiceDeck";
+import ParallaxServiceSlider from "@/components/what-we-do/ParallaxServiceSlider";
 import ValuesStrip from "@/components/scenes/ValuesStrip";
 import StickySteps from "@/components/scenes/StickySteps";
 import VoidStage from "@/components/scenes/VoidStage";
@@ -86,11 +87,12 @@ export default function PageView({ slug, lang }: { slug: string; lang: Lang }) {
 
             {/* Page heading, hidden when it repeats the hero title */}
             {page.heading !== current.title && (
-              <ScrollReveal direction="left" delay={0.1}>
-                <h2 className="text-3xl md:text-5xl font-bold mb-[var(--space-block)] text-white leading-tight max-w-[26ch]">
-                  {brandText(page.heading)}
-                </h2>
-              </ScrollReveal>
+              <div className="mb-[var(--space-block)]">
+                <AnimatedTitle
+                  text={page.heading}
+                  className="text-3xl md:text-5xl font-bold text-white leading-tight max-w-[26ch]"
+                />
+              </div>
             )}
 
             {/* Lead */}
@@ -151,7 +153,7 @@ export default function PageView({ slug, lang }: { slug: string; lang: Lang }) {
             )}
 
             {/* Scene intro label */}
-            {scene && page.points && scene.type !== "story" && scene.type !== "drafts" && page.pointsTitle && (
+            {scene && page.points && scene.type !== "story" && scene.type !== "drafts" && scene.type !== "services" && page.pointsTitle && (
               <ScrollReveal delay={0.1}>
                 <div className="mt-[var(--space-block)] mb-12">
                   <p className="text-[var(--color-accent)] uppercase tracking-[3px] text-xs mb-3">
@@ -170,13 +172,20 @@ export default function PageView({ slug, lang }: { slug: string; lang: Lang }) {
       </section>
 
       {scene?.type === "services" && page.points && (
-        <section className="relative z-10 w-full">
-          <div className="max-w-[1140px] mx-auto px-4">
-            <div className="px-5 xl:px-2">
-              <ServiceDeck points={page.points} images={scene.images} />
-            </div>
-          </div>
-        </section>
+        <ParallaxServiceSlider
+          lang={lang}
+          eyebrow={page.pointsTitle ?? current.title}
+          cta={page.ctas?.[0]}
+          labels={d.scene}
+          slides={page.points.map((p, i) => ({
+            index: i,
+            title: p.title,
+            text: p.text,
+            src: scene.images[i % scene.images.length].src,
+            icon: scene.images[i % scene.images.length].icon,
+            focus: scene.images[i % scene.images.length].focus,
+          }))}
+        />
       )}
 
       {/* Pinned scenes need full-width, non-clipping sections */}
@@ -214,7 +223,7 @@ export default function PageView({ slug, lang }: { slug: string; lang: Lang }) {
       )}
 
       {/* Closing, form and calls to action */}
-      {(page.closing || page.ctas || slug === "lets-create") && (
+      {(page.closing || (page.ctas && scene?.type !== "services") || slug === "lets-create") && (
         <section className="relative w-full block pb-[var(--space-section)] overflow-hidden z-10">
           <div className="max-w-[1140px] mx-auto px-4">
             <div className="px-5 xl:px-2">
@@ -232,7 +241,7 @@ export default function PageView({ slug, lang }: { slug: string; lang: Lang }) {
                 </div>
               )}
 
-              {page.ctas && (
+              {page.ctas && scene?.type !== "services" && (
                 <ScrollReveal delay={0.2}>
                   <div className="flex flex-wrap gap-4 mt-12">
                     {page.ctas.map((cta, i) => (

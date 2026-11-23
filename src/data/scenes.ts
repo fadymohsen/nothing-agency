@@ -19,12 +19,15 @@ export interface SceneImage {
   ratio: string;
   /** Badge shown with this image (path from icon()) */
   icon?: string;
+  /** CSS object-position when the photo is cropped to a tall frame */
+  focus?: string;
 }
 
-const img = (name: string, w: number, h: number, ic?: IconName): SceneImage => ({
+const img = (name: string, w: number, h: number, ic?: IconName, focus?: string): SceneImage => ({
   src: `${P}/${name}.jpg`,
   ratio: `${w} / ${h}`,
   icon: ic ? icon(ic) : undefined,
+  focus,
 });
 
 export type Scene =
@@ -46,10 +49,14 @@ export const scenes: Record<string, Scene> = {
   "what-we-do": {
     type: "services",
     images: [
-      img("svc-campaign", 1100, 733, "megaphone"),
-      img("svc-branding", 1100, 733, "award"),
-      img("svc-content", 1100, 733, "report"),
-      img("svc-social", 1100, 733, "network"),
+      img("val-method", 900, 1125, "audience"),
+      img("svc-campaign", 1100, 733, "megaphone", "60% 50%"),
+      img("ph-engineering", 1000, 1000, "report-2"),
+      img("svc-social", 1100, 733, "network", "90% 50%"),
+      img("ph-shaping", 900, 900, "calendar"),
+      img("svc-branding", 1100, 733, "award", "100% 50%"),
+      img("svc-content", 1100, 733, "video", "34% 50%"),
+      img("ph-launch", 900, 900, "growth-chart"),
     ],
   },
   manifesto: {

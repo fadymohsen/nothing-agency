@@ -10,7 +10,12 @@ export const dict = {
       { label: "Unseen", href: "/unseen", titleAttr: "unseen" },
       { label: "Contact", href: "/contact", titleAttr: "contact" },
     ],
-    scene: { final: "The one that shipped" },
+    scene: {
+      final: "The one that shipped",
+      explore: "Explore",
+      prev: "Previous service",
+      next: "Next service",
+    },
     clients: { label: "Clients", title: "Brands we built from nothing." },
     homeTitle: "home",
     switchLabel: "العربية",
@@ -32,6 +37,7 @@ export const dict = {
       intro:
         "Don't hesitate to start the conversation. Whether you're looking for marketing consultancy, campaign management, or building a visual identity from scratch, the Nothing Agency team is ready to answer, listen, and begin the process.",
       call: "Call Us",
+      whatsapp: "WhatsApp",
       visit: "Visit Us",
       email: "Email Us",
       footerShadow: "Hello",
@@ -59,7 +65,12 @@ export const dict = {
       { label: "ما وراء الكواليس", href: "/unseen", titleAttr: "الكواليس" },
       { label: "تواصل معنا", href: "/contact", titleAttr: "تواصل" },
     ],
-    scene: { final: "الفكرة التي خرجت للنور" },
+    scene: {
+      final: "الفكرة التي خرجت للنور",
+      explore: "استكشف",
+      prev: "الخدمة السابقة",
+      next: "الخدمة التالية",
+    },
     clients: { label: "عملاؤنا", title: "علامات بنيناها من اللاشيء." },
     homeTitle: "الرئيسية",
     switchLabel: "English",
@@ -81,6 +92,7 @@ export const dict = {
       intro:
         "لا تتردد في بدء المحادثة. سواء كنت تبحث عن استشارة تسويقية، إدارة لحملاتك، أو بناء هوية بصرية من الصفر. فريق Nothing Agency جاهز للرد، للاستماع، ولبدء البروسيس.",
       call: "اتصل بنا",
+      whatsapp: "واتساب",
       visit: "زرنا",
       email: "راسلنا",
       footerShadow: "أهلاً",

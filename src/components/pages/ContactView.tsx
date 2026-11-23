@@ -63,9 +63,9 @@ export default function ContactView({ lang }: { lang: Lang }) {
                       <h6 className="!mb-0">{c.visit}</h6>
                     </div>
                     <p className="mb-6 whitespace-nowrap text-[12.5px] sm:text-[15px]" dir="ltr">
-                      2 Almaza Main Street, at the intersection
+                      2 Almaza Main Street
                       <br />
-                      with Al-Thawra Main Street, Office 1
+                      Al-Thawra Main Street, Office 1
                       <br />
                       Cairo, Egypt
                     </p>

@@ -7,7 +7,7 @@ import ParallaxLayer from "@/components/animations/ParallaxLayer";
 import HeadlineReveal from "@/components/animations/HeadlineReveal";
 import WordReveal from "@/components/animations/WordReveal";
 import ContactForm from "@/components/ui/ContactForm";
-import ServiceRows from "@/components/scenes/ServiceRows";
+import ServiceDeck from "@/components/scenes/ServiceDeck";
 import ValuesStrip from "@/components/scenes/ValuesStrip";
 import StickySteps from "@/components/scenes/StickySteps";
 import VoidStage from "@/components/scenes/VoidStage";
@@ -165,12 +165,19 @@ export default function PageView({ slug, lang }: { slug: string; lang: Lang }) {
             {scene?.type === "values" && page.points && (
               <ValuesStrip points={page.points} images={scene.images} />
             )}
-            {scene?.type === "services" && page.points && (
-              <ServiceRows points={page.points} images={scene.images} />
-            )}
           </div>
         </div>
       </section>
+
+      {scene?.type === "services" && page.points && (
+        <section className="relative z-10 w-full">
+          <div className="max-w-[1140px] mx-auto px-4">
+            <div className="px-5 xl:px-2">
+              <ServiceDeck points={page.points} images={scene.images} />
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Pinned scenes need full-width, non-clipping sections */}
       {scene?.type === "steps" && page.points && (

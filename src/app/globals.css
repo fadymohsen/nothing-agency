@@ -158,7 +158,8 @@ h6 { font-size: 1rem; text-transform: uppercase; font-weight: 700; margin-bottom
   height: 36px;
   width: 36px;
   z-index: 99998;
-  transition: all 0.3s ease-out;
+  /* left/top are deliberately not transitioned, so the ring sits exactly on the pointer */
+  transition: transform 0.3s ease-out, background 0.3s ease-out, box-shadow 0.3s ease-out, opacity 0.3s ease-out, border-color 0.3s ease-out;
 }
 .cursor2.hover,
 .cursor3.hover {

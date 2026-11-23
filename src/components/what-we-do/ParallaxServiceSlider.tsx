@@ -44,6 +44,9 @@ export default function ParallaxServiceSlider({
   const total = slides.length;
   const reduce = useReducedMotion();
   const rootRef = useRef<HTMLElement>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const targetRef = useRef(0);
+  const syncRef = useRef<() => void>(() => {});
   const slotEls = useRef<(HTMLDivElement | null)[]>([null, null]);
   const lockRef = useRef(false);
   const idxRef = useRef(0);
@@ -55,6 +58,9 @@ export default function ParallaxServiceSlider({
   const [current, setCurrent] = useState(0);
   const [dir, setDir] = useState(1);
   const [tick, setTick] = useState(0);
+  // Phones and touch screens scroll the page natively: the stage is pinned and the
+  // scroll position picks the slide, so nothing ever hijacks or traps a swipe.
+  const [scrollMode, setScrollMode] = useState(false);
   // Bumped for the incoming slot so its copy always remounts hidden, even when the
   // same service comes back round.
   const [gens, setGens] = useState<[number, number]>([0, 0]);
@@ -71,6 +77,7 @@ export default function ParallaxServiceSlider({
       lockRef.current = true;
       window.setTimeout(() => {
         lockRef.current = false;
+        syncRef.current();
       }, LOCK_MS);
       const d = n > idxRef.current ? 1 : -1;
       const out = frontRef.current;
@@ -188,10 +195,43 @@ export default function ParallaxServiceSlider({
     });
   }, [current, slides, total]);
 
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 899px), (pointer: coarse)");
+    const update = () => setScrollMode(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  // Scroll mode: the page scroll position chooses the slide.
+  useEffect(() => {
+    if (!scrollMode) return;
+    const wrap = wrapRef.current;
+    if (!wrap) return;
+    syncRef.current = () => {
+      if (!lockRef.current && targetRef.current !== idxRef.current) go(targetRef.current);
+    };
+    const onScroll = () => {
+      const r = wrap.getBoundingClientRect();
+      const run = wrap.offsetHeight - window.innerHeight;
+      const p = run > 0 ? Math.min(1, Math.max(0, -r.top / run)) : 0;
+      targetRef.current = Math.min(total - 1, Math.floor(p * total));
+      syncRef.current();
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      syncRef.current = () => {};
+    };
+  }, [scrollMode, go, total]);
+
   // Wheel, touch and keyboard.
   useEffect(() => {
     const root = rootRef.current;
-    if (!root) return;
+    if (!root || scrollMode) return;
     let acc = 0;
     let accTimer = 0;
     let approachBusy = false;
@@ -288,7 +328,7 @@ export default function ParallaxServiceSlider({
       window.removeEventListener("keydown", onKey);
       window.clearTimeout(accTimer);
     };
-  }, [go, total]);
+  }, [go, total, scrollMode]);
 
   // Pointer parallax, only for a real mouse and only when motion is welcome.
   useEffect(() => {
@@ -315,10 +355,15 @@ export default function ParallaxServiceSlider({
   const next = useCallback(() => go(idxRef.current + 1), [go]);
 
   return (
+    <div
+      ref={wrapRef}
+      className="pss-wrap"
+      style={scrollMode ? { height: `${total * 100}dvh` } : undefined}
+    >
     <section
       ref={rootRef}
       dir={lang === "ar" ? "rtl" : "ltr"}
-      className="pss-root"
+      className={scrollMode ? "pss-root pss-sticky" : "pss-root"}
       aria-roledescription="carousel"
       aria-label={eyebrow}
     >
@@ -356,6 +401,7 @@ export default function ParallaxServiceSlider({
         {current + 1} / {total}: {slides[current].title}
       </p>
     </section>
+    </div>
   );
 }
 
@@ -389,6 +435,8 @@ function revealCopy(slot: HTMLElement, delay: number) {
 /* Layout lives here (not in utility classes) so it can never come out half-styled. */
 const CSS = `
 .pss-root{position:relative;width:100%;height:100vh;height:100dvh;overflow:hidden;background:var(--color-body);z-index:10}
+.pss-wrap{position:relative}
+.pss-sticky{position:sticky;top:0}
 .pss-slot{position:absolute;inset:0;overflow:hidden}
 .pss-layer{position:absolute;inset:0;pointer-events:none;will-change:transform}
 .pss-bg{transform:scale(1.08)}
@@ -401,18 +449,18 @@ const CSS = `
 .pss-glow{position:absolute;inset-inline-end:0;top:0;width:60vw;height:100%;background:radial-gradient(ellipse 60% 55% at 62% 50%,rgba(240,179,28,.16),transparent 70%)}
 .pss-ring{position:absolute;inset-inline-end:calc(28vw - 40vh);top:50%;width:80vh;height:80vh;margin-top:-40vh;border:1.5px solid var(--color-accent);border-radius:50%;opacity:.45}
 .pss-ring-2{inset-inline-end:calc(28vw - 48vh);width:96vh;height:96vh;margin-top:-48vh;border-width:1px;opacity:.2}
-.pss-echo{position:absolute;border:1px solid rgba(240,179,28,.55);top:calc(5.4rem + 18px);inset-inline:calc(1.25rem + 18px) calc(1.25rem - 18px);height:27dvh}
-.pss-subject{position:absolute;overflow:hidden;background:#14171a;box-shadow:0 30px 80px rgba(0,0,0,.55);top:5.4rem;inset-inline:1.25rem;height:27dvh}
+.pss-echo{position:absolute;border:1px solid rgba(240,179,28,.55);top:calc(5.4rem + 18px);inset-inline:calc(1.25rem + 18px) calc(1.25rem - 18px);height:32dvh}
+.pss-subject{position:absolute;overflow:hidden;background:#14171a;box-shadow:0 30px 80px rgba(0,0,0,.55);top:5.4rem;inset-inline:1.25rem;height:32dvh}
 .pss-subjectimg{display:block;width:100%;height:100%;object-fit:cover}
 .pss-badge{position:absolute;top:0;inset-inline-start:0}
 .pss-copy{position:absolute;inset:0}
-.pss-titlewrap{position:absolute;inset-inline:1.25rem;top:calc(5.4rem + 27dvh + 1.6rem)}
+.pss-titlewrap{position:absolute;inset-inline:1.25rem;top:calc(5.4rem + 32dvh + 3.2rem)}
 .pss-eyebrow{margin:0 0 .6rem;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--color-accent);opacity:0}
-.pss-title{margin:0;font-size:clamp(2rem,9vw,2.6rem);font-weight:700;line-height:.98;letter-spacing:-.01em;color:#fff !important}
+.pss-title{margin:0;font-size:clamp(2.1rem,9.4vw,2.8rem);font-weight:700;line-height:1;letter-spacing:-.01em;color:#fff !important}
 .pss-line{display:block;overflow:hidden;padding-bottom:.14em;margin-bottom:-.14em}
 .pss-linein{display:block;transform:translateY(110%);will-change:transform}
 .pss-desc{margin-top:1rem;opacity:0;pointer-events:auto}
-.pss-desc p{margin:0 0 .8rem;font-size:.86rem;font-weight:300;line-height:1.5;color:#b4b4b4}
+.pss-desc p{margin:0 0 .9rem;font-size:.95rem;font-weight:300;line-height:1.55;color:#b4b4b4}
 .pss-progress{height:1px;background:rgba(255,255,255,.18);margin-bottom:.9rem}
 .pss-progress i{display:block;height:100%;background:var(--color-accent)}
 .pss-explore{display:none}

@@ -9,7 +9,8 @@ const SWEEP =
 
 /**
  * Page titles. Each word rises out of its own mask, leaning in from the side,
- * and a band of gold light sweeps across it as it lands, leaving it white.
+ * then a band of gold light sweeps across it, over and over, leaving it white
+ * between passes.
  * Whole words (never letters) so Arabic keeps its joined script. Waits for the
  * splash screen (if one is playing) so the entrance is actually seen.
  */
@@ -62,7 +63,14 @@ export default function HeadlineReveal({
             transition={{
               y: { duration: 1.05, ease: EASE, delay: 0.1 * i },
               skewY: { duration: 1.05, ease: EASE, delay: 0.1 * i },
-              backgroundPosition: { duration: 1.6, ease: "easeInOut", delay: 0.1 * i + 0.45 },
+              // Loops for as long as the page is open: gold light sweeps the title, rests, repeats.
+              backgroundPosition: {
+                duration: 1.6,
+                ease: "easeInOut",
+                delay: 0.1 * i + 0.45,
+                repeat: Infinity,
+                repeatDelay: 3,
+              },
             }}
           >
             {word}

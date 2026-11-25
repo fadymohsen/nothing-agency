@@ -8,7 +8,7 @@ import Footer from "./Footer";
 import CustomCursor from "@/components/animations/CustomCursor";
 import Splash from "./Splash";
 import { ContentProvider } from "@/lib/content/client";
-import { dictOf } from "@/lib/content/utils";
+import { dictOf, isProjectsPageHidden } from "@/lib/content/utils";
 import type { Content } from "@/lib/content/types";
 import { langFromPath, withLang } from "@/lib/lang";
 
@@ -25,7 +25,11 @@ export default function LayoutShell({
   const isAdmin = pathname === "/admin" || pathname.startsWith("/admin/");
 
   const d = dictOf(content, lang);
-  const currentNav = d.nav.find((item) => {
+  const hideProjects = isProjectsPageHidden(content);
+  const navItems = hideProjects
+    ? d.nav.filter((item) => item.href !== "/projects" && !item.href.endsWith("/projects"))
+    : d.nav;
+  const currentNav = navItems.find((item) => {
     const href = withLang(item.href, lang);
     return pathname.startsWith(href);
   });

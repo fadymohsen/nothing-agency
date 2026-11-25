@@ -16,7 +16,7 @@ const TABS: { id: string; label: string; hint: string; path: Path }[] = [
   { id: "portfolio", label: "Pages (English)", hint: "Home slider photos and every page's English content, hero photo and text.", path: ["portfolio"] },
   { id: "pagesAr", label: "Pages (Arabic)", hint: "The Arabic version of every page.", path: ["pagesAr"] },
   { id: "scenes", label: "Page photos & scenes", hint: "Photos and badge icons used inside each page's scroll scenes.", path: ["scenes"] },
-  { id: "projects", label: "Projects", hint: "Project cards: title, category and the images of each project.", path: ["projects"] },
+  { id: "projects", label: "Projects", hint: "Project cards: toggle visibility, title, category and images.", path: ["projects"] },
   { id: "clients", label: "Clients", hint: "Client logos shown on the home page.", path: ["clients"] },
   { id: "dictEn", label: "Menu & labels (English)", hint: "Navigation, buttons, form labels, headings of Contact / Projects / 404 pages.", path: ["dict", "en"] },
   { id: "dictAr", label: "Menu & labels (Arabic)", hint: "Same as above, in Arabic.", path: ["dict", "ar"] },
@@ -406,6 +406,394 @@ function MainPhotos({ items, onChange }: { items: Json[]; onChange: (v: Json) =>
   );
 }
 
+function ProjectsManager({
+  projects,
+  hideProjectsPage,
+  categories,
+  onToggleHidePage,
+  onChangeProjects,
+}: {
+  projects: Json[];
+  hideProjectsPage: boolean;
+  categories: string[];
+  onToggleHidePage: (hide: boolean) => void;
+  onChangeProjects: (next: Json[]) => void;
+}) {
+  const [filterTab, setFilterTab] = useState<"all" | "active" | "hidden">("all");
+  const items = projects as { [k: string]: Json }[];
+  const totalCount = items.length;
+  const hiddenCount = items.filter((p) => Boolean(p.hidden)).length;
+  const activeCount = totalCount - hiddenCount;
+  const isAutoHidden = totalCount > 0 && activeCount === 0;
+  const isPageHidden = hideProjectsPage || isAutoHidden;
+
+  const updateItem = (index: number, nextVal: { [k: string]: Json }) => {
+    const copy = [...items];
+    copy[index] = nextVal;
+    onChangeProjects(copy);
+  };
+
+  const toggleHidden = (index: number) => {
+    const item = items[index];
+    updateItem(index, { ...item, hidden: !item.hidden });
+  };
+
+  const move = (i: number, d: number) => {
+    const j = i + d;
+    if (j < 0 || j >= items.length) return;
+    const copy = [...items];
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+    onChangeProjects(copy);
+  };
+
+  const duplicate = (i: number) => {
+    const item = JSON.parse(JSON.stringify(items[i])) as { [k: string]: Json };
+    item.slug = `${item.slug || "project"}-copy`;
+    const copy = [...items.slice(0, i + 1), item, ...items.slice(i + 1)];
+    onChangeProjects(copy);
+  };
+
+  const remove = (i: number) => {
+    if (confirm("Delete this project?")) {
+      onChangeProjects(items.filter((_, idx) => idx !== i));
+    }
+  };
+
+  const addNew = () => {
+    const newProj: { [k: string]: Json } = {
+      slug: `project-${Date.now().toString(36)}`,
+      category: categories[0] || "campaigns",
+      title: { en: "New Project", ar: "مشروع جديد" },
+      images: [],
+      hidden: false,
+    };
+    onChangeProjects([newProj, ...items]);
+  };
+
+  const filteredItems = items
+    .map((item, index) => ({ item, index }))
+    .filter(({ item }) => {
+      const isHid = Boolean(item.hidden);
+      if (filterTab === "active") return !isHid;
+      if (filterTab === "hidden") return isHid;
+      return true;
+    });
+
+  return (
+    <div className="space-y-6">
+      {/* Master Toggle Card */}
+      <div className="rounded-xl border border-white/10 bg-[#161a1d] p-5 space-y-4 shadow-sm">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div className="text-white font-bold text-base flex items-center gap-2 flex-wrap">
+              <span>Projects page status:</span>
+              {isPageHidden ? (
+                <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                  PAGE HIDDEN
+                </span>
+              ) : (
+                <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                  PAGE VISIBLE
+                </span>
+              )}
+            </div>
+            <p className="text-white/60 text-xs mt-1">
+              Toggle visibility for the whole Projects page and its menu link in English & Arabic.
+            </p>
+          </div>
+          <label className="inline-flex items-center gap-3 cursor-pointer self-start sm:self-auto bg-[#1f2428] px-4 py-2 rounded-lg border border-white/15 hover:border-white/30 transition-colors">
+            <input
+              type="checkbox"
+              checked={hideProjectsPage}
+              onChange={(e) => onToggleHidePage(e.target.checked)}
+              className="w-4 h-4 accent-[#f0b31c]"
+            />
+            <span className="text-sm font-semibold text-white">Hide Projects page</span>
+          </label>
+        </div>
+
+        {hideProjectsPage ? (
+          <div className="rounded-lg bg-amber-500/10 border border-amber-500/20 p-3 text-xs text-amber-200/90 leading-relaxed">
+            ⚠️ <strong>Projects page is hidden</strong> because the toggle is enabled. The <code>/projects</code> route and the navigation link are hidden.
+          </div>
+        ) : isAutoHidden ? (
+          <div className="rounded-lg bg-amber-500/10 border border-amber-500/20 p-3 text-xs text-amber-200/90 leading-relaxed">
+            ⚠️ <strong>All projects are currently toggled hidden ({totalCount} of {totalCount})</strong>. The entire Projects page is automatically hidden from visitors until at least one project is visible.
+          </div>
+        ) : (
+          <div className="rounded-lg bg-emerald-500/10 border border-emerald-500/20 p-3 text-xs text-emerald-200/90 leading-relaxed">
+            ✓ <strong>Projects page is visible</strong> on the website with <strong>{activeCount}</strong> active project{activeCount === 1 ? "" : "s"}.
+          </div>
+        )}
+      </div>
+
+      {/* Filter Chips & Add Button */}
+      <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
+        <div className="flex items-center gap-1.5 text-xs">
+          <button
+            type="button"
+            onClick={() => setFilterTab("all")}
+            className={`px-3 py-1.5 rounded font-medium transition-colors ${
+              filterTab === "all" ? "bg-white/20 text-white" : "bg-white/5 text-white/60 hover:text-white"
+            }`}
+          >
+            All ({totalCount})
+          </button>
+          <button
+            type="button"
+            onClick={() => setFilterTab("active")}
+            className={`px-3 py-1.5 rounded font-medium transition-colors ${
+              filterTab === "active" ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40" : "bg-white/5 text-white/60 hover:text-white"
+            }`}
+          >
+            Visible ({activeCount})
+          </button>
+          <button
+            type="button"
+            onClick={() => setFilterTab("hidden")}
+            className={`px-3 py-1.5 rounded font-medium transition-colors ${
+              filterTab === "hidden" ? "bg-amber-500/20 text-amber-300 border border-amber-500/40" : "bg-white/5 text-white/60 hover:text-white"
+            }`}
+          >
+            Hidden ({hiddenCount})
+          </button>
+        </div>
+
+        <button
+          type="button"
+          onClick={addNew}
+          className="rounded bg-[#f0b31c] text-[#14171a] font-bold px-4 py-2 text-xs hover:bg-[#e0a413] transition-colors"
+        >
+          + Add New Project
+        </button>
+      </div>
+
+      {/* Projects List */}
+      <div className="space-y-3">
+        {filteredItems.map(({ item, index }) => {
+          const isItemHidden = Boolean(item.hidden);
+          const titleObj = (isObj(item.title) ? item.title : {}) as { [k: string]: Json };
+          const titleEn = String(titleObj.en || "");
+          const titleAr = String(titleObj.ar || "");
+          const category = String(item.category || "");
+          const slug = String(item.slug || "");
+          const images = (Array.isArray(item.images) ? item.images : []) as string[];
+          const cover = images[0] || "";
+
+          return (
+            <details
+              key={index}
+              className={`rounded-lg border transition-colors ${
+                isItemHidden
+                  ? "border-amber-500/30 bg-amber-500/[0.02]"
+                  : "border-white/10 bg-white/[0.02]"
+              }`}
+            >
+              <summary className="flex items-center justify-between gap-3 px-4 py-3 cursor-pointer">
+                <div className="flex items-center gap-3 min-w-0">
+                  <span className="text-white/40 text-xs w-5">{index + 1}.</span>
+                  {cover ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={cover}
+                      alt=""
+                      className="w-10 h-10 object-cover rounded bg-black/40 border border-white/10 shrink-0"
+                    />
+                  ) : (
+                    <div className="w-10 h-10 rounded bg-white/5 border border-white/10 shrink-0 flex items-center justify-center text-[10px] text-white/30">
+                      No img
+                    </div>
+                  )}
+                  <div className="min-w-0 truncate">
+                    <div className="text-white font-medium text-sm truncate flex items-center gap-2">
+                      <span className="truncate">{titleEn || titleAr || `Project ${index + 1}`}</span>
+                      {titleAr && titleEn && (
+                        <span className="text-white/40 text-xs font-normal truncate hidden sm:inline" dir="rtl">
+                          ({titleAr})
+                        </span>
+                      )}
+                    </div>
+                    <div className="text-white/40 text-xs truncate">
+                      {category} • {images.length} {images.length === 1 ? "image" : "images"}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 shrink-0" onClick={(e) => e.stopPropagation()}>
+                  <button
+                    type="button"
+                    onClick={() => toggleHidden(index)}
+                    title={isItemHidden ? "Click to show on website" : "Click to hide from website"}
+                    className={`px-3 py-1 rounded text-xs font-semibold border transition-colors ${
+                      isItemHidden
+                        ? "bg-amber-500/20 text-amber-300 border-amber-500/40 hover:bg-amber-500/30"
+                        : "bg-emerald-500/20 text-emerald-300 border-emerald-500/40 hover:bg-emerald-500/30"
+                    }`}
+                  >
+                    {isItemHidden ? "👁 Hidden" : "✓ Visible"}
+                  </button>
+                  <IconBtn onClick={() => move(index, -1)} disabled={index === 0}>
+                    ↑
+                  </IconBtn>
+                  <IconBtn onClick={() => move(index, 1)} disabled={index === items.length - 1}>
+                    ↓
+                  </IconBtn>
+                  <IconBtn onClick={() => duplicate(index)}>Duplicate</IconBtn>
+                  <IconBtn danger onClick={() => remove(index)}>
+                    Remove
+                  </IconBtn>
+                </div>
+              </summary>
+
+              <div className="p-4 border-t border-white/10 space-y-4 bg-[#14171a]/50">
+                {/* Project visibility checkbox inside details */}
+                <div className="rounded bg-white/[0.03] border border-white/10 p-3 flex items-center justify-between">
+                  <div>
+                    <div className="text-white font-medium text-xs">Project visibility</div>
+                    <div className="text-white/50 text-xs">
+                      {isItemHidden ? "This project is currently hidden from the website." : "This project is currently live on the website."}
+                    </div>
+                  </div>
+                  <label className="flex items-center gap-2 cursor-pointer text-xs font-semibold">
+                    <input
+                      type="checkbox"
+                      checked={isItemHidden}
+                      onChange={(e) => updateItem(index, { ...item, hidden: e.target.checked })}
+                      className="w-4 h-4 accent-amber-500"
+                    />
+                    <span className={isItemHidden ? "text-amber-300" : "text-white"}>Hide project</span>
+                  </label>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <span className="block text-xs uppercase tracking-wide text-white/50 mb-1">Title (English)</span>
+                    <input
+                      value={titleEn}
+                      onChange={(e) =>
+                        updateItem(index, {
+                          ...item,
+                          title: { ...titleObj, en: e.target.value },
+                        })
+                      }
+                      placeholder="e.g. Pepsi: Made to Win"
+                    />
+                  </div>
+                  <div>
+                    <span className="block text-xs uppercase tracking-wide text-white/50 mb-1">Title (Arabic)</span>
+                    <input
+                      dir="rtl"
+                      value={titleAr}
+                      onChange={(e) =>
+                        updateItem(index, {
+                          ...item,
+                          title: { ...titleObj, ar: e.target.value },
+                        })
+                      }
+                      placeholder="e.g. بيبسي: Made to Win"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <span className="block text-xs uppercase tracking-wide text-white/50 mb-1">Category</span>
+                    <select
+                      value={category}
+                      onChange={(e) => updateItem(index, { ...item, category: e.target.value })}
+                    >
+                      <option value="">— Select Category —</option>
+                      {categories.map((c) => (
+                        <option key={c} value={c}>
+                          {c}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <span className="block text-xs uppercase tracking-wide text-white/50 mb-1">URL Slug (e.g. pepsi-made-to-win)</span>
+                    <input
+                      value={slug}
+                      onChange={(e) => updateItem(index, { ...item, slug: e.target.value })}
+                      placeholder="slug"
+                    />
+                  </div>
+                </div>
+
+                {/* Images list */}
+                <div className="rounded border border-white/10 p-3 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <span className="text-xs uppercase tracking-wide text-white/60 font-medium">
+                        Project Images ({images.length})
+                      </span>
+                      <span className="text-white/40 text-xs block">
+                        First image is used as the cover photo on the projects wall.
+                      </span>
+                    </div>
+                    <IconBtn onClick={() => updateItem(index, { ...item, images: [...images, ""] })}>
+                      + Add Image
+                    </IconBtn>
+                  </div>
+
+                  {images.map((imgUrl, imgIdx) => (
+                    <div key={imgIdx} className="rounded border border-white/10 p-3 space-y-2 bg-white/[0.01]">
+                      <div className="flex items-center justify-between text-xs text-white/50">
+                        <span>{imgIdx === 0 ? "Cover Photo (Primary)" : `Gallery Photo ${imgIdx + 1}`}</span>
+                        <div className="flex items-center gap-1">
+                          <IconBtn
+                            disabled={imgIdx === 0}
+                            onClick={() => {
+                              const nextImgs = [...images];
+                              [nextImgs[imgIdx], nextImgs[imgIdx - 1]] = [nextImgs[imgIdx - 1], nextImgs[imgIdx]];
+                              updateItem(index, { ...item, images: nextImgs });
+                            }}
+                          >
+                            ↑
+                          </IconBtn>
+                          <IconBtn
+                            disabled={imgIdx === images.length - 1}
+                            onClick={() => {
+                              const nextImgs = [...images];
+                              [nextImgs[imgIdx], nextImgs[imgIdx + 1]] = [nextImgs[imgIdx + 1], nextImgs[imgIdx]];
+                              updateItem(index, { ...item, images: nextImgs });
+                            }}
+                          >
+                            ↓
+                          </IconBtn>
+                          <IconBtn
+                            danger
+                            onClick={() =>
+                              updateItem(index, {
+                                ...item,
+                                images: images.filter((_, idx) => idx !== imgIdx),
+                              })
+                            }
+                          >
+                            Remove
+                          </IconBtn>
+                        </div>
+                      </div>
+                      <ImageInput
+                        value={imgUrl}
+                        onChange={(v) => {
+                          const nextImgs = [...images];
+                          nextImgs[imgIdx] = v;
+                          updateItem(index, { ...item, images: nextImgs });
+                        }}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </details>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 /* ───────────────────────── editor shell ───────────────────────── */
 
 export default function Editor({ initial }: { initial: Content }) {
@@ -512,6 +900,28 @@ export default function Editor({ initial }: { initial: Content }) {
               onChange={(v) => {
                 setMsg(null);
                 setContent((c) => setIn(c, ["portfolio"], v));
+              }}
+            />
+          ) : active.id === "projects" ? (
+            <ProjectsManager
+              projects={(getIn(content, ["projects"]) as Json[]) || []}
+              hideProjectsPage={Boolean((getIn(content, ["site", "hideProjectsPage"]) as boolean) || false)}
+              categories={categories}
+              onToggleHidePage={(hide) => {
+                setMsg(null);
+                setContent((c) => {
+                  let updated = setIn(c, ["site", "hideProjectsPage"], hide);
+                  const port = getIn(updated, ["portfolio"]) as { [k: string]: Json }[];
+                  if (Array.isArray(port)) {
+                    const nextPort = port.map((p) => (p.slug === "projects" ? { ...p, hidden: hide } : p));
+                    updated = setIn(updated, ["portfolio"], nextPort);
+                  }
+                  return updated;
+                });
+              }}
+              onChangeProjects={(v) => {
+                setMsg(null);
+                setContent((c) => setIn(c, ["projects"], v));
               }}
             />
           ) : (

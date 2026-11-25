@@ -14,6 +14,7 @@ export interface SiteSettings {
   ogImage: string;
   notFoundImage: string;
   socials: Social[];
+  hideProjectsPage?: boolean;
 }
 
 export interface ContactSettings {
@@ -46,6 +47,7 @@ export type ContentProject = {
   title: { en: string; ar: string };
   /** Image URLs, the first one is the cover */
   images: string[];
+  hidden?: boolean;
 };
 
 export interface Content {

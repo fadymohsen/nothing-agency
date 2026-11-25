@@ -17,6 +17,7 @@ export const defaultContent: Content = {
     ogImage: "/images/nothing-logo.png",
     notFoundImage: "/site/photos/hero-404.jpg",
     socials: siteConfig.socials.map((s) => ({ ...s, icon: "" })),
+    hideProjectsPage: false,
   },
   contact: {
     phoneDisplay: "+20 12 73890104",
@@ -93,6 +94,7 @@ export const defaultContent: Content = {
     category: p.category,
     title: { ...p.title },
     images: p.pages.map(projectImage),
+    hidden: false,
   })),
   clients: structuredClone(clients),
 };

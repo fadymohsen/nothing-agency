@@ -79,7 +79,9 @@ export default function ProjectsView({
     window.history.replaceState(null, "", f === "all" ? window.location.pathname : `#${f}`);
   };
 
-  const shown = projects
+  const visibleProjects = useMemo(() => projects.filter((p) => !p.hidden), [projects]);
+
+  const shown = visibleProjects
     .map((p, index) => ({ p, index }))
     .filter(({ p }) => filter === "all" || p.category === filter);
 

@@ -13,10 +13,26 @@ export interface ResolvedPage {
   page: PageContent;
 }
 
-export const sitePagesOf = (content: Content): PortfolioItem[] =>
-  content.portfolio.filter((p) => p.page && !p.hidden);
+export function isProjectsPageHidden(content: Content): boolean {
+  if (content.site?.hideProjectsPage) return true;
+  const page = content.portfolio.find((p) => p.slug === "projects");
+  if (page?.hidden) return true;
+  const activeProjects = (content.projects || []).filter((p) => !p.hidden);
+  if (activeProjects.length === 0) return true;
+  return false;
+}
+
+export const sitePagesOf = (content: Content): PortfolioItem[] => {
+  const hideProj = isProjectsPageHidden(content);
+  return content.portfolio.filter((p) => {
+    if (!p.page || p.hidden) return false;
+    if (p.slug === "projects" && hideProj) return false;
+    return true;
+  });
+};
 
 export function getPage(content: Content, slug: string, lang: Lang): ResolvedPage | undefined {
+  if (slug === "projects" && isProjectsPageHidden(content)) return undefined;
   const item = sitePagesOf(content).find((p) => p.slug === slug);
   if (!item || !item.page) return undefined;
   const ar = content.pagesAr[slug];

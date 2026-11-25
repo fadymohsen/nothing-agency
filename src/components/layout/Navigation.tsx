@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useT } from "@/lib/content/client";
+import { useContent, useT } from "@/lib/content/client";
+import { isProjectsPageHidden } from "@/lib/content/utils";
 import { langFromPath, withLang } from "@/lib/lang";
 
 interface NavigationProps {
@@ -13,7 +14,12 @@ interface NavigationProps {
 export default function Navigation({ onClose, currentPageTitle }: NavigationProps) {
   const pathname = usePathname();
   const lang = langFromPath(pathname);
-  const items = useT(lang).nav;
+  const content = useContent();
+  const hideProjects = isProjectsPageHidden(content);
+  const rawItems = useT(lang).nav;
+  const items = hideProjects
+    ? rawItems.filter((item) => item.href !== "/projects" && !item.href.endsWith("/projects"))
+    : rawItems;
 
   return (
     <div className="nav-overlay">

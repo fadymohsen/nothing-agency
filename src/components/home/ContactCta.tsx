@@ -9,7 +9,7 @@ import {
   useReducedMotion,
 } from "framer-motion";
 import { EASE } from "@/components/animations/motion";
-import { t } from "@/data/dictionary";
+import { useT } from "@/lib/content/client";
 import { useLang } from "@/lib/useLang";
 import { localizeHref } from "@/lib/lang";
 
@@ -43,7 +43,7 @@ function MaskLine({
  */
 export default function ContactCta() {
   const lang = useLang();
-  const h = t(lang).home;
+  const h = useT(lang).home;
   const isAr = lang === "ar";
   const reduce = useReducedMotion();
   const ref = useRef<HTMLElement>(null);

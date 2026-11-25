@@ -2,8 +2,8 @@
 
 import { useState, useRef, useCallback, useEffect } from "react";
 import Link from "next/link";
-import { portfolioItems } from "@/data/portfolio";
-import { getPage } from "@/lib/pages";
+import { useContent } from "@/lib/content/client";
+import { getPage } from "@/lib/content/utils";
 import { pageHref } from "@/lib/lang";
 import { useLang } from "@/lib/useLang";
 
@@ -17,11 +17,12 @@ export default function PortfolioSlider() {
   const trackRef = useRef<HTMLDivElement>(null);
 
   const lang = useLang();
-  const sliderItems = portfolioItems
+  const content = useContent();
+  const sliderItems = content.portfolio
     .filter((item) => !item.hideFromSlider && !item.hidden)
     .map((item) => ({
       ...item,
-      title: getPage(item.slug, lang)?.title ?? item.title,
+      title: getPage(content, item.slug, lang)?.title ?? item.title,
     }));
   const total = sliderItems.length;
   const rtl = lang === "ar";

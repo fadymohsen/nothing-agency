@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { t } from "@/data/dictionary";
+import { useT } from "@/lib/content/client";
 import { langFromPath, withLang } from "@/lib/lang";
 
 interface NavigationProps {
@@ -13,7 +13,7 @@ interface NavigationProps {
 export default function Navigation({ onClose, currentPageTitle }: NavigationProps) {
   const pathname = usePathname();
   const lang = langFromPath(pathname);
-  const items = t(lang).nav;
+  const items = useT(lang).nav;
 
   return (
     <div className="nav-overlay">

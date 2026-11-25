@@ -5,6 +5,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { switchLangPath } from "@/lib/lang";
 import { useLang } from "@/lib/useLang";
+import { useContent } from "@/lib/content/client";
 
 interface HeaderProps {
   onToggleNav: () => void;
@@ -13,6 +14,7 @@ interface HeaderProps {
 
 export default function Header({ onToggleNav, navActive }: HeaderProps) {
   const lang = useLang();
+  const { site } = useContent();
   const pathname = usePathname();
   const target = lang === "ar" ? "en" : "ar";
 
@@ -21,8 +23,8 @@ export default function Header({ onToggleNav, navActive }: HeaderProps) {
       <div className="flex items-center justify-between w-[calc(100%-40px)] ml-[20px] md:w-[calc(100%-100px)] md:ml-[50px] h-[97px] md:h-[120px]">
         <Link href={lang === "ar" ? "/ar" : "/en"} className="hover-target cursor-pointer">
           <Image
-            src="/images/nothing-logo-tight.png"
-            alt="Nothing Advertising Agency"
+            src={site.headerLogo}
+            alt={site.siteName}
             width={1200}
             height={324}
             priority

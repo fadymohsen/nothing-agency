@@ -2,8 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { clients } from "@/data/clients";
-import { t } from "@/data/dictionary";
+import { useContent, useT } from "@/lib/content/client";
 import { useLang } from "@/lib/useLang";
 import { EASE } from "@/components/animations/motion";
 
@@ -32,6 +31,7 @@ function useSlotCount() {
  */
 function LogoWall() {
   const reduce = useReducedMotion();
+  const { clients } = useContent();
   const slots = useSlotCount();
   const [shown, setShown] = useState<number[]>(() =>
     Array.from({ length: 12 }, (_, i) => i)
@@ -108,7 +108,8 @@ function LogoWall() {
 export default function ClientsSection() {
   const lang = useLang();
   const reduce = useReducedMotion();
-  const d = t(lang).clients;
+  const d = useT(lang).clients;
+  const { clients } = useContent();
 
   return (
     <section className="cl-section" aria-label={d.label}>

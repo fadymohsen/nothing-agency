@@ -1,12 +1,12 @@
 "use client";
 
 import { useState, FormEvent } from "react";
-import { t } from "@/data/dictionary";
+import { useT } from "@/lib/content/client";
 import { useLang } from "@/lib/useLang";
 
 export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
-  const f = t(useLang()).form;
+  const f = useT(useLang()).form;
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();

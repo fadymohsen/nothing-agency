@@ -4,16 +4,26 @@ import ScrollReveal from "@/components/animations/ScrollReveal";
 import FooterSection from "@/components/ui/FooterSection";
 import ContactForm from "@/components/ui/ContactForm";
 import IconBadge from "@/components/ui/IconBadge";
-import { icon } from "@/data/scenes";
-import { t } from "@/data/dictionary";
+import { getContent } from "@/lib/content/server";
+import { dictOf } from "@/lib/content/utils";
 import type { Lang } from "@/lib/lang";
 
 const LINK = "hover-target text-body-text hover:text-white transition-colors";
-const MAPS =
-  "https://www.google.com/maps/search/?api=1&query=2+Almaza+Al-Thawra+Main+Street+Cairo+Egypt";
 
-export default function ContactView({ lang }: { lang: Lang }) {
-  const c = t(lang).contact;
+function Separator() {
+  return (
+    <div className="separator-wrap py-4">
+      <span className="separator">
+        <span className="separator-line dashed" />
+      </span>
+    </div>
+  );
+}
+
+export default async function ContactView({ lang }: { lang: Lang }) {
+  const content = await getContent();
+  const c = dictOf(content, lang).contact;
+  const k = content.contact;
 
   return (
     <>
@@ -51,75 +61,63 @@ export default function ContactView({ lang }: { lang: Lang }) {
                 <ScrollReveal delay={0.2}>
                   <div className="bg-dark-3 rounded-[0.35rem] p-6 sm:p-8 md:p-10">
                     <div className="mb-3 flex items-center gap-3">
-                      <IconBadge src={icon("chat")} size={30} />
+                      <IconBadge src={k.icons.call} size={30} />
                       <h6 className="!mb-0">{c.call}</h6>
                     </div>
                     <p className="mb-6" dir="ltr">
-                      <a href="tel:+201273890104" className={LINK}>
-                        +20 12 73890104
+                      <a href={k.phoneHref} className={LINK}>
+                        {k.phoneDisplay}
                       </a>
                     </p>
 
-                    <div className="separator-wrap py-4">
-                      <span className="separator">
-                        <span className="separator-line dashed" />
-                      </span>
-                    </div>
+                    <Separator />
 
                     <div className="mb-3 flex items-center gap-3">
-                      <IconBadge src={icon("network")} size={30} />
+                      <IconBadge src={k.icons.whatsapp} size={30} />
                       <h6 className="!mb-0">{c.whatsapp}</h6>
                     </div>
                     <p className="mb-6" dir="ltr">
                       <a
-                        href="https://wa.me/201000108068"
+                        href={k.whatsappUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         className={LINK}
                       >
-                        +20 100 010 8068
+                        {k.whatsappDisplay}
                       </a>
                     </p>
 
-                    <div className="separator-wrap py-4">
-                      <span className="separator">
-                        <span className="separator-line dashed" />
-                      </span>
-                    </div>
+                    <Separator />
 
                     <div className="mb-3 flex items-center gap-3">
-                      <IconBadge src={icon("handshake")} size={30} />
+                      <IconBadge src={k.icons.visit} size={30} />
                       <h6 className="!mb-0">{c.visit}</h6>
                     </div>
                     <p className="mb-6 whitespace-nowrap text-[12.5px] sm:text-[15px]" dir="ltr">
                       <a
-                        href={MAPS}
+                        href={k.mapsUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         className={LINK}
                       >
-                        2 Almaza / Al-Thawra Main Street, Office 1
-                        <br />
-                        Cairo, Egypt
+                        {k.addressLines.map((line, i) => (
+                          <span key={i}>
+                            {i > 0 && <br />}
+                            {line}
+                          </span>
+                        ))}
                       </a>
                     </p>
 
-                    <div className="separator-wrap py-4">
-                      <span className="separator">
-                        <span className="separator-line dashed" />
-                      </span>
-                    </div>
+                    <Separator />
 
                     <div className="mb-3 flex items-center gap-3">
-                      <IconBadge src={icon("mail")} size={30} />
+                      <IconBadge src={k.icons.email} size={30} />
                       <h6 className="!mb-0">{c.email}</h6>
                     </div>
                     <p>
-                      <a
-                        href="mailto:info@nothing-ads.com"
-                        className={LINK}
-                      >
-                        info@nothing-ads.com
+                      <a href={`mailto:${k.email}`} className={LINK}>
+                        {k.email}
                       </a>
                     </p>
                   </div>
@@ -132,7 +130,7 @@ export default function ContactView({ lang }: { lang: Lang }) {
 
       <FooterSection
         shadowText={c.footerShadow}
-        links={[{ label: "info@nothing-ads.com", href: "mailto:info@nothing-ads.com" }]}
+        links={[{ label: k.email, href: `mailto:${k.email}` }]}
       />
     </>
   );

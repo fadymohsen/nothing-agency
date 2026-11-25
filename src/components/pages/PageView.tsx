@@ -13,10 +13,9 @@ import ValuesStrip from "@/components/scenes/ValuesStrip";
 import StickySteps from "@/components/scenes/StickySteps";
 import VoidStage from "@/components/scenes/VoidStage";
 import DraftsGallery from "@/components/scenes/DraftsGallery";
-import { sitePages, getPage } from "@/lib/pages";
+import { getContent } from "@/lib/content/server";
+import { dictOf, getPage, sitePagesOf } from "@/lib/content/utils";
 import { localizeHref, pageHref, type Lang } from "@/lib/lang";
-import { t } from "@/data/dictionary";
-import { scenes } from "@/data/scenes";
 
 /** Pages whose paragraphs read in word by word as they scroll past */
 const READ_IN = new Set(["about-us", "from-nothing", "unseen"]);
@@ -35,19 +34,21 @@ function brandText(text: string) {
   );
 }
 
-export default function PageView({ slug, lang }: { slug: string; lang: Lang }) {
-  const current = getPage(slug, lang);
+export default async function PageView({ slug, lang }: { slug: string; lang: Lang }) {
+  const content = await getContent();
+  const sitePages = sitePagesOf(content);
+  const current = getPage(content, slug, lang);
   if (!current) return null;
 
   const { page } = current;
-  const scene = scenes[slug];
+  const scene = content.scenes[slug];
   const index = sitePages.findIndex((p) => p.slug === slug);
-  const prev = index > 0 ? getPage(sitePages[index - 1].slug, lang) : undefined;
+  const prev = index > 0 ? getPage(content, sitePages[index - 1].slug, lang) : undefined;
   const next =
     index < sitePages.length - 1
-      ? getPage(sitePages[index + 1].slug, lang)
+      ? getPage(content, sitePages[index + 1].slug, lang)
       : undefined;
-  const d = t(lang);
+  const d = dictOf(content, lang);
   const readIn = READ_IN.has(slug);
 
   return (

@@ -5,6 +5,7 @@ import Script from "next/script";
 import "./globals.css";
 import LayoutShell from "@/components/layout/LayoutShell";
 import { orgSchema } from "@/lib/seo";
+import { getContent } from "@/lib/content/server";
 
 // Altair -  brand headline font (replaces Mulish)
 const altair = localFont({
@@ -112,11 +113,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const content = await getContent();
   return (
     <html
       lang="en"
@@ -178,7 +180,7 @@ fbq('track', 'PageView');`,
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgSchema()) }}
         />
-        <LayoutShell>{children}</LayoutShell>
+        <LayoutShell content={content}>{children}</LayoutShell>
       </body>
     </html>
   );

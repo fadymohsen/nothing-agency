@@ -4,11 +4,14 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { useLang } from "@/lib/useLang";
+import { useContent, useT } from "@/lib/content/client";
 
 const SPLASH_MS = 4000;
 
 export default function Splash() {
   const lang = useLang();
+  const { site } = useContent();
+  const splashLine = useT(lang).splash.line;
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
@@ -44,7 +47,7 @@ export default function Splash() {
               transition={{ duration: 1.2, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
               className="text-white !text-[13px] md:!text-[14px] lg:!text-[15px] !font-light uppercase leading-tight mb-0"
             >
-              {lang === "ar" ? "كل شيء يبدأ من" : "Everything starts as"}
+              {splashLine}
             </motion.p>
 
             <motion.div
@@ -61,8 +64,8 @@ export default function Splash() {
               className="flex justify-end"
             >
               <Image
-                src="/images/nothing-logo-yellow-tight.png"
-                alt="Nothing Advertising Agency"
+                src={site.splashLogo}
+                alt={site.siteName}
                 width={1200}
                 height={324}
                 className="w-[200px] md:w-[300px] h-auto opacity-90"

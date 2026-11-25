@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
+// No static export: the admin panel needs a server (login, database, blob uploads).
 const nextConfig: NextConfig = {
-  output: "export",
   images: {
     unoptimized: true,
   },

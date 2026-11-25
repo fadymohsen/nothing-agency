@@ -7,38 +7,53 @@ import Navigation from "./Navigation";
 import Footer from "./Footer";
 import CustomCursor from "@/components/animations/CustomCursor";
 import Splash from "./Splash";
-import { t } from "@/data/dictionary";
+import { ContentProvider } from "@/lib/content/client";
+import { dictOf } from "@/lib/content/utils";
+import type { Content } from "@/lib/content/types";
 import { langFromPath, withLang } from "@/lib/lang";
 
-export default function LayoutShell({ children }: { children: React.ReactNode }) {
+export default function LayoutShell({
+  children,
+  content,
+}: {
+  children: React.ReactNode;
+  content: Content;
+}) {
   const [navActive, setNavActive] = useState(false);
   const pathname = usePathname();
   const lang = langFromPath(pathname);
+  const isAdmin = pathname === "/admin" || pathname.startsWith("/admin/");
 
-  const currentNav = t(lang).nav.find((item) => {
+  const d = dictOf(content, lang);
+  const currentNav = d.nav.find((item) => {
     const href = withLang(item.href, lang);
     return pathname.startsWith(href);
   });
-  const currentPageTitle = currentNav?.titleAttr ?? t(lang).homeTitle;
+  const currentPageTitle = currentNav?.titleAttr ?? d.homeTitle;
 
   useEffect(() => {
-    document.documentElement.lang = lang;
-  }, [lang]);
+    if (!isAdmin) document.documentElement.lang = lang;
+  }, [lang, isAdmin]);
+
+  // The admin panel has its own plain layout: no splash, header, cursor or footer
+  if (isAdmin) return <ContentProvider content={content}>{children}</ContentProvider>;
 
   return (
-    <div className={`${navActive ? "nav-active" : ""} ${lang === "ar" ? "lang-ar" : ""}`}>
-      <Splash />
-      <Header
-        onToggleNav={() => setNavActive(!navActive)}
-        navActive={navActive}
-      />
-      <Navigation
-        onClose={() => setNavActive(false)}
-        currentPageTitle={currentPageTitle}
-      />
-      {children}
-      <Footer />
-      <CustomCursor />
-    </div>
+    <ContentProvider content={content}>
+      <div className={`${navActive ? "nav-active" : ""} ${lang === "ar" ? "lang-ar" : ""}`}>
+        <Splash />
+        <Header
+          onToggleNav={() => setNavActive(!navActive)}
+          navActive={navActive}
+        />
+        <Navigation
+          onClose={() => setNavActive(false)}
+          currentPageTitle={currentPageTitle}
+        />
+        {children}
+        <Footer />
+        <CustomCursor />
+      </div>
+    </ContentProvider>
   );
 }

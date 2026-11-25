@@ -5,12 +5,13 @@ import { ParallaxTopShadow } from "@/components/animations/ParallaxText";
 import IconBadge from "@/components/ui/IconBadge";
 import ClipImage from "@/components/animations/ClipImage";
 import { icon } from "@/data/scenes";
-import { t } from "@/data/dictionary";
+import { useContent, useT } from "@/lib/content/client";
 import { useLang } from "@/lib/useLang";
 
 export default function NotFound() {
   const lang = useLang();
-  const n = t(lang).notFound;
+  const n = useT(lang).notFound;
+  const { site } = useContent();
 
   return (
     <div dir={lang === "ar" ? "rtl" : "ltr"}>
@@ -39,7 +40,7 @@ export default function NotFound() {
               </p>
             </div>
             <div className="mt-[var(--space-block)] mx-auto max-w-[760px]">
-              <ClipImage src="/site/photos/hero-404.jpg" aspect="16 / 7" drift={6} sizes="(max-width: 800px) 100vw, 760px" />
+              <ClipImage src={site.notFoundImage} aspect="16 / 7" drift={6} sizes="(max-width: 800px) 100vw, 760px" />
             </div>
           </div>
         </div>

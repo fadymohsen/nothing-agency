@@ -2,8 +2,10 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import PageView from "@/components/pages/PageView";
 import { PAGE_SLUGS } from "@/lib/lang";
-import { getPage } from "@/lib/pages";
-import { buildAlternates, getPageSchemas, SITE_URL } from "@/lib/seo";
+import { getContent } from "@/lib/content/server";
+import { getPage } from "@/lib/content/utils";
+import { buildAlternates, getPageSchemas } from "@/lib/seo";
+import { absUrl } from "@/lib/content/meta";
 
 export const dynamicParams = false;
 
@@ -17,7 +19,8 @@ export async function generateMetadata({
   params: Promise<{ page: string }>;
 }): Promise<Metadata> {
   const { page } = await params;
-  const p = getPage(page, "ar");
+  const content = await getContent();
+  const p = getPage(content, page, "ar");
   if (!p) return { title: "Not Found" };
 
   const title = `${p.title} | Nothing Advertising Agency`;
@@ -30,13 +33,13 @@ export async function generateMetadata({
       title,
       description: p.description,
       locale: "ar_EG",
-      images: [{ url: `${SITE_URL}${p.image}`, width: 1200, height: 800, alt: p.title }],
+      images: [{ url: absUrl(p.image), width: 1200, height: 800, alt: p.title }],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description: p.description,
-      images: [`${SITE_URL}${p.image}`],
+      images: [absUrl(p.image)],
     },
   };
 }
@@ -47,7 +50,8 @@ export default async function Page({
   params: Promise<{ page: string }>;
 }) {
   const { page } = await params;
-  const p = getPage(page, "ar");
+  const content = await getContent();
+  const p = getPage(content, page, "ar");
   if (!p) notFound();
 
   const schemas = getPageSchemas(page, "ar", p.title);

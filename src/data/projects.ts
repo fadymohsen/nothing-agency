@@ -38,3 +38,13 @@ export const projects: Project[] = [
 ];
 
 export const projectImage = (page: number) => `/projects/${String(page).padStart(2, "0")}.jpg`;
+
+import dims from "./project-dims.json";
+
+/** Pixel size of an optimised page image, so the layout can reserve its space. */
+export const projectSize = (page: number): { width: number; height: number } => {
+  const [width, height] = (dims as Record<string, number[]>)[String(page)] ?? [1600, 900];
+  return { width, height };
+};
+
+export const getProject = (slug: string) => projects.find((p) => p.slug === slug);

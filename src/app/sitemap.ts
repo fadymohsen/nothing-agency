@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/seo";
 import { PAGE_SLUGS } from "@/lib/lang";
+import { projects } from "@/data/projects";
 
 export const dynamic = "force-static";
 
@@ -57,6 +58,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
       },
     },
+    ...projects.map((p) => ({
+      url: `${SITE_URL}/en/projects/${p.slug}`,
+      lastModified: now,
+      changeFrequency: "yearly" as const,
+      priority: 0.6,
+      alternates: {
+        languages: {
+          en: `${SITE_URL}/en/projects/${p.slug}`,
+          ar: `${SITE_URL}/ar/projects/${p.slug}`,
+        },
+      },
+    })),
     ...pages,
   ];
 }

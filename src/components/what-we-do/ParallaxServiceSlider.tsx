@@ -4,6 +4,8 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react
 import { animate, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
 import SlideLayer, { type SlideCta, type SlideData } from "./SlideLayer";
 import SliderHud from "./SliderHud";
+import MobileStack from "./MobileStack";
+import { SLIDER_CSS } from "./sliderCss";
 import type { Lang } from "@/lib/lang";
 
 const EASE_IN_OUT = [0.76, 0, 0.24, 1] as const;
@@ -44,9 +46,7 @@ export default function ParallaxServiceSlider({
   const total = slides.length;
   const reduce = useReducedMotion();
   const rootRef = useRef<HTMLElement>(null);
-  const wrapRef = useRef<HTMLDivElement>(null);
-  const targetRef = useRef(0);
-  const syncRef = useRef<() => void>(() => {});
+
   const slotEls = useRef<(HTMLDivElement | null)[]>([null, null]);
   const lockRef = useRef(false);
   const idxRef = useRef(0);
@@ -59,7 +59,7 @@ export default function ParallaxServiceSlider({
   const [dir, setDir] = useState(1);
   const [tick, setTick] = useState(0);
   // Phones and touch screens scroll the page natively: the stage is pinned and the
-  // scroll position picks the slide, so nothing ever hijacks or traps a swipe.
+  // slides are plain pinned cards (MobileStack), so nothing hijacks or traps a swipe.
   const [scrollMode, setScrollMode] = useState(false);
   // Bumped for the incoming slot so its copy always remounts hidden, even when the
   // same service comes back round.
@@ -77,7 +77,6 @@ export default function ParallaxServiceSlider({
       lockRef.current = true;
       window.setTimeout(() => {
         lockRef.current = false;
-        syncRef.current();
       }, LOCK_MS);
       const d = n > idxRef.current ? 1 : -1;
       const out = frontRef.current;
@@ -202,31 +201,6 @@ export default function ParallaxServiceSlider({
     mq.addEventListener("change", update);
     return () => mq.removeEventListener("change", update);
   }, []);
-
-  // Scroll mode: the page scroll position chooses the slide.
-  useEffect(() => {
-    if (!scrollMode) return;
-    const wrap = wrapRef.current;
-    if (!wrap) return;
-    syncRef.current = () => {
-      if (!lockRef.current && targetRef.current !== idxRef.current) go(targetRef.current);
-    };
-    const onScroll = () => {
-      const r = wrap.getBoundingClientRect();
-      const run = wrap.offsetHeight - window.innerHeight;
-      const p = run > 0 ? Math.min(1, Math.max(0, -r.top / run)) : 0;
-      targetRef.current = Math.min(total - 1, Math.floor(p * total));
-      syncRef.current();
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-      syncRef.current = () => {};
-    };
-  }, [scrollMode, go, total]);
 
   // Wheel, touch and keyboard.
   useEffect(() => {
@@ -354,20 +328,20 @@ export default function ParallaxServiceSlider({
 
   const next = useCallback(() => go(idxRef.current + 1), [go]);
 
+  if (scrollMode) {
+    return <MobileStack slides={slides} eyebrow={eyebrow} cta={cta} lang={lang} />;
+  }
+
   return (
-    <div
-      ref={wrapRef}
-      className="pss-wrap"
-      style={scrollMode ? { height: `${total * 100}dvh` } : undefined}
-    >
+    <div className="pss-wrap">
     <section
       ref={rootRef}
       dir={lang === "ar" ? "rtl" : "ltr"}
-      className={scrollMode ? "pss-root pss-sticky" : "pss-root"}
+      className="pss-root"
       aria-roledescription="carousel"
       aria-label={eyebrow}
     >
-      <style>{CSS}</style>
+      <style>{SLIDER_CSS}</style>
       {[0, 1].map((slot) => (
         <div
           key={slot}
@@ -431,57 +405,3 @@ function revealCopy(slot: HTMLElement, delay: number) {
     );
   });
 }
-
-/* Layout lives here (not in utility classes) so it can never come out half-styled. */
-const CSS = `
-.pss-root{position:relative;width:100%;height:100vh;height:100dvh;overflow:hidden;background:var(--color-body);z-index:10}
-.pss-wrap{position:relative}
-.pss-sticky{position:sticky;top:0}
-.pss-slot{position:absolute;inset:0;overflow:hidden}
-.pss-layer{position:absolute;inset:0;pointer-events:none;will-change:transform}
-.pss-bg{transform:scale(1.08)}
-.pss-fill{position:absolute;inset:0}
-.pss-persp{perspective:1200px}
-.pss-bgimg{display:block;width:100%;height:100%;object-fit:cover;filter:blur(22px) brightness(.34) saturate(1.1);transform:scale(1.12)}
-.pss-veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(37,42,46,.88),rgba(37,42,46,.4) 55%,rgba(37,42,46,.55))}
-.pss-mark{position:absolute;inset-inline-start:-1vw;top:6vh;font-size:clamp(4rem,12vw,12rem);font-weight:700;line-height:1;letter-spacing:-.03em;text-transform:uppercase;white-space:nowrap;color:rgba(255,255,255,.03)}
-.pss-num{position:absolute;inset-inline-end:1vw;bottom:-5vh;font-size:clamp(7rem,26vw,26rem);font-weight:700;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(240,179,28,.2)}
-.pss-glow{position:absolute;inset-inline-end:0;top:0;width:60vw;height:100%;background:radial-gradient(ellipse 60% 55% at 62% 50%,rgba(240,179,28,.16),transparent 70%)}
-.pss-ring{position:absolute;inset-inline-end:calc(31vw - 40vh);top:50%;width:80vh;height:80vh;margin-top:-40vh;border:1.5px solid var(--color-accent);border-radius:50%;opacity:.45}
-.pss-ring-2{inset-inline-end:calc(31vw - 48vh);width:96vh;height:96vh;margin-top:-48vh;border-width:1px;opacity:.2}
-.pss-echo{position:absolute;border:1px solid rgba(240,179,28,.55);top:calc(5.4rem + 18px);inset-inline:calc(1.25rem + 18px) calc(1.25rem - 18px);height:32dvh}
-.pss-subject{position:absolute;overflow:hidden;background:#14171a;box-shadow:0 30px 80px rgba(0,0,0,.55);top:5.4rem;inset-inline:1.25rem;height:32dvh}
-.pss-subjectimg{display:block;width:100%;height:100%;object-fit:cover}
-.pss-badge{position:absolute;top:0;inset-inline-start:0}
-.pss-copy{position:absolute;inset:0}
-.pss-titlewrap{position:absolute;inset-inline:1.25rem;top:calc(5.4rem + 32dvh + 3.2rem)}
-.pss-eyebrow{margin:0 0 .6rem;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--color-accent);opacity:0}
-.pss-title{margin:0;font-size:clamp(2.1rem,9.4vw,2.8rem);font-weight:700;line-height:1;letter-spacing:-.01em;color:#fff !important}
-.pss-line{display:block;overflow:hidden;padding-bottom:.14em;margin-bottom:-.14em}
-.pss-linein{display:block;transform:translateY(110%);will-change:transform}
-.pss-desc{margin-top:1rem;opacity:0;pointer-events:auto}
-.pss-desc p{margin:0 0 .9rem;font-size:.95rem;font-weight:300;line-height:1.55;color:#b4b4b4}
-.pss-progress{height:1px;background:rgba(255,255,255,.18);margin-bottom:.9rem}
-.pss-progress i{display:block;height:100%;background:var(--color-accent)}
-.pss-explore{display:none}
-.pss-cta{display:inline-block;padding:.85rem 1.8rem;background:var(--color-accent);color:#14171a !important;text-transform:uppercase;letter-spacing:.16em;font-size:.72rem;font-weight:700;transition:background .3s}
-.pss-cta:hover{background:#fff}
-.pss-counter{position:absolute;z-index:5;inset-inline-start:4.6rem;bottom:1.4rem;display:flex;align-items:baseline;gap:.5rem;color:#fff}
-.pss-roll{position:relative;display:inline-block;overflow:hidden;height:1.7rem;line-height:1.7rem;min-width:2ch}
-.pss-roll b{display:block;font-size:1.5rem;font-weight:700}
-.pss-of{font-size:.75rem;letter-spacing:.2em;color:var(--color-accent)}
-@media (min-width:900px){
-  .pss-subject{top:19vh;height:60vh;width:48vw;inset-inline:auto;inset-inline-end:7vw}
-  .pss-echo{top:calc(19vh + 22px);height:60vh;width:48vw;inset-inline:auto;inset-inline-end:calc(7vw - 22px)}
-  .pss-titlewrap{inset-inline:auto;inset-inline-start:6vw;width:38vw;top:50%;transform:translateY(-50%)}
-  .pss-eyebrow{font-size:.8rem;margin-bottom:1.2rem}
-  .pss-title{font-size:clamp(2.5rem,4.3vw,4.9rem)}
-  .pss-desc{margin-top:2rem;max-width:42ch}
-  .pss-desc p{font-size:1.05rem;line-height:1.65;margin-bottom:1.3rem}
-  .pss-progress{margin-bottom:1.5rem}
-  .pss-explore{display:inline-flex;align-items:center;gap:.7rem;padding:0 0 .35rem;background:none;border:0;border-bottom:1px solid var(--color-accent);color:var(--color-accent);text-transform:uppercase;letter-spacing:.2em;font-size:.74rem;font-weight:700}
-  .pss-explore:hover{color:#fff;border-color:#fff}
-  .pss-counter{inset-inline-start:6vw;bottom:2rem}
-}
-@media (prefers-reduced-motion:reduce){.pss-linein{transform:none}.pss-eyebrow,.pss-desc{opacity:1}}
-`;

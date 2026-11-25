@@ -31,7 +31,8 @@ export function stripLang(pathname: string): string {
 export function switchLangPath(pathname: string, target: Lang): string {
   const base = stripLang(pathname).replace(/\/$/, "") || "/";
   const key = base === "/" ? "" : base.slice(1);
-  if (!ROUTABLE_SLUGS.has(key)) return target === "ar" ? "/ar" : "/en";
+  if (!ROUTABLE_SLUGS.has(key) && !key.startsWith("projects/"))
+    return target === "ar" ? "/ar" : "/en";
   return withLang(base, target);
 }
 

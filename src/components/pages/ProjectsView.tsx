@@ -1,40 +1,50 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import Link from "next/link";
+import { motion } from "framer-motion";
 import { ParallaxTopShadow } from "@/components/animations/ParallaxText";
 import SectionIntro from "@/components/ui/SectionIntro";
 import FooterSection from "@/components/ui/FooterSection";
 import { EASE } from "@/components/animations/motion";
-import { projectImage, projects, type Project, type ProjectCategory } from "@/data/projects";
+import { projectImage, projectSize, projects, type ProjectCategory } from "@/data/projects";
 import { t } from "@/data/dictionary";
-import { pageHref, type Lang } from "@/lib/lang";
+import { pageHref, withLang, type Lang } from "@/lib/lang";
 
 type Filter = "all" | ProjectCategory;
 
+/**
+ * Projects: a wall of work shown at its natural proportions (nothing cropped).
+ * The chosen filter lives in the URL hash, so coming back from a project with
+ * the browser's back button lands on the same filtered wall.
+ */
 export default function ProjectsView({ lang }: { lang: Lang }) {
   const d = t(lang).projects;
   const [filter, setFilter] = useState<Filter>("all");
-  const [open, setOpen] = useState<Project | null>(null);
 
   const filters = useMemo(
     () => ["all", ...(Object.keys(d.categories) as ProjectCategory[])] as Filter[],
     [d.categories]
   );
-  const shown = projects.filter((p) => filter === "all" || p.category === filter);
 
-  // Lock page scroll and listen for Esc while a project is open.
   useEffect(() => {
-    if (!open) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(null);
-    window.addEventListener("keydown", onKey);
-    return () => {
-      document.body.style.overflow = prev;
-      window.removeEventListener("keydown", onKey);
+    const read = () => {
+      const h = window.location.hash.slice(1) as Filter;
+      setFilter(filters.includes(h) ? h : "all");
     };
-  }, [open]);
+    read();
+    window.addEventListener("hashchange", read);
+    return () => window.removeEventListener("hashchange", read);
+  }, [filters]);
+
+  const choose = (f: Filter) => {
+    setFilter(f);
+    window.history.replaceState(null, "", f === "all" ? window.location.pathname : `#${f}`);
+  };
+
+  const shown = projects
+    .map((p, index) => ({ p, index }))
+    .filter(({ p }) => filter === "all" || p.category === filter);
 
   return (
     <div dir={lang === "ar" ? "rtl" : "ltr"}>
@@ -48,54 +58,67 @@ export default function ProjectsView({ lang }: { lang: Lang }) {
       </section>
 
       <section className="relative w-full block pb-[var(--space-section-lg)] z-10">
-        <div className="max-w-[1140px] mx-auto px-4">
+        <div className="max-w-[1240px] mx-auto px-4">
           <div className="px-5 xl:px-2">
-            <div className="pj-filters" role="tablist">
-              {filters.map((f) => (
-                <button
-                  key={f}
-                  type="button"
-                  role="tab"
-                  aria-selected={filter === f}
-                  className={`pj-chip hover-target ${filter === f ? "on" : ""}`}
-                  onClick={() => setFilter(f)}
-                >
-                  {f === "all" ? d.all : d.categories[f]}
-                </button>
-              ))}
+            <div className="pj-top">
+              <div className="pj-tabs" role="tablist">
+                {filters.map((f) => (
+                  <button
+                    key={f}
+                    type="button"
+                    role="tab"
+                    aria-selected={filter === f}
+                    className={`pj-tab hover-target ${filter === f ? "on" : ""}`}
+                    onClick={() => choose(f)}
+                  >
+                    {f === "all" ? d.all : d.categories[f]}
+                  </button>
+                ))}
+              </div>
+              <p className="pj-count">
+                <b>{String(shown.length).padStart(2, "0")}</b> {d.projectsCount}
+              </p>
             </div>
 
-            <motion.div layout className="pj-grid">
-              <AnimatePresence mode="popLayout">
-                {shown.map((p, i) => (
-                  <motion.button
-                    layout
+            <div className="pj-wall" key={filter}>
+              {shown.map(({ p, index }, i) => {
+                const cover = p.pages[0];
+                const { width, height } = projectSize(cover);
+                return (
+                  <motion.div
                     key={p.slug}
-                    type="button"
-                    className="pj-card hover-target"
-                    onClick={() => setOpen(p)}
-                    initial={{ opacity: 0, y: 30 }}
+                    className="pj-item"
+                    initial={{ opacity: 0, y: 36 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                    transition={{ duration: 0.6, ease: EASE, delay: Math.min(i, 8) * 0.04 }}
+                    transition={{ duration: 0.8, ease: EASE, delay: Math.min(i, 9) * 0.05 }}
                   >
-                    <span className="pj-thumb">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={projectImage(p.pages[0])} alt="" loading="lazy" decoding="async" />
-                    </span>
-                    <span className="pj-meta">
-                      <span className="pj-cat">{d.categories[p.category]}</span>
-                      <span className="pj-title">{p.title[lang]}</span>
-                      {p.pages.length > 1 && (
-                        <span className="pj-count">
-                          {p.pages.length} {d.pages}
-                        </span>
-                      )}
-                    </span>
-                  </motion.button>
-                ))}
-              </AnimatePresence>
-            </motion.div>
+                    <Link href={withLang(`/projects/${p.slug}`, lang)} className="pj-card hover-target">
+                      <span className="pj-frame">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={projectImage(cover)}
+                          alt={p.title[lang]}
+                          width={width}
+                          height={height}
+                          loading="lazy"
+                          decoding="async"
+                        />
+                        <span className="pj-index">{String(index + 1).padStart(2, "0")}</span>
+                        {p.pages.length > 1 && (
+                          <span className="pj-pages">
+                            {p.pages.length} {d.pages}
+                          </span>
+                        )}
+                      </span>
+                      <span className="pj-meta">
+                        <span className="pj-cat">{d.categories[p.category]}</span>
+                        <span className="pj-title">{p.title[lang]}</span>
+                      </span>
+                    </Link>
+                  </motion.div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
@@ -104,66 +127,34 @@ export default function ProjectsView({ lang }: { lang: Lang }) {
         shadowText={d.footerShadow}
         links={[{ label: t(lang).nav[t(lang).nav.length - 1].label, href: pageHref("contact", lang) }]}
       />
-
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            className="pj-modal"
-            role="dialog"
-            aria-modal="true"
-            aria-label={open.title[lang]}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.35 }}
-            onClick={() => setOpen(null)}
-          >
-            <div className="pj-bar" onClick={(e) => e.stopPropagation()}>
-              <div>
-                <span className="pj-cat">{d.categories[open.category]}</span>
-                <h2 className="pj-modal-title">{open.title[lang]}</h2>
-              </div>
-              <button type="button" className="pj-close hover-target" onClick={() => setOpen(null)}>
-                {d.close} <span aria-hidden="true">✕</span>
-              </button>
-            </div>
-            <div className="pj-scroll" onClick={(e) => e.stopPropagation()}>
-              {open.pages.map((n) => (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img key={n} src={projectImage(n)} alt={open.title[lang]} loading="lazy" decoding="async" />
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 }
 
 /* Layout lives here (not in utility classes) so it can never come out half-styled. */
 const CSS = `
-.pj-filters{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:2.5rem}
-.pj-chip{padding:.6rem 1.1rem;background:none;border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.7);font:inherit;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;transition:all .3s}
-.pj-chip:hover{color:#fff;border-color:rgba(255,255,255,.5)}
-.pj-chip.on{background:var(--color-accent);border-color:var(--color-accent);color:#14171a;font-weight:700}
-.pj-grid{display:grid;grid-template-columns:1fr;gap:1.5rem}
-.pj-card{display:block;padding:0;background:none;border:0;text-align:start;color:inherit;font:inherit}
-.pj-thumb{display:block;position:relative;aspect-ratio:4/3;overflow:hidden;background:#1b1f22}
-.pj-thumb img{display:block;width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .9s cubic-bezier(.16,1,.3,1)}
-.pj-card:hover .pj-thumb img{transform:scale(1.07)}
-.pj-thumb::after{content:"";position:absolute;inset:0;border:1px solid rgba(240,179,28,0);transition:border-color .4s}
-.pj-card:hover .pj-thumb::after{border-color:rgba(240,179,28,.8)}
-.pj-meta{display:flex;flex-direction:column;gap:.3rem;padding:1rem 0 0}
-.pj-cat{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--color-accent)}
-.pj-title{font-size:1.15rem;font-weight:700;line-height:1.25;color:#fff}
-.pj-count{font-size:.8rem;color:rgba(255,255,255,.5)}
-.pj-modal{position:fixed;inset:0;z-index:99990;background:rgba(20,23,26,.97);display:flex;flex-direction:column}
-.pj-bar{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;padding:5rem 1.5rem 1rem;max-width:1200px;width:100%;margin:0 auto}
-.pj-modal-title{margin:.3rem 0 0;font-size:clamp(1.4rem,3.4vw,2.4rem);font-weight:700;color:#fff}
-.pj-close{flex-shrink:0;padding:.7rem 1.2rem;background:none;border:1px solid var(--color-accent);color:var(--color-accent);font:inherit;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;transition:all .3s}
-.pj-close:hover{background:var(--color-accent);color:#14171a}
-.pj-scroll{flex:1;overflow-y:auto;padding:0 1.5rem 3rem;max-width:1200px;width:100%;margin:0 auto;display:flex;flex-direction:column;gap:1.25rem}
-.pj-scroll img{display:block;width:100%;height:auto;background:#1b1f22}
-@media (min-width:640px){.pj-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:2rem 1.75rem}}
-@media (min-width:1024px){.pj-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.pj-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem 2rem;margin-bottom:2.5rem;padding-bottom:1rem;border-bottom:1px solid rgba(255,255,255,.12)}
+.pj-tabs{display:flex;flex-wrap:wrap;gap:.25rem 1.6rem}
+.pj-tab{position:relative;padding:.5rem 0;background:none;border:0;font:inherit;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.5);transition:color .3s}
+.pj-tab::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--color-accent);transform:scaleX(0);transition:transform .4s cubic-bezier(.16,1,.3,1)}
+.pj-tab:hover{color:#fff}
+.pj-tab.on{color:var(--color-accent)}
+.pj-tab.on::after{transform:scaleX(1)}
+.pj-count{margin:0;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.pj-count b{font-size:1.4rem;color:#fff;margin-inline-end:.35rem;letter-spacing:0}
+.pj-wall{column-count:1;column-gap:1.75rem}
+.pj-item{break-inside:avoid;margin-bottom:2.25rem}
+.pj-card{display:block;color:inherit}
+.pj-frame{display:block;position:relative;overflow:hidden;background:#1b1f22;border:1px solid rgba(255,255,255,.08);transition:border-color .4s}
+.pj-frame img{display:block;width:100%;height:auto;transition:transform 1s cubic-bezier(.16,1,.3,1)}
+.pj-card:hover .pj-frame{border-color:var(--color-accent)}
+.pj-card:hover .pj-frame img{transform:scale(1.045)}
+.pj-index{position:absolute;top:0;inset-inline-start:0;padding:.35rem .7rem;background:rgba(20,23,26,.88);color:var(--color-accent);font-size:.72rem;letter-spacing:.18em}
+.pj-pages{position:absolute;bottom:0;inset-inline-end:0;padding:.35rem .7rem;background:var(--color-accent);color:#14171a;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.pj-meta{display:flex;flex-direction:column;gap:.3rem;padding-top:.9rem}
+.pj-cat{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--color-accent)}
+.pj-title{font-size:1.15rem;font-weight:700;line-height:1.25;color:#fff;transition:color .3s}
+.pj-card:hover .pj-title{color:var(--color-accent)}
+@media (min-width:640px){.pj-wall{column-count:2}}
+@media (min-width:1024px){.pj-wall{column-count:3}}
 `;

@@ -9,6 +9,7 @@ import AnimatedTitle from "@/components/animations/AnimatedTitle";
 import WordReveal from "@/components/animations/WordReveal";
 import ContactForm from "@/components/ui/ContactForm";
 import ParallaxServiceSlider from "@/components/what-we-do/ParallaxServiceSlider";
+import ProjectsView from "@/components/pages/ProjectsView";
 import ValuesStrip from "@/components/scenes/ValuesStrip";
 import StickySteps from "@/components/scenes/StickySteps";
 import VoidStage from "@/components/scenes/VoidStage";
@@ -189,6 +190,10 @@ export default async function PageView({ slug, lang }: { slug: string; lang: Lan
         />
       )}
 
+      {slug === "projects" && (
+        <ProjectsView lang={lang} projects={content.projects} d={d.projects} />
+      )}
+
       {/* Pinned scenes need full-width, non-clipping sections */}
       {scene?.type === "steps" && page.points && (
         <section className="relative z-10 w-full">
@@ -271,6 +276,9 @@ export default async function PageView({ slug, lang }: { slug: string; lang: Lan
         links={[
           ...(prev ? [{ label: prev.title, href: pageHref(prev.slug, lang) }] : []),
           ...(next ? [{ label: next.title, href: pageHref(next.slug, lang) }] : []),
+          ...(!next && slug === "projects"
+            ? [{ label: d.contact.title, href: pageHref("contact", lang) }]
+            : []),
         ]}
       />
     </>

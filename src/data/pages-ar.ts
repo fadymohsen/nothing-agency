@@ -138,6 +138,15 @@ export const pagesAr: Record<string, ArabicPage> = {
       ],
     },
   },
+  projects: {
+    title: "أعمالنا",
+    description:
+      "أعمال مختارة من Nothing Advertising Agency: حملات إعلانية، تسويق للرعاية الصحية والأدوية، فعاليات، هويات بصرية ومنتجات رقمية.",
+    page: {
+      heading: "أعمال بنيناها من اللاشيء.",
+      lead: "حملات وهويات وفعاليات ومنتجات رقمية. افتح أي مشروع لتراه كاملاً.",
+    },
+  },
   "nothing-just-feel": {
     title: "مساحة الشعور",
     description: "اترك أثرك في الفراغ.",

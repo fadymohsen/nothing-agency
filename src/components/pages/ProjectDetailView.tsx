@@ -6,16 +6,35 @@ import { ParallaxTopShadow } from "@/components/animations/ParallaxText";
 import HeadlineReveal from "@/components/animations/HeadlineReveal";
 import { EASE } from "@/components/animations/motion";
 import FooterSection from "@/components/ui/FooterSection";
-import { projectImage, projectSize, projects, type Project } from "@/data/projects";
-import { t } from "@/data/dictionary";
+import { projectImageSize } from "@/data/projects";
+import type { ContentProject } from "@/lib/content/types";
 import { withLang, type Lang } from "@/lib/lang";
 
 /**
  * One project on its own URL. Its pages stack full width and fade in as you
  * scroll. "All projects" returns to the wall (so does the browser back button).
  */
-export default function ProjectDetailView({ project, lang }: { project: Project; lang: Lang }) {
-  const d = t(lang).projects;
+export default function ProjectDetailView({
+  project,
+  projects,
+  d,
+  contactLabel,
+  lang,
+}: {
+  project: ContentProject;
+  projects: ContentProject[];
+  d: {
+    shadow: string;
+    back: string;
+    prev: string;
+    next: string;
+    pages: string;
+    footerShadow: string;
+    categories: Record<string, string>;
+  };
+  contactLabel: string;
+  lang: Lang;
+}) {
   const index = projects.findIndex((p) => p.slug === project.slug);
   const prev = index > 0 ? projects[index - 1] : undefined;
   const next = index < projects.length - 1 ? projects[index + 1] : undefined;
@@ -34,16 +53,16 @@ export default function ProjectDetailView({ project, lang }: { project: Project;
             <Link href={listHref} className="pd-back hover-target">
               <span aria-hidden="true">{arrow}</span> {d.back}
             </Link>
-            <p className="pd-cat">{d.categories[project.category]}</p>
+            <p className="pd-cat">{d.categories[project.category] ?? project.category}</p>
             <div className="pd-title">
               <HeadlineReveal text={project.title[lang]} />
             </div>
             <p className="pd-meta">
               <b>{String(index + 1).padStart(2, "0")}</b> / {String(projects.length).padStart(2, "0")}
-              {project.pages.length > 1 && (
+              {project.images.length > 1 && (
                 <>
                   <span className="pd-dot" aria-hidden="true" />
-                  {project.pages.length} {d.pages}
+                  {project.images.length} {d.pages}
                 </>
               )}
             </p>
@@ -61,11 +80,11 @@ export default function ProjectDetailView({ project, lang }: { project: Project;
       <section className="relative w-full block pb-[var(--space-section)] z-10">
         <div className="max-w-[1140px] mx-auto px-4">
           <div className="px-5 xl:px-2 pd-stack">
-            {project.pages.map((n, i) => {
-              const { width, height } = projectSize(n);
+            {project.images.map((src, i) => {
+              const { width, height } = projectImageSize(src);
               return (
                 <motion.figure
-                  key={n}
+                  key={src + i}
                   className="pd-fig"
                   initial={{ opacity: 0, y: 48 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -73,10 +92,10 @@ export default function ProjectDetailView({ project, lang }: { project: Project;
                   transition={{ duration: 0.9, ease: EASE }}
                 >
                   {/* Opens the full-size page, so it can be zoomed on a phone */}
-                  <a href={projectImage(n)} target="_blank" rel="noopener noreferrer" className="hover-target">
+                  <a href={src} target="_blank" rel="noopener noreferrer" className="hover-target">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src={projectImage(n)}
+                      src={src}
                       alt={`${project.title[lang]} ${i + 1}`}
                       width={width}
                       height={height}
@@ -84,9 +103,9 @@ export default function ProjectDetailView({ project, lang }: { project: Project;
                       decoding="async"
                     />
                   </a>
-                  {project.pages.length > 1 && (
+                  {project.images.length > 1 && (
                     <figcaption>
-                      {String(i + 1).padStart(2, "0")} / {String(project.pages.length).padStart(2, "0")}
+                      {String(i + 1).padStart(2, "0")} / {String(project.images.length).padStart(2, "0")}
                     </figcaption>
                   )}
                 </motion.figure>
@@ -130,7 +149,7 @@ export default function ProjectDetailView({ project, lang }: { project: Project;
 
       <FooterSection
         shadowText={d.footerShadow}
-        links={[{ label: t(lang).nav[t(lang).nav.length - 1].label, href: withLang("/contact", lang) }]}
+        links={[{ label: contactLabel, href: withLang("/contact", lang) }]}
       />
     </div>
   );

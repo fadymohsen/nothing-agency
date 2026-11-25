@@ -48,3 +48,9 @@ export const projectSize = (page: number): { width: number; height: number } => 
 };
 
 export const getProject = (slug: string) => projects.find((p) => p.slug === slug);
+
+/** Size for any image URL: known for the profile pages, undefined for images added later in the admin. */
+export const projectImageSize = (url: string): { width?: number; height?: number } => {
+  const m = /\/projects\/(\d+)\.jpg$/.exec(url);
+  return m ? projectSize(Number(m[1])) : {};
+};

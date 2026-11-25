@@ -227,6 +227,20 @@ export const portfolioItems: PortfolioItem[] = [
     },
   },
   {
+    slug: "projects",
+    title: "Projects",
+    category: "Pages",
+    categorySlug: "pages",
+    image: "/site/photos/svc-campaign.jpg",
+    heroImage: "/site/photos/svc-campaign.jpg",
+    description:
+      "Selected work by Nothing Advertising Agency: advertising campaigns, healthcare and pharmaceutical marketing, events, brand identities and digital products.",
+    page: {
+      heading: "Work built from nothing.",
+      lead: "Campaigns, identities, events and digital products. Open a project to see it in full.",
+    },
+  },
+  {
     slug: "nothing-just-feel",
     hidden: true,
     title: "Nothing Just Feel",

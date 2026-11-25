@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import ProjectsView from "@/components/pages/ProjectsView";
+import PageView from "@/components/pages/PageView";
 import { getContent } from "@/lib/content/server";
 import { pageMetadata } from "@/lib/content/meta";
 
@@ -9,5 +9,5 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function ProjectsPageAr() {
-  return <ProjectsView lang="ar" />;
+  return <PageView slug="projects" lang="ar" />;
 }

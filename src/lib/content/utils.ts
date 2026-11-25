@@ -55,3 +55,20 @@ export function mergeDefaults<T>(defaults: T, stored: unknown): T {
   }
   return (stored === undefined || stored === null ? defaults : stored) as T;
 }
+
+/**
+ * Arrays are kept as stored, so a page added to the defaults after content was saved
+ * would never appear. Slot such pages in next to their neighbour from the defaults.
+ */
+export function withNewPages(defaults: Content, merged: Content): Content {
+  const have = new Set(merged.portfolio.map((p) => p.slug));
+  const portfolio = [...merged.portfolio];
+  defaults.portfolio.forEach((item, i) => {
+    if (have.has(item.slug)) return;
+    const before = defaults.portfolio[i - 1];
+    const at = before ? portfolio.findIndex((p) => p.slug === before.slug) : -1;
+    portfolio.splice(at >= 0 ? at + 1 : portfolio.length, 0, item);
+    have.add(item.slug);
+  });
+  return { ...merged, portfolio };
+}

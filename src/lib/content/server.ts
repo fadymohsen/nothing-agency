@@ -2,7 +2,7 @@ import "server-only";
 import { unstable_cache } from "next/cache";
 import { neon } from "@neondatabase/serverless";
 import { defaultContent } from "./defaults";
-import { mergeDefaults } from "./utils";
+import { mergeDefaults, withNewPages } from "./utils";
 import type { Content } from "./types";
 
 export const CONTENT_TAG = "site-content";
@@ -28,7 +28,7 @@ const readCached = unstable_cache(async () => (await readStored()) ?? null, ["si
 export async function getContent(): Promise<Content> {
   try {
     const stored = await readCached();
-    return stored ? mergeDefaults(defaultContent, stored) : defaultContent;
+    return stored ? withNewPages(defaultContent, mergeDefaults(defaultContent, stored)) : defaultContent;
   } catch (e) {
     console.error("[content] falling back to defaults:", e instanceof Error ? e.message : e);
     return defaultContent;
@@ -39,7 +39,7 @@ export async function getContent(): Promise<Content> {
 export async function getContentFresh(): Promise<Content> {
   try {
     const stored = await readStored();
-    return stored ? mergeDefaults(defaultContent, stored) : defaultContent;
+    return stored ? withNewPages(defaultContent, mergeDefaults(defaultContent, stored)) : defaultContent;
   } catch (e) {
     console.error("[content] admin read failed:", e instanceof Error ? e.message : e);
     return defaultContent;

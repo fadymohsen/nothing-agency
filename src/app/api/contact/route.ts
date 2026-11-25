@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server";
+import fs from "fs/promises";
+import path from "path";
 import { resend, EMAIL_CONFIG } from "@/lib/email/resend";
 import { buildAdminEmail, buildUserConfirmationEmail, type LeadData } from "@/lib/email/templates";
 
@@ -52,7 +54,23 @@ export async function POST(request: Request) {
     const adminEmailData = buildAdminEmail(lead);
     const userEmailData = buildUserConfirmationEmail(lead);
 
-    // 4. Send Admin Notification & User Confirmation concurrently
+    // 4. Load embedded brand logo attachment (guarantees logo displays in all clients)
+    let attachments: Array<{ filename: string; content: Buffer; contentId: string }> = [];
+    try {
+      const logoPath = path.join(process.cwd(), "public", "images", "nothing-logo-yellow-tight.png");
+      const logoBuffer = await fs.readFile(logoPath);
+      attachments = [
+        {
+          filename: "nothing-logo.png",
+          content: logoBuffer,
+          contentId: "nothing-logo",
+        },
+      ];
+    } catch (e) {
+      console.warn("[contact-form] Could not load local logo attachment:", e);
+    }
+
+    // 5. Send Admin Notification & User Confirmation concurrently
     const [adminResult, userResult] = await Promise.allSettled([
       // Admin notification (reply-to is the lead's email)
       resend.emails.send({
@@ -62,6 +80,7 @@ export async function POST(request: Request) {
         subject: adminEmailData.subject,
         html: adminEmailData.html,
         text: adminEmailData.text,
+        attachments: attachments.length > 0 ? attachments : undefined,
       }),
       // User confirmation (reply-to is info@nothing-ads.com)
       resend.emails.send({
@@ -71,6 +90,7 @@ export async function POST(request: Request) {
         subject: userEmailData.subject,
         html: userEmailData.html,
         text: userEmailData.text,
+        attachments: attachments.length > 0 ? attachments : undefined,
       }),
     ]);
 

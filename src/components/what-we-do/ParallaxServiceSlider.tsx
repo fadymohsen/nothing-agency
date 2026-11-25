@@ -60,7 +60,7 @@ export default function ParallaxServiceSlider({
   const [tick, setTick] = useState(0);
   // Phones and touch screens scroll the page natively: the stage is pinned and the
   // slides are plain pinned cards (MobileStack), so nothing hijacks or traps a swipe.
-  const [scrollMode, setScrollMode] = useState(false);
+  const [scrollMode, setScrollMode] = useState<boolean | null>(null);
   // Bumped for the incoming slot so its copy always remounts hidden, even when the
   // same service comes back round.
   const [gens, setGens] = useState<[number, number]>([0, 0]);
@@ -185,7 +185,7 @@ export default function ParallaxServiceSlider({
     );
     io.observe(root);
     return () => io.disconnect();
-  }, [reduce]);
+  }, [reduce, scrollMode]);
 
   // Warm the neighbouring photos so a move never waits on the network.
   useEffect(() => {
@@ -324,9 +324,12 @@ export default function ParallaxServiceSlider({
       root.removeEventListener("pointermove", onMove);
       root.removeEventListener("pointerleave", onLeave);
     };
-  }, [reduce, px, py]);
+  }, [reduce, px, py, scrollMode]);
 
   const next = useCallback(() => go(idxRef.current + 1), [go]);
+
+  // Decide before mounting anything heavy, so a phone never builds the desktop stage.
+  if (scrollMode === null) return <div style={{ minHeight: "100svh" }} />;
 
   if (scrollMode) {
     return <MobileStack slides={slides} eyebrow={eyebrow} cta={cta} lang={lang} />;

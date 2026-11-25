@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import IconBadge from "@/components/ui/IconBadge";
 import { localizeHref, type Lang } from "@/lib/lang";
@@ -12,7 +13,9 @@ const pad = (n: number) => String(n).padStart(2, "0");
  * the top and the next one slides up over it, using only CSS (position: sticky)
  * and native scrolling. No scroll listeners, no timers, no transforms driven
  * from JavaScript, and svh units so the browser's collapsing address bar can
- * never move anything. Smooth because the browser does all of it.
+ * never move anything. A gap between cards gives each one time to be read.
+ * One cheap scroll check only switches off cards that are fully covered, so a
+ * phone never keeps eight full-screen layers and photos alive at once.
  */
 export default function MobileStack({
   slides,
@@ -26,26 +29,58 @@ export default function MobileStack({
   lang: Lang;
 }) {
   const total = slides.length;
+  const stackRef = useRef<HTMLDivElement>(null);
+  // Index of the card that currently fills the screen.
+  const [pinned, setPinned] = useState(0);
+
+  useEffect(() => {
+    const stack = stackRef.current;
+    if (!stack) return;
+    let raf = 0;
+    const measure = () => {
+      raf = 0;
+      const cards = stack.querySelectorAll<HTMLElement>(".ms-card");
+      const y = window.scrollY;
+      const base = stack.getBoundingClientRect().top + y;
+      let n = 0;
+      cards.forEach((c, i) => {
+        if (base + c.offsetTop <= y + 2) n = i;
+      });
+      setPinned((prev) => (prev === n ? prev : n));
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(measure);
+    };
+    measure();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
+
   return (
-    <div className="ms-stack" dir={lang === "ar" ? "rtl" : "ltr"} aria-label={eyebrow}>
+    <div ref={stackRef} className="ms-stack" dir={lang === "ar" ? "rtl" : "ltr"} aria-label={eyebrow}>
       <style>{CSS}</style>
       {slides.map((s, i) => {
         const last = i === total - 1;
+        // Covered cards and cards far ahead are switched off; their photos are dropped too.
+        const off = i < pinned || i > pinned + 1;
+        const showImg = i >= pinned && i <= pinned + 2;
         return (
-          <article key={s.index} className="ms-card" style={{ zIndex: i + 1 }}>
+          <div key={s.index} className="ms-slot">
+          <article className={`ms-card${off ? " ms-off" : ""}`} style={{ zIndex: i + 1 }}>
             <span className="ms-num" aria-hidden="true">
               {pad(i + 1)}
             </span>
 
             <div className="ms-frame">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={s.src}
-                alt={s.title}
-                loading={i < 2 ? "eager" : "lazy"}
-                decoding="async"
-                style={{ objectPosition: s.focus }}
-              />
+              {showImg && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={s.src} alt={s.title} decoding="async" style={{ objectPosition: s.focus }} />
+              )}
               {s.icon && (
                 <div className="ms-badge">
                   <IconBadge src={s.icon} size={56} shape="square" />
@@ -73,6 +108,8 @@ export default function MobileStack({
               )}
             </div>
           </article>
+          {!last && <div className="ms-gap" aria-hidden="true" />}
+          </div>
         );
       })}
     </div>
@@ -82,7 +119,10 @@ export default function MobileStack({
 /* Layout lives here (not in utility classes) so it can never come out half-styled. */
 const CSS = `
 .ms-stack{position:relative;background:#252A2E}
-.ms-card{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:flex;flex-direction:column;gap:1.1rem;padding:5.2rem 2.9rem 1.6rem;background:radial-gradient(ellipse 90% 45% at 75% 12%,rgba(240,179,28,.16),transparent 70%),#252A2E;border-top:1px solid rgba(240,179,28,.28);box-shadow:0 -18px 40px rgba(0,0,0,.35)}
+.ms-slot{display:contents}
+.ms-gap{height:90vh;height:90svh}
+.ms-off{visibility:hidden}
+.ms-card{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:flex;flex-direction:column;gap:1.1rem;padding:5.2rem 2.9rem 1.6rem;background:radial-gradient(ellipse 90% 45% at 75% 12%,rgba(240,179,28,.16),transparent 70%),#252A2E;border-top:1px solid rgba(240,179,28,.28)}
 .ms-num{position:absolute;inset-inline-end:2.9rem;bottom:-1.6rem;font-size:clamp(7rem,38vw,11rem);font-weight:700;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(240,179,28,.16);pointer-events:none}
 .ms-frame{position:relative;flex:0 0 auto;height:30vh;height:30svh;overflow:hidden;background:#14171a;outline:1px solid rgba(240,179,28,.5);outline-offset:8px}
 .ms-frame img{display:block;width:100%;height:100%;object-fit:cover}
@@ -107,9 +147,5 @@ const CSS = `
   .ms-text{font-size:.84rem;line-height:1.45;margin-top:.6rem}
   .ms-rule{margin:.7rem 0}
 }
-@supports (animation-timeline: view()){
-  .ms-frame img{animation:ms-par linear both;animation-timeline:view();animation-range:entry 0% exit 100%}
-  @keyframes ms-par{from{transform:translateY(-7%) scale(1.14)}to{transform:translateY(7%) scale(1.14)}}
-}
-@media (prefers-reduced-motion:reduce){.ms-hint{animation:none}.ms-frame img{animation:none}}
+@media (prefers-reduced-motion:reduce){.ms-hint{animation:none}}
 `;

@@ -45,6 +45,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
       },
     },
+    {
+      url: `${SITE_URL}/en/projects`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+      alternates: {
+        languages: {
+          en: `${SITE_URL}/en/projects`,
+          ar: `${SITE_URL}/ar/projects`,
+        },
+      },
+    },
     ...pages,
   ];
 }

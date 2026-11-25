@@ -447,8 +447,8 @@ const CSS = `
 .pss-mark{position:absolute;inset-inline-start:-1vw;top:6vh;font-size:clamp(4rem,12vw,12rem);font-weight:700;line-height:1;letter-spacing:-.03em;text-transform:uppercase;white-space:nowrap;color:rgba(255,255,255,.03)}
 .pss-num{position:absolute;inset-inline-end:1vw;bottom:-5vh;font-size:clamp(7rem,26vw,26rem);font-weight:700;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(240,179,28,.2)}
 .pss-glow{position:absolute;inset-inline-end:0;top:0;width:60vw;height:100%;background:radial-gradient(ellipse 60% 55% at 62% 50%,rgba(240,179,28,.16),transparent 70%)}
-.pss-ring{position:absolute;inset-inline-end:calc(28vw - 40vh);top:50%;width:80vh;height:80vh;margin-top:-40vh;border:1.5px solid var(--color-accent);border-radius:50%;opacity:.45}
-.pss-ring-2{inset-inline-end:calc(28vw - 48vh);width:96vh;height:96vh;margin-top:-48vh;border-width:1px;opacity:.2}
+.pss-ring{position:absolute;inset-inline-end:calc(31vw - 40vh);top:50%;width:80vh;height:80vh;margin-top:-40vh;border:1.5px solid var(--color-accent);border-radius:50%;opacity:.45}
+.pss-ring-2{inset-inline-end:calc(31vw - 48vh);width:96vh;height:96vh;margin-top:-48vh;border-width:1px;opacity:.2}
 .pss-echo{position:absolute;border:1px solid rgba(240,179,28,.55);top:calc(5.4rem + 18px);inset-inline:calc(1.25rem + 18px) calc(1.25rem - 18px);height:32dvh}
 .pss-subject{position:absolute;overflow:hidden;background:#14171a;box-shadow:0 30px 80px rgba(0,0,0,.55);top:5.4rem;inset-inline:1.25rem;height:32dvh}
 .pss-subjectimg{display:block;width:100%;height:100%;object-fit:cover}
@@ -471,11 +471,11 @@ const CSS = `
 .pss-roll b{display:block;font-size:1.5rem;font-weight:700}
 .pss-of{font-size:.75rem;letter-spacing:.2em;color:var(--color-accent)}
 @media (min-width:900px){
-  .pss-subject{top:13vh;height:70vh;width:38vw;inset-inline:auto;inset-inline-end:9vw}
-  .pss-echo{top:calc(13vh + 22px);height:70vh;width:38vw;inset-inline:auto;inset-inline-end:calc(9vw - 22px)}
-  .pss-titlewrap{inset-inline:auto;inset-inline-start:6vw;width:46vw;top:50%;transform:translateY(-50%)}
+  .pss-subject{top:19vh;height:60vh;width:48vw;inset-inline:auto;inset-inline-end:7vw}
+  .pss-echo{top:calc(19vh + 22px);height:60vh;width:48vw;inset-inline:auto;inset-inline-end:calc(7vw - 22px)}
+  .pss-titlewrap{inset-inline:auto;inset-inline-start:6vw;width:38vw;top:50%;transform:translateY(-50%)}
   .pss-eyebrow{font-size:.8rem;margin-bottom:1.2rem}
-  .pss-title{font-size:clamp(2.8rem,5vw,5.6rem)}
+  .pss-title{font-size:clamp(2.5rem,4.3vw,4.9rem)}
   .pss-desc{margin-top:2rem;max-width:42ch}
   .pss-desc p{font-size:1.05rem;line-height:1.65;margin-bottom:1.3rem}
   .pss-progress{margin-bottom:1.5rem}

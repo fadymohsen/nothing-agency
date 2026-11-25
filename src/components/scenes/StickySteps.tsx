@@ -7,6 +7,7 @@ import {
   useMotionValueEvent,
   useReducedMotion,
   useScroll,
+  useTransform,
 } from "framer-motion";
 import { EASE } from "@/components/animations/motion";
 import IconBadge from "@/components/ui/IconBadge";
@@ -40,6 +41,10 @@ export default function StickySteps({
     offset: ["start start", "end end"],
   });
 
+  // Ambient light: a gold shaft slides across the wall as the phases advance.
+  const beamX = useTransform(scrollYProgress, [0, 1], ["-18vw", "18vw"]);
+  const glowY = useTransform(scrollYProgress, [0, 1], ["20%", "80%"]);
+
   useMotionValueEvent(scrollYProgress, "change", (v) => {
     setStepIdx(Math.min(steps.length - 1, Math.max(0, Math.floor(v * steps.length))));
     setImgIdx(Math.min(images.length - 1, Math.max(0, Math.floor(v * images.length))));
@@ -49,7 +54,7 @@ export default function StickySteps({
     return (
       <div className="grid gap-10 md:grid-cols-2">
         <div className="relative aspect-[4/3] overflow-hidden">
-          <Image src={images[0].src} alt="" fill sizes="50vw" className="object-cover" />
+          <Image src={images[0].src} alt="" fill sizes="50vw" className="object-cover" style={{ objectPosition: images[0].focus }} />
         </div>
         <ol className="flex flex-col gap-8">
           {steps.map((s, i) => (
@@ -66,11 +71,20 @@ export default function StickySteps({
   return (
     <div ref={ref} className="ss-wrap" style={{ height: `${Math.max(steps.length, images.length) * 80 + 40}vh` }}>
       <style>{CSS}</style>
+      <div className="ss-ambient" aria-hidden="true">
+        <div className="ss-ambient-pin">
+          <motion.div className="ss-beam" style={{ x: beamX }} />
+          <motion.div className="ss-glow" style={{ top: glowY }} />
+          <span className="ss-dust ss-dust-a" />
+          <span className="ss-dust ss-dust-b" />
+          <span className="ss-grain" />
+        </div>
+      </div>
       <div className="ss-sticky">
         <div className="ss-grid">
           {/* Pinned photo stack */}
           <div className="ss-photo">
-            {images.map(({ src }, i) => (
+            {images.map(({ src, focus }, i) => (
               <motion.div
                 key={src}
                 style={{ position: "absolute", inset: 0 }}
@@ -78,7 +92,7 @@ export default function StickySteps({
                 animate={{ opacity: imgIdx === i ? 1 : 0, scale: imgIdx === i ? 1 : 1.12 }}
                 transition={{ duration: 0.9, ease: EASE }}
               >
-                <Image src={src} alt="" fill sizes="(max-width: 768px) 100vw, 45vw" className="object-cover" />
+                <Image src={src} alt="" fill sizes="(max-width: 768px) 100vw, 45vw" className="object-cover" style={{ objectPosition: focus }} />
               </motion.div>
             ))}
           </div>
@@ -126,8 +140,18 @@ export default function StickySteps({
 
 /* Layout lives here (not in utility classes) so it can never come out half-styled. */
 const CSS = `
+.ss-wrap{position:relative}
+.ss-ambient{position:absolute;top:0;bottom:0;left:50%;width:100vw;margin-left:-50vw;pointer-events:none;overflow:clip;-webkit-mask-image:linear-gradient(to bottom,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(to bottom,transparent,#000 14%,#000 86%,transparent)}
+.ss-ambient-pin{position:sticky;top:0;height:100vh;overflow:hidden}
+.ss-beam{position:absolute;top:-20%;left:20%;width:46%;height:140%;background:linear-gradient(105deg,transparent 22%,rgba(240,179,28,.09) 44%,rgba(240,179,28,.03) 60%,transparent 78%);transform:rotate(8deg);filter:blur(6px)}
+.ss-glow{position:absolute;left:12%;width:44vw;height:44vw;margin-top:-22vw;border-radius:50%;background:radial-gradient(circle,rgba(240,179,28,.10),transparent 68%)}
+.ss-dust{position:absolute;width:3px;height:3px;border-radius:50%;background:rgba(255,236,170,.55);box-shadow:12vw 8vh 0 rgba(255,236,170,.4),26vw 30vh 0 rgba(255,236,170,.35),38vw 14vh 0 rgba(255,236,170,.5),52vw 42vh 0 rgba(255,236,170,.3),64vw 22vh 0 rgba(255,236,170,.45),78vw 55vh 0 rgba(255,236,170,.35),9vw 62vh 0 rgba(255,236,170,.4),44vw 70vh 0 rgba(255,236,170,.3),86vw 12vh 0 rgba(255,236,170,.4);animation:ss-drift 26s ease-in-out infinite alternate}
+.ss-dust-a{top:10vh;left:4vw}
+.ss-dust-b{top:30vh;left:30vw;animation-duration:34s;animation-direction:alternate-reverse;opacity:.7}
+@keyframes ss-drift{from{transform:translate3d(0,0,0)}to{transform:translate3d(3vw,-6vh,0)}}
+.ss-grain{position:absolute;inset:0;opacity:.07;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+@media (prefers-reduced-motion:reduce){.ss-dust{animation:none}}
 .ss-sticky{position:sticky;top:0;height:100vh;display:flex;align-items:center;padding:6rem 0}
-.ss-wrap{overflow-x:clip}
 .ss-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:2rem;width:100%;align-items:center}
 .ss-photo{position:relative;height:32vh;overflow:hidden;background:rgba(255,255,255,.03)}
 .ss-steps{display:flex;gap:1.5rem;position:relative;min-width:0}

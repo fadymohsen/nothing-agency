@@ -11,7 +11,7 @@ export const PAGE_SLUGS = [
 ] as const;
 
 /** Routes that exist in both language trees. */
-const ROUTABLE_SLUGS = new Set<string>(["", "contact", ...PAGE_SLUGS]);
+const ROUTABLE_SLUGS = new Set<string>(["", "contact", "projects", ...PAGE_SLUGS]);
 
 export function langFromPath(pathname: string | null): Lang {
   if (pathname === "/ar" || pathname?.startsWith("/ar/")) return "ar";

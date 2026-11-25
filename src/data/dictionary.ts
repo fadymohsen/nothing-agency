@@ -8,6 +8,7 @@ export const dict = {
       { label: "Manifesto", href: "/manifesto", titleAttr: "manifesto" },
       { label: "From Nothing", href: "/from-nothing", titleAttr: "story" },
       { label: "Unseen", href: "/unseen", titleAttr: "unseen" },
+      { label: "Projects", href: "/projects", titleAttr: "projects" },
       { label: "Contact", href: "/contact", titleAttr: "contact" },
     ],
     scene: {
@@ -29,6 +30,22 @@ export const dict = {
       send: "SEND MESSAGE",
       thanksTitle: "Thank you!",
       thanksText: "Your message has been sent. We'll get back to you soon.",
+    },
+    projects: {
+      shadow: "Projects",
+      title: "Projects",
+      subtitle: "work built from nothing",
+      all: "All",
+      categories: {
+        campaigns: "Advertising",
+        healthcare: "Healthcare & Pharma",
+        events: "Events",
+        identity: "Identity & Packaging",
+        digital: "Digital & Apps",
+      },
+      pages: "pages",
+      close: "Close",
+      footerShadow: "Next",
     },
     contact: {
       shadow: "Contact",
@@ -63,6 +80,7 @@ export const dict = {
       { label: "المانيفستو", href: "/manifesto", titleAttr: "المانيفستو" },
       { label: "من اللاشيء", href: "/from-nothing", titleAttr: "قصتنا" },
       { label: "ما وراء الكواليس", href: "/unseen", titleAttr: "الكواليس" },
+      { label: "أعمالنا", href: "/projects", titleAttr: "أعمالنا" },
       { label: "تواصل معنا", href: "/contact", titleAttr: "تواصل" },
     ],
     scene: {
@@ -84,6 +102,22 @@ export const dict = {
       send: "إرسال الرسالة",
       thanksTitle: "شكراً لك!",
       thanksText: "تم إرسال رسالتك. سنعود إليك قريباً.",
+    },
+    projects: {
+      shadow: "أعمالنا",
+      title: "أعمالنا",
+      subtitle: "مشاريع بنيناها من اللاشيء",
+      all: "الكل",
+      categories: {
+        campaigns: "إعلانات",
+        healthcare: "الرعاية الصحية والأدوية",
+        events: "فعاليات",
+        identity: "الهوية والعبوات",
+        digital: "رقمي وتطبيقات",
+      },
+      pages: "صفحات",
+      close: "إغلاق",
+      footerShadow: "التالي",
     },
     contact: {
       shadow: "تواصل",

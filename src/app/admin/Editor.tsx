@@ -12,6 +12,7 @@ type Meta = { w: number; h: number };
 const TABS: { id: string; label: string; hint: string; path: Path }[] = [
   { id: "site", label: "Site & social links", hint: "Name, logos, footer, social media links and icons.", path: ["site"] },
   { id: "contact", label: "Contact page details", hint: "Phone, WhatsApp, Google Maps link, address, email and the icons next to them.", path: ["contact"] },
+  { id: "mainPhotos", label: "Main photo of each page", hint: "The big photo at the top of every page, plus the home-slider photos.", path: ["portfolio"] },
   { id: "portfolio", label: "Pages (English)", hint: "Home slider photos and every page's English content, hero photo and text.", path: ["portfolio"] },
   { id: "pagesAr", label: "Pages (Arabic)", hint: "The Arabic version of every page.", path: ["pagesAr"] },
   { id: "scenes", label: "Page photos & scenes", hint: "Photos and badge icons used inside each page's scroll scenes.", path: ["scenes"] },
@@ -55,10 +56,17 @@ function blank(v: Json): Json {
   return "";
 }
 
+const LABELS: Record<string, string> = {
+  heroImage: "Page main photo (hero, top of the page)",
+  image: "Home slider photo (desktop)",
+  mobileImage: "Home slider photo (phones)",
+  heroFocusMobile: "Main photo focus on phones (CSS position, e.g. 50% 30%)",
+};
+
 const humanize = (k: string | number) =>
   typeof k === "number"
     ? `Item ${k + 1}`
-    : k
+    : LABELS[k] ?? k
         .replace(/[-_]/g, " ")
         .replace(/([a-z])([A-Z])/g, "$1 $2")
         .replace(/^./, (c) => c.toUpperCase());
@@ -366,6 +374,38 @@ function Node({
   return body;
 }
 
+function MainPhotos({ items, onChange }: { items: Json[]; onChange: (v: Json) => void }) {
+  const rows = items
+    .map((it, i) => ({ it: it as { [k: string]: Json }, i }))
+    .filter(({ it }) => it.page && !it.hidden);
+  const set = (i: number, key: string, v: string) =>
+    onChange(items.map((x, xi) => (xi === i ? { ...(x as { [k: string]: Json }), [key]: v } : x)));
+  const fields: [string, string][] = [
+    ["heroImage", "Page main photo (top of the page)"],
+    ["image", "Home slider photo (desktop)"],
+    ["mobileImage", "Home slider photo (phones)"],
+  ];
+  return (
+    <div className="space-y-5">
+      {rows.map(({ it, i }) => (
+        <div key={i} className="rounded-lg border border-white/10 p-4 space-y-4">
+          <div className="text-white font-semibold">{String(it.title)}</div>
+          {fields.map(([key, label]) => (
+            <div key={key}>
+              <span className="block text-xs uppercase tracking-wide text-white/50 mb-1">{label}</span>
+              <ImageInput value={String(it[key] ?? "")} onChange={(v) => set(i, key, v)} />
+            </div>
+          ))}
+          <div>
+            <span className="block text-xs uppercase tracking-wide text-white/50 mb-1">Main photo focus on phones (e.g. 50% 30%)</span>
+            <input value={String(it.heroFocusMobile ?? "")} onChange={(e) => set(i, "heroFocusMobile", e.target.value)} />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 /* ───────────────────────── editor shell ───────────────────────── */
 
 export default function Editor({ initial }: { initial: Content }) {
@@ -466,6 +506,15 @@ export default function Editor({ initial }: { initial: Content }) {
         </div>
 
         <div className="max-w-4xl p-6 pb-24">
+          {active.id === "mainPhotos" ? (
+            <MainPhotos
+              items={getIn(content, ["portfolio"]) as Json[]}
+              onChange={(v) => {
+                setMsg(null);
+                setContent((c) => setIn(c, ["portfolio"], v));
+              }}
+            />
+          ) : (
           <Node
             key={active.id}
             label={active.label}
@@ -478,6 +527,7 @@ export default function Editor({ initial }: { initial: Content }) {
               setContent((c) => setIn(c, active.path, v));
             }}
           />
+          )}
         </div>
       </main>
     </div>

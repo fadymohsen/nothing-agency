@@ -321,7 +321,7 @@ export default function PortfolioSlider() {
               style={
                 {
                   backgroundImage: `url('${item.image}')`,
-                  "--bg-m": `url('${item.mobileImage ?? item.image}')`,
+                  "--bg-m": `url('${item.mobileImage || item.image}')`,
                 } as React.CSSProperties
               }
             />

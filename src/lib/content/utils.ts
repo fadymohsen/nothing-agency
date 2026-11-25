@@ -25,7 +25,7 @@ export function getPage(content: Content, slug: string, lang: Lang): ResolvedPag
       slug,
       title: ar.title,
       description: ar.description,
-      image: item.heroImage ?? item.image,
+      image: item.heroImage || item.image,
       focusMobile: item.heroFocusMobile,
       page: ar.page,
     };
@@ -34,7 +34,7 @@ export function getPage(content: Content, slug: string, lang: Lang): ResolvedPag
     slug,
     title: item.title,
     description: item.description,
-    image: item.heroImage ?? item.image,
+    image: item.heroImage || item.image,
     focusMobile: item.heroFocusMobile,
     page: item.page,
   };
